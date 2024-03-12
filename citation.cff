@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+type: dataset
+title: Abwassersurveillance AMELAG
+abstract: >-
+  Das Vorhaben „Abwassermonitoring für die epidemiologische Lagebewertung“
+  (AMELAG) läuft vom 22.11.2022 bis zum 31.12.2024. Behörden, Kläranlagen und
+  Labore arbeiten zusammen, um Proben zu nehmen, zu analysieren und zu bewerten.
+  Das Ziel dieses Vorhabens ist es, SARS-CoV-2-Nachweise aus dem Abwasser als
+  zusätzlichen Indikator zur epidemiologischen Lagebewertung auf Länder- und
+  Bundesebene zu etablieren. Ebenso ist es das Ziel, Strukturen und Prozesse für
+  ein bundesweites Netzwerk für die Abwassersurveillance weiter auszubauen,
+  Konzepte für eine Verstetigung zu erstellen und die Möglichkeiten für ein
+  Monitoring von weiteren Krankheitserregern im Abwasser zu erforschen.
+
+  Abwassersurveillance ist eine Technik, um Erreger im Abwasser nachzuweisen, um
+  Gesundheitsschutzmaßnahmen besser steuern zu können. Abwasserdaten erlauben
+  keine genaue Einschätzung von Krankheitsschwere oder der Belastung des
+  Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit
+  anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert
+  werden.
+date-released: '2024-03-12'
+keywords:
+  - COVID-19
+  - SARS-CoV-2
+  - Abwasserbasierte epidemiologische Überwachung
+  - Wastewater-Based Epidemiological Monitoring
+  - Epidemiologie
+  - Gesundheitsberichterstattung
+  - Public health surveillance
+  - Epidemiology
+  - Deutschland
+  - Germany
+  - Open Data
+  - Offene Daten
+  - RKI
+message: Cite me!
+url: https://robert-koch-institut.github.io/AMELAG-SARS-CoV-2-Abwassersurveillance
+license: CC-BY-4.0
+doi: 10.5281/zenodo.10782702
+version: '2024-03-12T11:06:26+01:00'
+authors:
+  - family-names: Robert Koch-Institut
+    given-names: Fachgebiet 32
+    affiliation: Robert Koch-Institut

@@ -1,0 +1,81 @@
+{
+  "title": "Abwassersurveillance AMELAG",
+  "description": "<p>Das Vorhaben „Abwassermonitoring für die epidemiologische Lagebewertung“ (AMELAG) läuft vom 22.11.2022 bis zum 31.12.2024. Behörden, Kläranlagen und Labore arbeiten zusammen, um Proben zu nehmen, zu analysieren und zu bewerten. Das Ziel dieses Vorhabens ist es, SARS-CoV-2-Nachweise aus dem Abwasser als zusätzlichen Indikator zur epidemiologischen Lagebewertung auf Länder- und Bundesebene zu etablieren. Ebenso ist es das Ziel, Strukturen und Prozesse für ein bundesweites Netzwerk für die Abwassersurveillance weiter auszubauen, Konzepte für eine Verstetigung zu erstellen und die Möglichkeiten für ein Monitoring von weiteren Krankheitserregern im Abwasser zu erforschen.<br />\nAbwassersurveillance ist eine Technik, um Erreger im Abwasser nachzuweisen, um Gesundheitsschutzmaßnahmen besser steuern zu können. Abwasserdaten erlauben keine genaue Einschätzung von Krankheitsschwere oder der Belastung des Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert werden.</p>\n",
+  "creators": [
+    {
+      "name": "Robert Koch-Institut, Fachgebiet 32",
+      "affiliation": "Robert Koch-Institut"
+    }
+  ],
+  "contributors": [],
+  "keywords": [
+    "COVID-19",
+    "SARS-CoV-2",
+    "Abwasserbasierte epidemiologische Überwachung",
+    "Wastewater-Based Epidemiological Monitoring",
+    "Deutschland",
+    "Germany",
+    "Open Data",
+    "Offene Daten",
+    "RKI"
+  ],
+  "publication_date": "2024-03-12",
+  "version": "2024-03-12",
+  "upload_type": "dataset",
+  "access_right": "open",
+  "license": "CC-BY-4.0",
+  "language": "deu",
+  "communities": [
+    {
+      "identifier": "robertkochinstitut"
+    }
+  ],
+  "subjects": [
+    {
+      "term": "Epidemiologie",
+      "identifier": "info:ddc/22/de//614.4"
+    },
+    {
+      "term": "Gesundheitsberichterstattung",
+      "identifier": "info:ddc/22/de//614.42"
+    },
+    {
+      "term": "Public health surveillance",
+      "identifier": "info:ddc/22/eng//614.42"
+    },
+    {
+      "term": "Epidemiology",
+      "identifier": "info:ddc/22/eng//614.4"
+    }
+  ],
+  "dates": [
+    {
+      "start": "2024-03-12T11:06:26+01:00",
+      "end": "2024-03-12T11:06:26+01:00",
+      "type": "Collected",
+      "description": "Date when the Dataset was created"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG",
+      "resource_type": "dataset"
+    },
+    {
+      "relation": "isDocumentedBy",
+      "identifier": "https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Readme.md",
+      "resource_type": "publication-report"
+    },
+    {
+      "relation": "isDocumentedBy",
+      "identifier": "https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/[Dokumentation]_Abwassersurveillance_AMELAG.pdf",
+      "resource_type": "publication-report"
+    },
+    {
+      "relation": "isDescribedBy",
+      "identifier": "https://robert-koch-institut.github.io/AMELAG-SARS-CoV-2-Abwassersurveillance",
+      "resource_type": "other"
+    }
+  ]
+}
