@@ -1,0 +1,10 @@
+version 1.1
+@totalColumns 7
+@separator TAB
+datum: xDate
+n: positiveInteger or is("NA")
+anteil_bev: regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
+viruslast:  regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
+loess_vorhersage:  regex("[0-9]+|([0-9]+\.([0-9]+))")
+loess_obere_schranke:  regex("[0-9]+|([0-9]+\.([0-9]+))")
+loess_untere_schranke:  regex("[0-9]+|([0-9]+\.([0-9]+))")

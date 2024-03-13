@@ -1,0 +1,13 @@
+version 1.1
+@totalColumns 10
+@separator TAB
+standort: notEmpty
+bundesland: any("BB", "BE", "BW", "BY", "HB", "HE", "HH", "MV", "NI", "NW", "RP", "SH", "SL", "SN", "ST", "TH")
+datum: xDate or is("NA")
+viruslast: positiveInteger or is("NA")
+loess_vorhersage: regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
+loess_obere_schranke: regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
+loess_untere_schranke: regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
+loess_aenderung: regex("[0-9]+|(-?[0-9]+\.([0-9]+)(e-?[0-9]*)?)") or is("NA")
+einwohner: positiveInteger or is("NA")
+trend: any("Ansteigend", "Fallend", "Unverändert", "keine Daten vorhanden", "NA")
