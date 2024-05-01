@@ -19,8 +19,8 @@
     "Offene Daten",
     "RKI"
   ],
-  "publication_date": "2024-04-24",
-  "version": "2024-04-23",
+  "publication_date": "2024-05-01",
+  "version": "2024-04-30",
   "upload_type": "dataset",
   "access_right": "open",
   "license": "CC-BY-4.0",
@@ -50,8 +50,8 @@
   ],
   "dates": [
     {
-      "start": "2024-04-23T10:00:00+02:00",
-      "end": "2024-04-23T10:00:00+02:00",
+      "start": "2024-04-30T10:00:00+02:00",
+      "end": "2024-04-30T10:00:00+02:00",
       "type": "Collected",
       "description": "Date when the Dataset was created"
     }
@@ -74,7 +74,7 @@
     },
     {
       "relation": "isDescribedBy",
-      "identifier": "https://robert-koch-institut.github.io/AMELAG-SARS-CoV-2-Abwassersurveillance",
+      "identifier": "https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG",
       "resource_type": "other"
     }
   ]
