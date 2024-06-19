@@ -12,7 +12,7 @@ Nordufer 20
 <br>
 
 **Zitieren**  
-Fachgebiet 32, Robert Koch-Institut (2023): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.11934139](https://doi.org/10.5281/zenodo.11934139)
+Fachgebiet 32, Robert Koch-Institut (2023): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12167061](https://doi.org/10.5281/zenodo.12167061)
 
 ---
 
