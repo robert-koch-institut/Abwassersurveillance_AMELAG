@@ -124,7 +124,7 @@ Die Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut
 | standort     | Text    | | Standort, an dem sich die Kläranlage befindet. |
 | bundesland | Text | ``BB``, ``BE``, ``BW``, ``BY``, ``HB``, ``HE``, ``HH``, ``MV``, ``NI``, ``NW``, ``RP``, ``SH``, ``SL``, ``SN``, ``ST``, ``TH`` | Bundesland (abgekürzt), in dem sich die Kläranlage befindet. |
 | datum | Datum | ``jjjj-mm-tt`` oder ``NA`` | Datum, an dem die 24-Stunden-Mischprobe in der Kläranlage begonnen hat.|
-| viruslast | Gleitkommazahl | `≥0`  oder `NA` | Gemessene SARS-CoV-2-Viruslast in Genkopien pro Liter. |
+| viruslast | Gleitkommazahl | `≥0.0`  oder `NA` | Gemessene SARS-CoV-2-Viruslast in Genkopien pro Liter. |
 | loess_vorhersage | Gleitkommazahl | `≥0` oder ``NA``| Die mittels einer LOESS-Regression (optimiert mittels GCV-Kriterium für die 10er-logarithmierten Viruslasten) vorhergesagten Viruslasten. |
 | loess_obere_schranke | Gleitkommazahl | `≥0` oder ``NA`` | Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts. |
 | loess_untere_schranke | Gleitkommazahl | `≥0` oder ``NA`` | Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts. |

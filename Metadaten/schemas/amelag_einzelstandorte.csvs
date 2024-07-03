@@ -4,7 +4,7 @@ version 1.1
 standort: notEmpty
 bundesland: any("BB", "BE", "BW", "BY", "HB", "HE", "HH", "MV", "NI", "NW", "RP", "SH", "SL", "SN", "ST", "TH")
 datum: xDate or is("NA")
-viruslast: positiveInteger or is("NA")
+viruslast: regex("[0-9]+|([0-9]+\.([0-9]{1}))") or is("NA")
 loess_vorhersage: regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
 loess_obere_schranke: regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
 loess_untere_schranke: regex("[0-9]+|([0-9]+\.([0-9]+))") or is("NA")
