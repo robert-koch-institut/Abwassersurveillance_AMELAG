@@ -64,7 +64,7 @@ pred <- df_agg %>%
                           criterion = "gcv",
                           family = "gaussian",
                           degree = 2,
-                          weights = .x$weights[!is.na(.x$log_viruslast)]
+                          weights = sqrt(.x$weights[!is.na(.x$log_viruslast)])
                         ),
                         newdata = data.frame(x = .x$obs),
                         se = TRUE
