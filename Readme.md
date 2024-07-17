@@ -1,7 +1,7 @@
 Datensatzdokumentation  
 # Abwassersurveillance AMELAG  
 
-[Robert Koch-Institut](https.//rki.de) | RKI  
+[Robert Koch-Institut | RKI](https.//rki.de)  
 Nordufer 20  
 13353 Berlin  
 
@@ -10,13 +10,13 @@ Nordufer 20
 **Fachgebiet 32 | Surveillance und elektronisches Melde- und Informationssystem (DEMIS) | ÖGD-Kontaktstelle**
 
 <br>
-
-**Zitieren**  
-Fachgebiet 32, Robert Koch-Institut (2024): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12704658](https://doi.org/10.5281/zenodo.12704658)
-
+[**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
 
 ---
-[**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
+
+**Zitieren**  
+Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12755663](https://doi.org/10.5281/zenodo.12755663)
+
 
 ## Informationen zum Datensatz und Entstehungskontext
 
@@ -197,7 +197,7 @@ In der zenodo.json ist neben der Publikationsdatum (`"publication_date"`) auch d
     {
       "start": "2023-09-11T15:00:21+02:00",
       "end": "2023-09-11T15:00:21+02:00",
-      "type": "Collected",
+      "type": "Created",
       "description": "Date when the Dataset was created"
     }
   ],
@@ -216,13 +216,13 @@ Offene Forschungsdaten des RKI werden auf [Zenodo.org](http://Zenodo.org/), [Git
 
 Der Datensatz "Abwassersurveillance AMELAG" ist lizenziert unter  der [Creative Commons Namensnennung 4.0 International Public License | CC-BY 4.0 International](https://creativecommons.org/licenses/by/4.0/deed.de).  
 
-Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Daten_der_Notaufnahmesurveillance/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
+Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
 
 
  
 # Wastewater surveillance AMELAG  
 
-[Robert Koch Institute](https://www.rki.de/EN) | RKI  
+[Robert Koch Institute | RKI](https://www.rki.de/EN)  
 Nordufer 20  
 13353 Berlin  
 
@@ -230,12 +230,10 @@ Nordufer 20
 
 **Unit 32 | Surveillance** 
 
-<br>
+---
 
 **Cite**  
-Fachgebiet 32, Robert Koch-Institut (2024): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12704658](https://doi.org/10.5281/zenodo.12704658)
-
----
+Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12755663](https://doi.org/10.5281/zenodo.12755663)  
 
 ## Information on the dataset and context of origin
 
@@ -349,7 +347,7 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 | loess_prediction | Floating point number | `≥0` or ``NA``| The viral loads predicted using a LOESS regression (optimized using GCV criterion for the 10s logarithmized viral loads). |
 | loess_upper_bound | Floating point number | `≥0` or ``NA`` | Upper bound of the pointwise 95% confidence interval of the LOESS predicted value. |
 | loess_lower_bound | Floating point number | `≥0` or ``NA`` | Lower bound of the point-wise 95% confidence interval of the LOESS predicted value. |
-| loess_aenderung | Floating point number | `ℤ`` or ``NA`` | Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value. |
+| loess_aenderung | Floating point number | `ℤ` oder ``NA`` | Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value. |
 | inhabitants | Natural number | `≥0` or `NA` | Inhabitants connected to the site's sewage treatment plant. |
 | trend | Text | `increasing`, `decreasing`, `unchanged`, `no data available`, `NA` | Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 
