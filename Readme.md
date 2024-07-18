@@ -11,16 +11,15 @@ Nordufer 20
 
 &emsp;&sup1; [Robert Koch-Institut | Abteilung 3](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/abt3_node.html) 
 
-<br>
-
-[**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
-
 ---
 
 **Zitieren**  
 
 Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12755663](https://doi.org/10.5281/zenodo.12755663)
 
+<br>
+
+[**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
 
 ## Informationen zum Datensatz und Entstehungskontext
 
