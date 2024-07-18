@@ -7,14 +7,18 @@ Nordufer 20
 
 <br>
 
-**Fachgebiet 32 | Surveillance und elektronisches Melde- und Informationssystem (DEMIS) | ÖGD-Kontaktstelle**
+[**Fachgebiet 32 | Surveillance und elektronisches Melde- und Informationssystem (DEMIS) | ÖGD-Kontaktstelle**](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/FG32/FG32_node.html)&sup1;
+
+&emsp;&sup1; [Robert Koch-Institut | Abteilung 3](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/abt3_node.html) 
 
 <br>
+
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
 
 ---
 
 **Zitieren**  
+
 Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12755663](https://doi.org/10.5281/zenodo.12755663)
 
 
@@ -228,12 +232,15 @@ Nordufer 20
 
 <br>
 
-**Unit 32 | Surveillance** 
+[**Unit 32 | Surveillance**](https://www.rki.de/EN/Content/Institute/DepartmentsUnits/InfDiseaseEpidem/Div32/div32_node.html)  
+
+&emsp;&sup1; [Robert Koch Institute  | Department 3](https://www.rki.de/EN/Content/Institute/DepartmentsUnits/InfDiseaseEpidem/InfDiseaseEpidem_node.html)
 
 ---
 
 **Cite**  
-Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12755663](https://doi.org/10.5281/zenodo.12755663)  
+
+Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12755663](https://doi.org/10.5281/zenodo.12755663)   
 
 ## Information on the dataset and context of origin
 
