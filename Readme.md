@@ -1,24 +1,21 @@
 Datensatzdokumentation  
 # Abwassersurveillance AMELAG  
 
-[Robert Koch-Institut | RKI](https.//rki.de)  
+[Robert Koch-Institut](https.//rki.de) | RKI  
 Nordufer 20  
 13353 Berlin  
 
 <br>
 
-[**Fachgebiet 32 | Surveillance und elektronisches Melde- und Informationssystem (DEMIS) | ÖGD-Kontaktstelle**](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/FG32/FG32_node.html)&sup1;
-
-&emsp;&sup1; [Robert Koch-Institut | Abteilung 3](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/abt3_node.html) 
-
----
-
-**Zitieren**  
-
-Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12805805](https://doi.org/10.5281/zenodo.12805805)
+**Fachgebiet 32 | Surveillance und elektronisches Melde- und Informationssystem (DEMIS) | ÖGD-Kontaktstelle**
 
 <br>
 
+**Zitieren**  
+Fachgebiet 32, Robert Koch-Institut (2024): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12635858](https://doi.org/10.5281/zenodo.12635858)
+
+
+---
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
 
 ## Informationen zum Datensatz und Entstehungskontext
@@ -129,13 +126,14 @@ Die Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut
 | standort     | Text    | | Standort, an dem sich die Kläranlage befindet. |
 | bundesland | Text | ``BB``, ``BE``, ``BW``, ``BY``, ``HB``, ``HE``, ``HH``, ``MV``, ``NI``, ``NW``, ``RP``, ``SH``, ``SL``, ``SN``, ``ST``, ``TH`` | Bundesland (abgekürzt), in dem sich die Kläranlage befindet. |
 | datum | Datum | ``jjjj-mm-tt`` oder ``NA`` | Datum, an dem die 24-Stunden-Mischprobe in der Kläranlage begonnen hat.|
-| viruslast | Gleitkommazahl | `≥0.0`  oder `NA` | Gemessene SARS-CoV-2-Viruslast in Genkopien pro Liter. |
+| viruslast | Gleitkommazahl | `≥0`  oder `NA` | Gemessene SARS-CoV-2-Viruslast in Genkopien pro Liter. |
 | loess_vorhersage | Gleitkommazahl | `≥0` oder ``NA``| Die mittels einer LOESS-Regression (optimiert mittels GCV-Kriterium für die 10er-logarithmierten Viruslasten) vorhergesagten Viruslasten. |
 | loess_obere_schranke | Gleitkommazahl | `≥0` oder ``NA`` | Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts. |
 | loess_untere_schranke | Gleitkommazahl | `≥0` oder ``NA`` | Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts. |
-| loess_aenderung | Gleitkommazahl | `ℤ` oder ``NA`` | Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert. |
+| loess_aenderung | Gleitkommazahl | `≥0` oder ``NA`` | Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert. |
 | einwohner | Natürliche Zahl | `≥0` oder `NA` | Einwohner, die an das Klärwerk des Standortes angeschlossen sind. |
 | trend | Text | `Ansteigend`, `Fallend`, `Unverändert`, `keine Daten vorhanden`, `NA` | Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
+| laborwechsel | Text | `ja`, `nein` oder `NA` | Laborwechsel bzw. Änderungen in den Labormethoden. |
 
 ### Zeitreihe der SARS-CoV-2-Viruslast
 
@@ -200,7 +198,7 @@ In der zenodo.json ist neben der Publikationsdatum (`"publication_date"`) auch d
     {
       "start": "2023-09-11T15:00:21+02:00",
       "end": "2023-09-11T15:00:21+02:00",
-      "type": "Created",
+      "type": "Collected",
       "description": "Date when the Dataset was created"
     }
   ],
@@ -219,27 +217,26 @@ Offene Forschungsdaten des RKI werden auf [Zenodo.org](http://Zenodo.org/), [Git
 
 Der Datensatz "Abwassersurveillance AMELAG" ist lizenziert unter  der [Creative Commons Namensnennung 4.0 International Public License | CC-BY 4.0 International](https://creativecommons.org/licenses/by/4.0/deed.de).  
 
-Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
+Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Daten_der_Notaufnahmesurveillance/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
 
 
  
 # Wastewater surveillance AMELAG  
 
-[Robert Koch Institute | RKI](https://www.rki.de/EN)  
+[Robert Koch Institute](https://www.rki.de/EN) | RKI  
 Nordufer 20  
 13353 Berlin  
 
 <br>
 
-[**Unit 32 | Surveillance**](https://www.rki.de/EN/Content/Institute/DepartmentsUnits/InfDiseaseEpidem/Div32/div32_node.html)  
+**Unit 32 | Surveillance** 
 
-&emsp;&sup1; [Robert Koch Institute  | Department 3](https://www.rki.de/EN/Content/Institute/DepartmentsUnits/InfDiseaseEpidem/InfDiseaseEpidem_node.html)
-
----
+<br>
 
 **Cite**  
+Fachgebiet 32, Robert Koch-Institut (2024): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12635858](https://doi.org/10.5281/zenodo.12635858)
 
-Fachgebiet 32, Robert Koch-Institut (**2024**): Abwassersurveillance AMELAG, Berlin: Zenodo. [DOI: 10.5281/zenodo.12805805](https://doi.org/10.5281/zenodo.12805805)   
+---
 
 ## Information on the dataset and context of origin
 
@@ -346,16 +343,17 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 
 | Variable | Type | Characteristic | Description |
 | -------- | -------- | -------- | ---- |
-| location | Text | | Location where the wastewater treatment plant is located. |
-| federal state | Text | ``BB``, ``BE``, ``BW``, ``BY``, ``HB``, ``HE``, ``HH``, ``MV``, ``NI``, ``NW``, ``RP``, ``SH``, ``SL``, ``SN``, ``ST``, ``TH`` | Federal state (abbreviated) in which the wastewater treatment plant is located. |
-| date | Date | ``yyyy-mm-dd`` or ``NA`` | Date on which the 24-hour composite sample started in the wastewater treatment plant.
-| viral load | Floating point number | `≥0` or `NA` | Measured SARS-CoV-2 viral load in gene copies per liter. |
-| loess_prediction | Floating point number | `≥0` or ``NA``| The viral loads predicted using a LOESS regression (optimized using GCV criterion for the 10s logarithmized viral loads). |
-| loess_upper_bound | Floating point number | `≥0` or ``NA`` | Upper bound of the pointwise 95% confidence interval of the LOESS predicted value. |
-| loess_lower_bound | Floating point number | `≥0` or ``NA`` | Lower bound of the point-wise 95% confidence interval of the LOESS predicted value. |
-| loess_aenderung | Floating point number | `ℤ` oder ``NA`` | Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value. |
-| inhabitants | Natural number | `≥0` or `NA` | Inhabitants connected to the site's sewage treatment plant. |
+| standort | Text | | Location where the wastewater treatment plant is located. |
+| bundesland | Text | ``BB``, ``BE``, ``BW``, ``BY``, ``HB``, ``HE``, ``HH``, ``MV``, ``NI``, ``NW``, ``RP``, ``SH``, ``SL``, ``SN``, ``ST``, ``TH`` | Federal state (abbreviated) in which the wastewater treatment plant is located. |
+| datum | Date | ``yyyy-mm-dd`` or ``NA`` | Date on which the 24-hour composite sample started in the wastewater treatment plant.
+| viruslast | Floating point number | `≥0` or `NA` | Measured SARS-CoV-2 viral load in gene copies per liter. |
+| loess_vorhersage | Floating point number | `≥0` or ``NA``| The viral loads predicted using a LOESS regression (optimized using GCV criterion for the 10s logarithmized viral loads). |
+| loess_obere_schranke | Floating point number | `≥0` or ``NA`` | Upper bound of the pointwise 95% confidence interval of the LOESS predicted value. |
+| loess_untere_schranke | Floating point number | `≥0` or ``NA`` | Lower bound of the point-wise 95% confidence interval of the LOESS predicted value. |
+| loess_aenderung | Floating point number | `ℤ`` or ``NA`` | Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value. |
+| einwohner | Natural number | `≥0` or `NA` | Inhabitants connected to the site's sewage treatment plant. |
 | trend | Text | `increasing`, `decreasing`, `unchanged`, `no data available`, `NA` | Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
+| laborwechsel | Text | `ja`, `nein` or `NA` | Changes in laboratory or changes in the methods. |
 
 ### Time series of the SARS-CoV-2 viral load
 
@@ -369,13 +367,13 @@ The file [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institu
 
 | Variable | Type | Characteristic | Description |
 | -------- | -------- | -------- |-------- |
-| date | Date | ``yyyy-mm-dd`` | date of the Wednesday of a week |
+| datum | Date | ``yyyy-mm-dd`` | date of the Wednesday of a week |
 | n | Natural number | `≥0` | Number of locations that have transmitted at least one measured value in the period defined by "date". |
 | anteil_bev | Floating point number | `≥0` or `NA` | Proportion of the total population in Germany that is connected to the transmitting sewage treatment plants. |
-| viral load | Floating point number | `≥0` or `NA` | SARS-CoV-2 viral load in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants. Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale. |
-| loess_prediction | Floating point number | `≥0` or `NA` | The viral loads predicted using a LOESS regression, transformed back to the original scale.
-| loess_upper_bound | Floating point number | `≥0` | Upper bound of the 95% confidence interval of the LOESS predicted value. |
-| loess_lower_bound | Floating point number | `≥0` | Lower bound of the 95% confidence interval of the LOESS predicted value. |
+| viruslast | Floating point number | `≥0` or `NA` | SARS-CoV-2 viral load in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants. Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale. |
+| loess_vorhersage | Floating point number | `≥0` or `NA` | The viral loads predicted using a LOESS regression, transformed back to the original scale.
+| loess_obere_schranke | Floating point number | `≥0` | Upper bound of the 95% confidence interval of the LOESS predicted value. |
+| loess_untere_schranke | Floating point number | `≥0` | Lower bound of the 95% confidence interval of the LOESS predicted value. |
 
 ### Context materials
 
