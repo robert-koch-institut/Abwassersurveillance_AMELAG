@@ -64,6 +64,7 @@ pred <- df_agg %>%
                           criterion = "gcv",
                           family = "gaussian",
                           degree = 2,
+                          control = loess.control(surface = "direct"),
                           weights = sqrt(.x$weights[!is.na(.x$log_viruslast)])
                         ),
                         newdata = data.frame(x = .x$obs),

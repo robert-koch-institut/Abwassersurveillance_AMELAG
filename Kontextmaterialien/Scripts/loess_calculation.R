@@ -38,6 +38,7 @@ pred <- df %>%
                           criterion = "gcv",
                           family = "gaussian",
                           degree = 2,
+                          control = loess.control(surface = "direct")
                         ),
                         newdata = data.frame(x = .x$obs),
                         se = TRUE
