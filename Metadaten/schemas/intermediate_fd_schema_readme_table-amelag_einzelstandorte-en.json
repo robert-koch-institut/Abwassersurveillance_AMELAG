@@ -1,0 +1,141 @@
+{
+  "fields": [
+    {
+      "name": "standort",
+      "type": "string",
+      "description": "Location where the wastewater treatment plant is located."
+    },
+    {
+      "name": "bundesland",
+      "type": "string",
+      "description": "Federal state (abbreviated) in which the wastewater treatment plant is located.",
+      "constraints": {
+        "enum": [
+          [
+            "BB",
+            "BE",
+            "BW",
+            "BY",
+            "HB",
+            "HE",
+            "HH",
+            "MV",
+            "NI",
+            "NW",
+            "RP",
+            "SH",
+            "SL",
+            "SN",
+            "ST",
+            "TH"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "datum",
+      "type": "date",
+      "description": "Date on which the 24-hour composite sample started in the wastewater treatment plant.",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "viruslast",
+      "type": "number",
+      "description": "Measured SARS-CoV-2 viral load in gene copies per liter.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_vorhersage",
+      "type": "number",
+      "description": "The viral loads predicted using a LOESS regression (optimized using GCV criterion for the 10s logarithmized viral loads).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_obere_schranke",
+      "type": "number",
+      "description": "Upper bound of the pointwise 95% confidence interval of the LOESS predicted value.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_untere_schranke",
+      "type": "number",
+      "description": "Lower bound of the point-wise 95% confidence interval of the LOESS predicted value.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_aenderung",
+      "type": "number",
+      "description": "Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value.",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "einwohner",
+      "type": "integer",
+      "description": "Inhabitants connected to the site's sewage treatment plant.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "trend",
+      "type": "string",
+      "description": "Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          [
+            "increasing",
+            "decreasing",
+            "unchanged",
+            "no data available"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "laborwechsel",
+      "type": "string",
+      "description": "Changes in laboratory or changes in the methods.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          [
+            "ja",
+            "nein"
+          ]
+        ]
+      }
+    }
+  ]
+}

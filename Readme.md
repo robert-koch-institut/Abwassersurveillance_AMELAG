@@ -130,10 +130,10 @@ Die Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut
 | loess_vorhersage | Gleitkommazahl | `≥0` oder ``NA``| Die mittels einer LOESS-Regression (optimiert mittels GCV-Kriterium für die 10er-logarithmierten Viruslasten) vorhergesagten Viruslasten. |
 | loess_obere_schranke | Gleitkommazahl | `≥0` oder ``NA`` | Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts. |
 | loess_untere_schranke | Gleitkommazahl | `≥0` oder ``NA`` | Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts. |
-| loess_aenderung | Gleitkommazahl | `≥0` oder ``NA`` | Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert. |
+| loess_aenderung | Gleitkommazahl | `Dezimalzahl` oder ``NA`` | Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert. |
 | einwohner | Natürliche Zahl | `≥0` oder `NA` | Einwohner, die an das Klärwerk des Standortes angeschlossen sind. |
-| trend | Text | `Ansteigend`, `Fallend`, `Unverändert`, `keine Daten vorhanden`, `NA` | Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 | laborwechsel | Text | `ja`, `nein` oder `NA` | Laborwechsel bzw. Änderungen in den Labormethoden. |
+| trend | Text | `Ansteigend`, `Fallend`, `Unverändert`, `keine Daten vorhanden`, `NA` | Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 
 ### Zeitreihe der SARS-CoV-2-Viruslast
 
@@ -345,7 +345,7 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 | -------- | -------- | -------- | ---- |
 | standort | Text | | Location where the wastewater treatment plant is located. |
 | bundesland | Text | ``BB``, ``BE``, ``BW``, ``BY``, ``HB``, ``HE``, ``HH``, ``MV``, ``NI``, ``NW``, ``RP``, ``SH``, ``SL``, ``SN``, ``ST``, ``TH`` | Federal state (abbreviated) in which the wastewater treatment plant is located. |
-| datum | Date | ``yyyy-mm-dd`` or ``NA`` | Date on which the 24-hour composite sample started in the wastewater treatment plant.
+| datum | Date | ``yyyy-mm-dd`` or ``NA`` | Date on which the 24-hour composite sample started in the wastewater treatment plant. |
 | viruslast | Floating point number | `≥0` or `NA` | Measured SARS-CoV-2 viral load in gene copies per liter. |
 | loess_vorhersage | Floating point number | `≥0` or ``NA``| The viral loads predicted using a LOESS regression (optimized using GCV criterion for the 10s logarithmized viral loads). |
 | loess_obere_schranke | Floating point number | `≥0` or ``NA`` | Upper bound of the pointwise 95% confidence interval of the LOESS predicted value. |
@@ -371,7 +371,7 @@ The file [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institu
 | n | Natural number | `≥0` | Number of locations that have transmitted at least one measured value in the period defined by "date". |
 | anteil_bev | Floating point number | `≥0` or `NA` | Proportion of the total population in Germany that is connected to the transmitting sewage treatment plants. |
 | viruslast | Floating point number | `≥0` or `NA` | SARS-CoV-2 viral load in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants. Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale. |
-| loess_vorhersage | Floating point number | `≥0` or `NA` | The viral loads predicted using a LOESS regression, transformed back to the original scale.
+| loess_vorhersage | Floating point number | `≥0` or `NA` | The viral loads predicted using a LOESS regression, transformed back to the original scale. |
 | loess_obere_schranke | Floating point number | `≥0` | Upper bound of the 95% confidence interval of the LOESS predicted value. |
 | loess_untere_schranke | Floating point number | `≥0` | Lower bound of the 95% confidence interval of the LOESS predicted value. |
 
