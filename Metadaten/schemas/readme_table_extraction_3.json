@@ -1,0 +1,67 @@
+{
+  "fields": [
+    {
+      "name": "datum",
+      "type": "date",
+      "description": "date of the Wednesday of a week",
+      "format": "%Y-%m-%d"
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "description": "Number of locations that have transmitted at least one measured value in the period defined by \"date\".",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "anteil_bev",
+      "type": "number",
+      "description": "Proportion of the total population in Germany that is connected to the transmitting sewage treatment plants.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "viruslast",
+      "type": "number",
+      "description": "SARS-CoV-2 viral load in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants. Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_vorhersage",
+      "type": "number",
+      "description": "The viral loads predicted using a LOESS regression, transformed back to the original scale.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_obere_schranke",
+      "type": "number",
+      "description": "Upper bound of the 95% confidence interval of the LOESS predicted value.",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_untere_schranke",
+      "type": "number",
+      "description": "Lower bound of the 95% confidence interval of the LOESS predicted value.",
+      "constraints": {
+        "minimum": 0
+      }
+    }
+  ]
+}

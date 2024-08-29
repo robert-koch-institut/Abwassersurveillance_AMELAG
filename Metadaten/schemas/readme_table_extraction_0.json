@@ -11,22 +11,22 @@
       "description": "Bundesland (abgekürzt), in dem sich die Kläranlage befindet.",
       "constraints": {
         "enum": [
-            "BB",
-            "BE",
-            "BW",
-            "BY",
-            "HB",
-            "HE",
-            "HH",
-            "MV",
-            "NI",
-            "NW",
-            "RP",
-            "SH",
-            "SL",
-            "SN",
-            "ST",
-            "TH"
+          "BB",
+          "BE",
+          "BW",
+          "BY",
+          "HB",
+          "HE",
+          "HH",
+          "MV",
+          "NI",
+          "NW",
+          "RP",
+          "SH",
+          "SL",
+          "SN",
+          "ST",
+          "TH"
         ]
       }
     },
@@ -34,6 +34,7 @@
       "name": "datum",
       "type": "date",
       "description": "Datum, an dem die 24-Stunden-Mischprobe in der Kläranlage begonnen hat.",
+      "format": "%Y-%m-%d",
       "missingValues": [
         "NA"
       ]
@@ -110,10 +111,8 @@
       ],
       "constraints": {
         "enum": [
-          [
-            "ja",
-            "nein"
-          ]
+          "ja",
+          "nein"
         ]
       }
     },
@@ -126,12 +125,10 @@
       ],
       "constraints": {
         "enum": [
-          [
-            "Ansteigend",
-            "Fallend",
-            "Unverändert",
-            "keine Daten vorhanden"
-          ]
+          "Ansteigend",
+          "Fallend",
+          "Unverändert",
+          "keine Daten vorhanden"
         ]
       }
     }
