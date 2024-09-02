@@ -103,6 +103,20 @@
       }
     },
     {
+      "name": "laborwechsel",
+      "type": "string",
+      "description": "Changes in laboratory or changes in the methods.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    },
+    {
       "name": "trend",
       "type": "string",
       "description": "Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))",
@@ -115,20 +129,6 @@
           "decreasing",
           "unchanged",
           "no data available"
-        ]
-      }
-    },
-    {
-      "name": "laborwechsel",
-      "type": "string",
-      "description": "Changes in laboratory or changes in the methods.",
-      "missingValues": [
-        "NA"
-      ],
-      "constraints": {
-        "enum": [
-          "ja",
-          "nein"
         ]
       }
     }

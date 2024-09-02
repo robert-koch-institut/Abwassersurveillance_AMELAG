@@ -148,7 +148,7 @@ Die Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-instit
 | Variable | Typ | Ausprägung | Beschreibung |
 | -------- | -------- | -------- |-------- |
 | datum     | Datum     | ``jjjj-mm-tt`` | Datum des Mittwochs einer Woche |
-| n | Natürliche Zahl | `≥0` | Anzahl der Standorte, die mindestens einen Messwert im durch “datum” definierten Zeitraum übermittelt haben. |
+| n | Natürliche Zahl | `≥0` oder `NA` | Anzahl der Standorte, die mindestens einen Messwert im durch “datum” definierten Zeitraum übermittelt haben. |
 | anteil_bev | Gleitkommazahl | `≥0` oder `NA` | Anteil der Gesamtbevölkerung in Deutschland, der an die übermittelnden Klärwerke angeschlossen ist. |
 | viruslast | Gleitkommazahl | `≥0` oder `NA` | SARS-CoV-2-Viruslast in Genkopien pro Liter gemittelt über alle Standorte und gewichtet nach angeschlossenen Einwohnern der Kläranlagen. Vor der Mittelung über die Standorte wurden alle Messwerte der Standorte in den letzten 7 Tagen jeweils mittels 10er-Logarithmus transformiert und über die einzelnen Standorte gemittelt. Die angegebene Viruslast ist der auf die Originalskala zurücktransformierte Mittelwert. |
 | loess_vorhersage | Gleitkommazahl | `≥0` oder `NA` | Die mittels einer LOESS-Regression vorhergesagten Viruslasten, zurücktransformiert auf die Originalskala.|
@@ -352,8 +352,9 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 | loess_untere_schranke | Floating point number | `≥0` or ``NA`` | Lower bound of the point-wise 95% confidence interval of the LOESS predicted value. |
 | loess_aenderung | Floating point number | `ℤ`` or ``NA`` | Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value. |
 | einwohner | Natural number | `≥0` or `NA` | Inhabitants connected to the site's sewage treatment plant. |
-| trend | Text | `increasing`, `decreasing`, `unchanged`, `no data available`, `NA` | Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 | laborwechsel | Text | `ja`, `nein` or `NA` | Changes in laboratory or changes in the methods. |
+| trend | Text | `increasing`, `decreasing`, `unchanged`, `no data available`, `NA` | Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
+
 
 ### Time series of the SARS-CoV-2 viral load
 

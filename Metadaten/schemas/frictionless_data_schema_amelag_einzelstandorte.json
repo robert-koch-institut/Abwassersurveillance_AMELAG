@@ -37,6 +37,7 @@
       "name": "datum",
       "type": "date",
       "description": "Datum, an dem die 24-Stunden-Mischprobe in der Kläranlage begonnen hat.",
+      "format": "%Y-%m-%d",
       "missingValues": [
         "NA"
       ]

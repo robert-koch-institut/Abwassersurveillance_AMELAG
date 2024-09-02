@@ -1,0 +1,53 @@
+{
+  "fields": [
+    {
+      "name": "datum",
+      "type": "date"
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "anteil_bev",
+      "type": "number",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "viruslast",
+      "type": "number",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "loess_vorhersage",
+      "type": "number",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_obere_schranke",
+      "type": "number",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_untere_schranke",
+      "type": "number",
+      "constraints": {
+        "minimum": 0
+      }
+    }
+  ]
+}

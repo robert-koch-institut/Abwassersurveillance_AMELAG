@@ -3,7 +3,8 @@
     {
       "name": "datum",
       "type": "date",
-      "description": "date of the Wednesday of a week"
+      "description": "date of the Wednesday of a week",
+      "format": "%Y-%m-%d"
     },
     {
       "name": "n",

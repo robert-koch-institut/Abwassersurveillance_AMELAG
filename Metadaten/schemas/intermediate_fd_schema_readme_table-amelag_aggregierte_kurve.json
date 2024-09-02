@@ -3,12 +3,16 @@
     {
       "name": "datum",
       "type": "date",
-      "description": "Datum des Mittwochs einer Woche"
+      "description": "Datum des Mittwochs einer Woche",
+      "format": "%Y-%m-%d"
     },
     {
       "name": "n",
       "type": "integer",
       "description": "Anzahl der Standorte, die mindestens einen Messwert im durch “datum” definierten Zeitraum übermittelt haben.",
+      "missingValues": [
+        "NA"
+      ],
       "constraints": {
         "minimum": 0
       }

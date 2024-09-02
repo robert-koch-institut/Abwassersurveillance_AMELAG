@@ -10,6 +10,9 @@
       "name": "n",
       "type": "integer",
       "description": "Anzahl der Standorte, die mindestens einen Messwert im durch “datum” definierten Zeitraum übermittelt haben.",
+      "missingValues": [
+        "NA"
+      ],
       "constraints": {
         "minimum": 0
       }

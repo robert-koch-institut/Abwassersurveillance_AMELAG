@@ -3,7 +3,8 @@
     {
       "name": "datum",
       "type": "date",
-      "description": "Datum des Mittwochs einer Woche"
+      "description": "Datum des Mittwochs einer Woche",
+      "format": "%Y-%m-%d"
     },
     {
       "name": "n",
