@@ -157,7 +157,7 @@ Die Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-instit
 
 ### Kontextmaterialien
 
-Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/FG32/Abwassersurveillance/Bericht_Abwassersurveillance.html?__blob=publicationFile) werden die zur Erstellung der Analyse verwendeten R-Skripte bereitgestellt. Die Skripte befinden sich im Ordner "[Kontextmatrialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" des Datensatzes.
+Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/FG32/Abwassersurveillance/Bericht_Abwassersurveillance.html?__blob=publicationFile) werden die zur Erstellung der Analyse verwendeten R-Skripte bereitgestellt. Die Skripte befinden sich im Ordner "[Kontextmatrialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" des Datensatzes. Die Analysen wurden mit R 4.3.0 (64 bit, Windows) durchgeführt. Sie können die Projektumgebung mit dem Paket [renv](https://rstudio.github.io/renv/articles/renv) nachbilden.
 
 > [Kontextmatrialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
 
@@ -377,7 +377,7 @@ The file [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institu
 
 ### Context materials
 
-To reproduce the results of the [AMELAG weekly report](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/FG32/Abwassersurveillance/Bericht_Abwassersurveillance.html?__blob=publicationFile), the R scripts used to create the analysis are provided. The scripts can be found in the "[Contextual materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" folder of the dataset.
+To reproduce the results of the [AMELAG weekly report](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/FG32/Abwassersurveillance/Bericht_Abwassersurveillance.html?__blob=publicationFile), the R scripts used to create the analysis are provided. The scripts can be found in the "[Contextual materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" folder of the dataset. The analyses were conducted using R 4.3.0 (64 bit, Windows). You can recreate the project environment by using the package [renv](https://rstudio.github.io/renv/articles/renv).
 
 > [Context Matrials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
 
