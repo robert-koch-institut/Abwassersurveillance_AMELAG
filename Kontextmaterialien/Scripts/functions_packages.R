@@ -29,6 +29,13 @@ replace_umlauts <- function(text) {
   return(text)
 }
 
+# function to extract predictions with certain name from list
+extract_prediction <- function(lis = NULL, extract = NULL) {
+  extracted <- lis[sapply(names(lis), function(x) grepl(paste0("^",extract,"$"), x))] %>% 
+    unlist()
+  return(extracted)
+} 
+
 # population in Germany at end of June 2023
 # https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/_inhalt.html, accessed on 25/10/2023
 pop <- 84482000

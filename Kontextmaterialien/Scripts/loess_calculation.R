@@ -5,9 +5,9 @@ df <- read_tsv(here(read_data_here,
 # store column names
 df_colnames <- names(df)
 
-# drop loess estimates and derivated quantities
+# drop loess estimates and derived quantities
 df <- df %>%
-  select(standort, bundesland, datum, viruslast, einwohner) %>%
+  select(-contains("loess"), -trend) %>%
   # drop sites with too few measurements
   group_by(standort) %>%
   mutate(min_obs_exceeded = ifelse(sum(!is.na(viruslast)) >= min_obs, 1, 0)) %>%
@@ -38,12 +38,16 @@ pred <- df %>%
                           criterion = "gcv",
                           family = "gaussian",
                           degree = 2,
+                          control = loess.control(surface = "direct")
                         ),
                         newdata = data.frame(x = .x$obs),
                         se = TRUE
                       ))) %>%
   select(pred) %>%
   unnest(cols = c(pred))
+
+# store list
+pred_list <- pred[, "pred"]$pred
 
 # store number of observations per group
 reps <- df %>%
@@ -54,20 +58,10 @@ reps <- df %>%
 df <- df %>%
   # add columns relevant for predictions
   add_column(
-    loess_vorhersage = pred %>%
-      slice(1) %>%
-      pull(pred) %>%
-      unlist(),
-    loess_vorhersage_se = pred %>%
-      slice(2) %>%
-      pull(pred) %>%
-      unlist(),
-    loess_vorhersage_df = pred %>%
-      slice(4) %>%
-      ungroup() %>%
-      select(pred) %>%
-      pull() %>%
-      map2(., reps, ~ rep(.x, .y)) %>%
+    loess_vorhersage = extract_prediction(lis = pred_list, extract = "fit"),
+    loess_vorhersage_se = extract_prediction(lis = pred_list, extract = "se.fit"),
+    loess_vorhersage_df = extract_prediction(lis = pred_list, "df") %>% 
+      map2(., reps, ~ rep(.x, .y)) %>% 
       unlist()
   ) %>%
   # compute pointwise confidence bands
@@ -120,7 +114,7 @@ data_combined <-
   mutate(tag = lubridate::wday(datum, week_start = 1))
 
 # clean up
-rm(change, df, pred, reps)
+rm(change, df, pred, pred_list, reps)
 
 # add data with few measurements
 data_combined <- data_combined %>%
