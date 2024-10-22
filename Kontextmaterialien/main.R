@@ -4,9 +4,17 @@
 # clean up environment
 rm(list = ls())
 
+# set virus that should be analyzed and whether weights should be applied when
+# aggregating over sites
+pathogens <- c("SARS-CoV-2", "Influenza-A", "Influenza-B", "Influenza-Gesamt")
+weight_pathogen <- c("TRUE", "FALSE", "FALSE", "FALSE")
+
 # should log data be shown in created graphics?
 # set TRUE or FALSE
 show_log_data = TRUE
+
+# set number of observations per date that have to be there to allow aggregation
+min_obs = 10
 
 # (install and) load here package
 pacman::p_load(here)
@@ -15,11 +23,15 @@ pacman::p_load(here)
 scripts_here <-
   here(here(), "Scripts")
 read_data_here <-
-  here("..")
+  normalizePath(file.path(here(), ".."))
 results_here <-
   here(here(), "Results")
-results_single_places_here <-
-  here(here(), "Results/Single_Sites")
+var_names <- paste0("results_here_",
+                    c("sars", "influenza_a", "influenza_b", "influenza_gesamt"))
+paths = paste(here(
+  results_here,
+  pathogens
+))
 
 # check if results directory exists
 if (!dir.exists(here(results_here)))
@@ -27,11 +39,14 @@ if (!dir.exists(here(results_here)))
   # otherwise create it
   dir.create(here(results_here))
 }
-# check if single-places results directory exists
-if (!dir.exists(here(results_single_places_here)))
-{
-  # otherwise create it
-  dir.create(here(results_single_places_here))
+
+# Assign variables in one shot using a loop, also create directories if necessary
+for (i in seq_along(var_names)) {
+  assign(var_names[i], paths[i], envir = .GlobalEnv)
+  if (!dir.exists(paths[i]))
+    dir.create(paths[i])
+  if (!dir.exists(here(paths[i], "Single_Sites")))
+    dir.create(here(paths[i], "Single_Sites"))
 }
 
 # (install and) load packages, read in functions, directories and self-defined values
@@ -53,5 +68,8 @@ source(here(scripts_here, "plot_single_places.R"), encoding = "UTF-8")
 # plot aggregated curve
 source(here(scripts_here, "plot_aggregated_curve.R"), encoding = "UTF-8")
 
-# plot heatmap
+# plot heatmaps
 source(here(scripts_here, "plot_heatmap.R"), encoding = "UTF-8")
+
+# plot loq plots
+source(here(scripts_here, "plot_loq_plot.R"), encoding = "UTF-8")
