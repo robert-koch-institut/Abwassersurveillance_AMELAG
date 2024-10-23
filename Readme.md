@@ -139,8 +139,8 @@ Die Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut
 | loess_untere_schranke | Gleitkommazahl | `≥0` oder ``NA`` | Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts. |
 | loess_aenderung | Gleitkommazahl | `≥0` oder ``NA`` | Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert. |
 | einwohner | Natürliche Zahl | `≥0` oder `NA` | Einwohner, die an das Klärwerk des Standortes angeschlossen sind. |
-| trend | Text | `Ansteigend`, `Fallend`, `Unverändert`, `keine Daten vorhanden`, `NA` | Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 | laborwechsel | Text | `ja`, `nein` oder `NA` | Laborwechsel bzw. Änderungen in den Labormethoden. |
+| trend | Text | `Ansteigend`, `Fallend`, `Unverändert`, `keine Daten vorhanden`, `NA` | Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 | normalisierung | Text | `ja`, `nein` oder `NA` | Normalisierung nach Durchfluss. |
 | typ | Text | `SARS-CoV-2`, `Influenza A`, `Influenza B` oder `Influenza A+B` | Virustyp. |
 | unter_bg | Text | `ja`, `nein` oder `NA` | Mindestens die Hälfte der gemessenen Gene liegen unterhalb der Bestimmungsgrenze. |
@@ -350,8 +350,8 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 | loess_untere_schranke | Floating point number | `≥0` or ``NA`` | Lower bound of the point-wise 95% confidence interval of the LOESS predicted value. |
 | loess_aenderung | Floating point number | `≥0` or ``NA`` | Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value. |
 | einwohner | Natural number | `≥0` or `NA` | Inhabitants connected to the site's sewage treatment plant. |
-| trend | Text | `increasing`, `decreasing`, `unchanged`, `no data available`, `NA` | Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 | laborwechsel | Text | `ja`, `nein` or `NA` | Changes in laboratory or changes in the methods. |
+| trend | Text | `increasing`, `decreasing`, `unchanged`, `no data available`, `NA` | Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))|
 | normalisierung | Text | `ja`, `nein` or `NA` | Values are normalized by flowrate. |
 | typ | Text | `SARS-CoV-2`, `Influenza A`, `Influenza B` or `Influenza A+B` | Virus type. |
 | unter_bg | Text | `ja`, `nein` or `NA` | At least half of the measured Genes are under the limit of quantification. |
