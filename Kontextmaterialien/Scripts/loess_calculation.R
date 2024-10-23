@@ -1,6 +1,6 @@
 # read in data
-df <- read_tsv(here(read_data_here,
-                    "amelag_einzelstandorte.tsv"))
+df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
+               show_col_types = FALSE)
 
 # store column names
 df_colnames <- names(df)
@@ -9,7 +9,7 @@ df_colnames <- names(df)
 df <- df %>%
   select(-contains("loess"), -trend) %>%
   # drop sites with too few measurements
-  group_by(standort) %>%
+  group_by(standort, typ) %>%
   mutate(min_obs_exceeded = ifelse(sum(!is.na(viruslast)) >= min_obs, 1, 0)) %>%
   ungroup() %>%
   # create log values
@@ -22,12 +22,12 @@ df_small <- df %>%
 
 # save data set with sufficient observations per site to calculate loess curves
 df <- df %>%
-  filter(min_obs_exceeded > 0) %>% 
-  arrange(standort, datum)
-  
+  filter(min_obs_exceeded > 0) %>%
+  arrange(standort, typ, datum)
+
 # compute loess predictions
 pred <- df %>%
-  group_by(standort) %>%
+  group_by(standort, typ) %>%
   mutate(obs = row_number()) %>%
   nest() %>%
   mutate(pred = map(data, ~
@@ -35,7 +35,7 @@ pred <- df %>%
                         loess.as(
                           .x$obs[!is.na(.x$log_viruslast)],
                           .x$log_viruslast[!is.na(.x$log_viruslast)],
-                          criterion = "gcv",
+                          criterion = "aicc",
                           family = "gaussian",
                           degree = 2,
                           control = loess.control(surface = "direct")
@@ -51,7 +51,7 @@ pred_list <- pred[, "pred"]$pred
 
 # store number of observations per group
 reps <- df %>%
-  group_by(standort) %>%
+  group_by(standort, typ) %>%
   summarise(n = n()) %>%
   pull(n)
 
@@ -60,8 +60,8 @@ df <- df %>%
   add_column(
     loess_vorhersage = extract_prediction(lis = pred_list, extract = "fit"),
     loess_vorhersage_se = extract_prediction(lis = pred_list, extract = "se.fit"),
-    loess_vorhersage_df = extract_prediction(lis = pred_list, "df") %>% 
-      map2(., reps, ~ rep(.x, .y)) %>% 
+    loess_vorhersage_df = extract_prediction(lis = pred_list, "df") %>%
+      map2(., reps, ~ rep(.x, .y)) %>%
       unlist()
   ) %>%
   # compute pointwise confidence bands
@@ -80,10 +80,10 @@ df <- df %>%
 # compute changes over time (trend analysis)
 change <-
   df %>%
-  select(standort, datum,  loess_vorhersage) %>%
+  select(standort, typ, datum, loess_vorhersage) %>%
   arrange(standort, datum) %>%
   filter(!is.na(loess_vorhersage)) %>%
-  group_by(standort) %>%
+  group_by(standort, typ) %>%
   # compute relative change
   mutate(loess_aenderung = (loess_vorhersage / lag(loess_vorhersage, 7)) -
            1) %>%
@@ -101,24 +101,20 @@ change <-
 
 # combine these data frames
 data_combined <-
-  change %>% select(standort,
-                    datum,
-                    loess_aenderung,
-                    trend) %>%
-  arrange(standort, datum) %>%
+  change %>%
+  arrange(standort, typ, datum) %>%
   # and merge with whole data set
-  right_join(df  %>% filter(!is.na(loess_vorhersage)),
-             by = c("standort", "datum")) %>%
+  right_join(df  %>% filter(!is.na(loess_vorhersage)), by = c("standort", "typ", "datum")) %>%
   arrange(standort, datum) %>%
   # create day variable
   mutate(tag = lubridate::wday(datum, week_start = 1))
 
-# clean up
-rm(change, df, pred, pred_list, reps)
-
 # add data with few measurements
 data_combined <- data_combined %>%
   bind_rows(df_small)
+
+# clean up
+rm(change, df, df_small, pred, pred_list, reps)
 
 # clean up data
 data_combined <- data_combined %>%
@@ -126,4 +122,4 @@ data_combined <- data_combined %>%
   group_by(standort) %>%
   mutate(trend = ifelse(datum == min(datum), "keine Daten vorhanden", trend)) %>%
   ungroup() %>%
-  select(df_colnames)
+  select(all_of(df_colnames))
