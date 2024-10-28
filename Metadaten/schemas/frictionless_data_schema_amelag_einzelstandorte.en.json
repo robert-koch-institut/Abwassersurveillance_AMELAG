@@ -3,7 +3,7 @@
     {
       "name": "standort",
       "type": "string",
-      "description": "Standort, an dem sich die Kläranlage befindet.",
+      "description": "Location where the wastewater treatment plant is located.",
       "constraints": {
         "required": true
       }
@@ -11,7 +11,7 @@
     {
       "name": "bundesland",
       "type": "string",
-      "description": "Bundesland (abgekürzt), in dem sich die Kläranlage befindet.",
+      "description": "Federal state (abbreviated) in which the wastewater treatment plant is located.",
       "constraints": {
         "enum": [
           "BB",
@@ -36,7 +36,7 @@
     {
       "name": "datum",
       "type": "date",
-      "description": "Datum, an dem die 24-Stunden-Mischprobe in der Kläranlage begonnen hat.",
+      "description": "Date on which the 24-hour composite sample started in the wastewater treatment plant.",
       "format": "%Y-%m-%d",
       "missingValues": [
         "NA"
@@ -45,7 +45,7 @@
     {
       "name": "viruslast",
       "type": "number",
-      "description": "Gemessene SARS-CoV-2-Viruslast in Genkopien pro Liter.",
+      "description": "Measured SARS-CoV-2 viral load in gene copies per liter.",
       "missingValues": [
         "NA"
       ],
@@ -56,7 +56,7 @@
     {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": "Die mittels einer LOESS-Regression (optimiert mittels GCV-Kriterium für die 10er-logarithmierten Viruslasten) vorhergesagten Viruslasten.",
+      "description": " The viral loads predicted using a LOESS regression (optimized using GCV criterion for the 10s logarithmized viral loads).",
       "missingValues": [
         "NA"
       ],
@@ -67,7 +67,7 @@
     {
       "name": "loess_obere_schranke",
       "type": "number",
-      "description": "Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "description": "Upper bound of the pointwise 95% confidence interval of the LOESS predicted value.",
       "missingValues": [
         "NA"
       ],
@@ -78,7 +78,7 @@
     {
       "name": "loess_untere_schranke",
       "type": "number",
-      "description": "Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "description": "Lower bound of the pointwise 95% confidence interval of the LOESS predicted value.",
       "missingValues": [
         "NA"
       ],
@@ -89,7 +89,7 @@
     {
       "name": "loess_aenderung",
       "type": "number",
-      "description": "Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert.",
+      "description": "Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value.",
       "missingValues": [
         "NA"
       ]
@@ -97,7 +97,7 @@
     {
       "name": "einwohner",
       "type": "integer",
-      "description": "Einwohner, die an das Klärwerk des Standortes angeschlossen sind.",
+      "description": "Inhabitants connected to the site's sewage treatment plant.",
       "missingValues": [
         "NA"
       ],
@@ -108,7 +108,7 @@
     {
       "name": "laborwechsel",
       "type": "string",
-      "description": "Laborwechsel bzw. Änderungen in den Labormethoden.",
+      "description": "Changes in laboratory or changes in the methods (ja=yes, nein=no).",
       "missingValues": [
         "NA"
       ],
@@ -122,7 +122,7 @@
     {
       "name": "trend",
       "type": "string",
-      "description": "Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))",
+      "description": "Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung)).",
       "missingValues": [
         "NA"
       ],
@@ -138,7 +138,7 @@
     {
       "name": "normalisierung",
       "type": "string",
-      "description": "Normalisierung nach Durchfluss.",
+      "description": "Values are normalized by flowrate (ja=yes, nein=no).",
       "missingValues": [
         "NA"
       ],
@@ -152,7 +152,7 @@
     {
       "name": "typ",
       "type": "string",
-      "description": "Virustyp.",
+      "description": "Virus type.",
       "constraints": {
         "enum": [
           "SARS-CoV-2",
@@ -165,7 +165,7 @@
     {
       "name": "unter_bg",
       "type": "string",
-      "description": "Mindestens die Hälfte der gemessenen Gene liegen unterhalb der Bestimmungsgrenze.",
+      "description": "At least half of the measured Genes are under the limit of quantification (ja=yes, nein=no).",
       "missingValues": [
         "NA"
       ],
