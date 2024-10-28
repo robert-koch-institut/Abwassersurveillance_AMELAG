@@ -1,12 +1,15 @@
 # setup ----
-# in case not installed, install pacman package by using the command
-# install.packages("pacman", repos="https://cran.rstudio.com/")
-# clean up environment
+
+# clear environment
 rm(list = ls())
+
+# in case not installed, install pacman package by using the command
+if (!"pacman" %in% rownames(installed.packages()))
+  install.packages("pacman")
 
 # set virus that should be analyzed and whether weights should be applied when
 # aggregating over sites
-pathogens <- c("SARS-CoV-2", "Influenza-A", "Influenza-B", "Influenza-Gesamt")
+pathogens <- c("SARS-CoV-2", "Influenza A", "Influenza B", "Influenza A+B")
 weight_pathogen <- c("TRUE", "FALSE", "FALSE", "FALSE")
 
 # should log data be shown in created graphics?
