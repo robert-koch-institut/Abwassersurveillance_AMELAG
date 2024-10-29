@@ -1,4 +1,4 @@
-# install (if not done yet) and load requireed packages
+# install (if not done yet) and load required packages
 pacman::p_load(here,
                rio,
                tidyverse,
@@ -187,7 +187,7 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza-A") {
     filter(typ == !!(virus))
   
   # basic plot
-  p <- ggplot(data = plot_data, aes(x = woche, y = proportion, fill = unter_BG)) +
+  p <- ggplot(data = plot_data, aes(x = woche, y = proportion, fill = unter_bg)) +
     geom_bar(stat = "identity") +
     theme_classic() +
     theme(legend.position = "bottom") +
@@ -234,7 +234,7 @@ aggregation <- function(df = df_agg,
       # variance)
       mutate(
         value = ifelse(
-          unter_BG == TRUE & normalisierung == "nein",
+          unter_bg == "ja" & normalisierung == "nein",
           runif(n(), 0.00001, 2 * viruslast),
           viruslast
         ),
@@ -264,7 +264,8 @@ aggregation <- function(df = df_agg,
       n_non_na = mean(n_non_na, na.rm = TRUE),
       log_viruslast = mean(log_viruslast, na.rm = TRUE),
       anteil_bev = sum(einwohner, na.rm = TRUE) / pop,
-      weights = mean(weights, na.rm = TRUE)
+      weights = mean(weights, na.rm = TRUE),
+      normalisierung = normalisierung[1]
     ) %>%
     ungroup() %>%
     filter(Tag == 3) %>%
@@ -272,7 +273,13 @@ aggregation <- function(df = df_agg,
     # standardize means
     mutate(weights = weights / mean(weights, na.rm = TRUE)) %>%
     arrange(datum) %>%
-    dplyr::select(typ, datum, n_non_na, log_viruslast, anteil_bev, weights) %>%
+    dplyr::select(typ,
+                  datum,
+                  n_non_na,
+                  log_viruslast,
+                  anteil_bev,
+                  weights,
+                  normalisierung) %>%
     # expand for predictions
     pad(interval = "day") %>%
     fill(typ, .direction = "updown") %>%

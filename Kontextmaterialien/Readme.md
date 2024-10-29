@@ -4,14 +4,10 @@
 
 Diese Dokumentation gibt einen Überblick über die R-Skripte, die erforderlich sind, um die im [Abwasser-Wochenbericht des Robert-Koch-Instituts](https://edoc.rki.de/handle/176904/11665) dargestellten Ergebnisse zu replizieren, mit Ausnahme des Teils über die Virusvarianten. Die dortigen Ergebnisse wurden unter Verwendung von R 4.4.1 (64 bit, Windows) generiert. Sie können die Projektumgebung mithilfe des `renv`-Pakets (https://rstudio.github.io/renv/articles/renv) neu erstellen.
 
-Beachten Sie, dass die Ergebnisse Unterordnern mit den Namen `Results/'Pathogen'` gespeichert werden. Die Daten werden aus dem Hauptverzeichniss bezogen. Die Ergebnisordner werden automatisch erstellt, wenn Sie `main.R` ausführen.
-Wenn Sie RStudio verwenden, starten Sie RStudio durch Ausführen des R-Projekts `amelag_open_code.Rproj` und führen Sie die Skripte dort aus, andernfalls müssen Sie die Pfade am Anfang des Skripts `main.R` anpassen. Vergewissern Sie sich, bevor Sie `main.R` oder ein anderes Skript das erste Mal ausführen, dass das R-Paket `pacman` installiert ist. Sie können dieses Paket installieren, indem Sie 
-```
-install.packages("pacman", repos="https://cran.rstudio.com/")
-```
-in Ihrer R-Konsole eingeben. Stellen Sie auch sicher, dass die deutschen Umlaute korrekt angezeigt werden, dies kann in RStudio sichergestellt werden, indem Sie Ihr Skript im richtigen Format neu laden ("File -> Reopen with Encoding -> UTF-8"). 
+Beachten Sie, dass die Ergebnisse in Unterordnern mit den Namen `Results/'Pathogen'` gespeichert werden. Die Daten werden aus dem Hauptverzeichnis bezogen. Die Ergebnisordner werden automatisch erstellt, wenn Sie `main.R` ausführen.
+Wenn Sie RStudio verwenden, starten Sie RStudio durch Ausführen des R-Projekts `amelag_open_code.Rproj` und führen Sie die Skripte dort aus, andernfalls müssen Sie die Pfade am Anfang des Skripts `main.R` anpassen. Wenn Sie die anderen Skripte öffnen, stellen Sie sicher, dass die deutschen Umlaute korrekt angezeigt werden, dies kann in RStudio sichergestellt werden, indem Sie Ihr Skript im richtigen Format neu laden ("File -> Reopen with Encoding -> UTF-8"). 
 
-Im Folgenden werden alle zur Verfügung gestellten R-Skripte und Datensätze sowie der Ordner, der die erzeugten Ergebnisse enthält, beschrieben.
+Im Folgenden werden alle zur Verfügung gestellten R-Skripte und Datensätze sowie der Ordner, der die erzeugten Ergebnisse enthält, beschrieben
 
 ### R-Skripte 
 
@@ -42,11 +38,7 @@ Nach dem Ausführen von `main.R` enthalten die Unterordner des Ordners `Results'
 
 This documentation provides an overview of the R scripts necessary to replicate the results shown in the [Robert-Koch Institute weekly report on wastewater surveillance](https://edoc.rki.de/handle/176904/11665) excluding the part on the virus variants. The results there were obtained by using R 4.4.1 (64 bit, Windows). You can recreate the project environment by using the `renv` package (https://rstudio.github.io/renv/articles/renv).
 
-Note that the results are stored subfolder named `Results/'pathogen'`. The folders should already exist or be created automatically when running [`main.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/main.R). If you use RStudio, start RStudio by running the R project `amelag_open_code.Rproj` and run the scripts there, otherwise you have to adjust the paths at the beginning of the script `main.R`. Make sure before running `main.R` or any other script the first time, that the R package `pacman` is installed, you can install this package by typing in
-```
-install.packages("pacman", repos="https://cran.rstudio.com/")
-```
-in your R console. Make also sure that German umlauts are displayed correctly, this can be guaranteed in RStudio by reloading your script in proper format ("File -> Reopen with Encoding -> UTF-8"). 
+Note that the results are stored subfolder named `Results/'pathogen'`. The folders should already exist or be created automatically when running [`main.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/main.R). If you use RStudio, start RStudio by running the R project `amelag_open_code.Rproj` and run the scripts there, otherwise you have to adjust the paths at the beginning of the script `main.R`. If you open the other scripts, make sure that German umlauts are displayed correctly, this can be guaranteed in RStudio by reloading your script in proper format ("File -> Reopen with Encoding -> UTF-8"). 
 
 In the following, all R scripts and datasets provided as well as the folder containing the produced results are described.
 
