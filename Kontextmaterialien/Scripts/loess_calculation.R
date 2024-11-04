@@ -64,6 +64,24 @@ df <- df %>%
       map2(., reps, ~ rep(.x, .y)) %>%
       unlist()
   ) %>%
+  group_by(standort, typ) %>%
+  mutate(
+    # compute minimum value
+    min_log_viruslast = min(log_viruslast, na.rm = T),
+    # check it af least one value below loq
+    at_least_one_loq = sum(unter_bg=="ja", na.rm = TRUE) > 0,
+    # if so, ensure that predictions are equal to at least the respective loq
+    # for influenza virus types (as they are not normalized and have a clear
+    # lower bound)
+    loess_vorhersage  = ifelse(
+      loess_vorhersage < min_log_viruslast  &
+        at_least_one_loq &
+        grepl("Influenza", typ),
+      min_log_viruslast,
+      loess_vorhersage
+    )
+  ) %>%
+  ungroup() %>%
   # compute pointwise confidence bands
   mutate(
     loess_untere_schranke = loess_vorhersage - qt(0.975, loess_vorhersage_df) *
@@ -75,7 +93,9 @@ df <- df %>%
     loess_obere_schranke = 10 ^ loess_obere_schranke,
     loess_vorhersage = 10 ^ (loess_vorhersage),
     viruslast = 10 ^ (log_viruslast)
-  )
+  ) %>%
+  # drop variables
+  select(-min_log_viruslast, -at_least_one_loq)
 
 # compute changes over time (trend analysis)
 change <-

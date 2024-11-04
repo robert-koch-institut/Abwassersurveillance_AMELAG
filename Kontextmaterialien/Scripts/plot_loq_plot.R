@@ -9,9 +9,9 @@ plot_data <- data_combined %>%
   group_by(typ, woche) %>%
   # count number of observations and share of observations
   # below limit of quantification per virus and week
-  count(unter_BG) %>%
+  count(unter_bg) %>%
   mutate(proportion = n / sum(n)) %>%
-  mutate(unter_BG = factor(unter_BG * 1, levels = c("1", "0"))) %>% 
+  mutate(unter_bg = factor((unter_bg == "ja")* 1, levels = c("1", "0"))) %>% 
   ungroup() %>% 
   # take only most recent year
   group_by(typ) %>% 

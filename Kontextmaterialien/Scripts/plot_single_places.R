@@ -84,12 +84,12 @@ data_combined %>%
             fill = "lightblue"
           ) +
           aes(x = datum, y = viruslast) +
-          geom_point(aes(color = unter_BG)) +
+          geom_point(aes(color = unter_bg)) +
           geom_line(aes(datum, y = loess_vorhersage), linewidth = 1) +
           scale_color_manual(
             values = c("black", "grey"),
             name = "Nachweis",
-            breaks = c(FALSE, TRUE),
+            breaks = c("nein", "ja"),
             labels = c("positiv (> BG)", "negativ (< BG)")
           ) +
           theme_minimal() +
@@ -123,13 +123,13 @@ if ((data_combined %>% filter(min_obs_exceeded < 1) %>% nrow()) > 0)
         ),
         ggplot(data = .x) +
           aes(x = datum, y = viruslast) +
-          geom_point(aes(color = unter_BG)) +
+          geom_point(aes(color = unter_bg)) +
           theme_minimal() +
           theme(axis.text.x = element_text(angle = 45))  +
           scale_color_manual(
             values = c("black", "grey"),
             name = "Nachweis",
-            breaks = c(FALSE, TRUE),
+            breaks = c("nein", "ja"),
             labels = c("positiv (> BG)", "negativ (< BG)")
           ) +
           scale_x_date(date_breaks = "weeks", date_labels = "%U-%Y") +
