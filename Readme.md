@@ -362,7 +362,7 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Frictionless Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json):
 > [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json)
 
-
+<!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Type    | Characteristic                                                                                  | Description |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------|:----------- |
 | standort              | string  | Value cannot be empty                                                                           | Location of the wastewater treatment. |
@@ -397,7 +397,7 @@ In the file [`amelag_aggregated_curve.tsv`](https://github.com/robert-koch-insti
 The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Frictionless Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json):
 > [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json)
 
-
+<!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Type    | Characteristic                                                      | Description |
 |:----------------------|:--------|:--------------------------------------------------------------------|:----------- |
 | datum                 | date    | Format: `YYYY-MM-DD`                                                | Date of Wednesdays of a week. The data of the underlying individual time series are averaged within the period from the previous Thursday to the specified Wednesday. |

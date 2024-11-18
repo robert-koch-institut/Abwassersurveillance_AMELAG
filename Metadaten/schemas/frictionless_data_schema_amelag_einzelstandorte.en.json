@@ -3,7 +3,7 @@
     {
       "name": "standort",
       "type": "string",
-      "description": "Location where the wastewater treatment plant is located.",
+      "description": "Location of the wastewater treatment.",
       "constraints": {
         "required": true
       }
@@ -45,7 +45,7 @@
     {
       "name": "viruslast",
       "type": "number",
-      "description": "Measured SARS-CoV-2 viral load in gene copies per liter.",
+      "description": "Measured viral load in gene copies per liter.",
       "missingValues": [
         "NA"
       ],
@@ -56,7 +56,7 @@
     {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": " The viral loads predicted using a LOESS regression (optimized using GCV criterion for the 10s logarithmized viral loads).",
+      "description": "Predicated viral load (using a LOESS regression, optimized using AICc criterion for the 10s logarithmized viral loads).",
       "missingValues": [
         "NA"
       ],
@@ -89,7 +89,7 @@
     {
       "name": "loess_aenderung",
       "type": "number",
-      "description": "Change in the LOESS predicted value compared to the previous week, i.e. quotient of the current value and the previous week's value.",
+      "description": "Change in the LOESS predicted value compared to the previous week, i.e. ratio of the current value and the previous week's value.",
       "missingValues": [
         "NA"
       ]
@@ -97,7 +97,7 @@
     {
       "name": "einwohner",
       "type": "integer",
-      "description": "Inhabitants connected to the site's sewage treatment plant.",
+      "description": "Number of inhabitants connected to the site's sewage treatment plant.",
       "missingValues": [
         "NA"
       ],
@@ -108,7 +108,7 @@
     {
       "name": "laborwechsel",
       "type": "string",
-      "description": "Changes in laboratory or changes in the methods (ja=yes, nein=no).",
+      "description": "Indicates whether change in laboratory or change in laboratory mathods occurred.",
       "missingValues": [
         "NA"
       ],
@@ -122,7 +122,7 @@
     {
       "name": "trend",
       "type": "string",
-      "description": "Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung)).",
+      "description": "Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))",
       "missingValues": [
         "NA"
       ],
@@ -138,7 +138,7 @@
     {
       "name": "normalisierung",
       "type": "string",
-      "description": "Values are normalized by flowrate (ja=yes, nein=no).",
+      "description": "Indicates whether values were normalized by flowrate (`ja`=yes, `nein`=no)",
       "missingValues": [
         "NA"
       ],
@@ -165,7 +165,7 @@
     {
       "name": "unter_bg",
       "type": "string",
-      "description": "At least half of the measured Genes are under the limit of quantification (ja=yes, nein=no).",
+      "description": "Indicates if at least half of the measured genes are under the limit of quantification  (`ja`=yes, `nein`=no).",
       "missingValues": [
         "NA"
       ],

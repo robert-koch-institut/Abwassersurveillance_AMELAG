@@ -3,13 +3,13 @@
     {
       "name": "datum",
       "type": "date",
-      "description": "Date of the Wednesday of a week",
+      "description": "Date of Wednesdays of a week. The data of the underlying individual time series are averaged within the period from the previous Thursday to the specified Wednesday.",
       "format": "%Y-%m-%d"
     },
     {
       "name": "n",
       "type": "integer",
-      "description": "Number of locations that have transmitted at least one measured value in the period defined by 'date'.",
+      "description": "Number of locations that have transmitted at least one measured value in the period defined by \"date\".",
       "missingValues": [
         "NA"
       ],
@@ -31,7 +31,7 @@
     {
       "name": "viruslast",
       "type": "number",
-      "description": "SARS-CoV-2 viral load in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants. Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale.",
+      "description": "Measured viral load (in gene copies per liter averaged over all sites and, for SARS-CoV-2, weighted by connected inhabitants of the wastewater treatment plants). Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale.",
       "missingValues": [
         "NA"
       ],
@@ -42,7 +42,7 @@
     {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": "The viral loads predicted using a LOESS regression, transformed back to the original scale.",
+      "description": "Predicted viral load (predicted using a LOESS regression, transformed back to the original scale).",
       "missingValues": [
         "NA"
       ],
@@ -69,7 +69,7 @@
     {
       "name": "normalisierung",
       "type": "string",
-      "description": "Individual time series are normalized by flowrate (ja=yes, nein=no).",
+      "description": "Indicates whether individual time series were normalized by flowrate (`ja`=yes, `nein`=no).",
       "missingValues": [
         "NA"
       ],

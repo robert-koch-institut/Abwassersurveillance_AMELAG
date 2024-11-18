@@ -3,7 +3,7 @@
     {
       "name": "standort",
       "type": "string",
-      "description": "Standort, an dem sich die Kläranlage befindet.",
+      "description": "Standort der Kläranlage.",
       "constraints": {
         "required": true
       }
@@ -11,7 +11,7 @@
     {
       "name": "bundesland",
       "type": "string",
-      "description": "Bundesland (abgekürzt), in dem sich die Kläranlage befindet.",
+      "description": "Kürzel des Bundeslandes, in dem sich die Kläranlage befindet.",
       "constraints": {
         "enum": [
           "BB",
@@ -36,7 +36,7 @@
     {
       "name": "datum",
       "type": "date",
-      "description": "Datum, an dem die 24-Stunden-Mischprobe in der Kläranlage begonnen hat.",
+      "description": "Datum, an dem die 24-Stunden-Mischprobenahme in der Kläranlage begonnen hat.",
       "format": "%Y-%m-%d",
       "missingValues": [
         "NA"
@@ -45,7 +45,7 @@
     {
       "name": "viruslast",
       "type": "number",
-      "description": "Gemessene SARS-CoV-2-Viruslast in Genkopien pro Liter.",
+      "description": "Gemessene Viruslast (in Genkopien pro Liter).",
       "missingValues": [
         "NA"
       ],
@@ -56,7 +56,7 @@
     {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": "Die mittels einer LOESS-Regression (optimiert mittels GCV-Kriterium für die 10er-logarithmierten Viruslasten) vorhergesagten Viruslasten.",
+      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression, optimiert mittels AICc-Kriterium für die 10er-logarithmierten Viruslasten).",
       "missingValues": [
         "NA"
       ],
@@ -97,7 +97,7 @@
     {
       "name": "einwohner",
       "type": "integer",
-      "description": "Einwohner, die an das Klärwerk des Standortes angeschlossen sind.",
+      "description": "Anzahl an Einwohnern, die an die Kläranlage angeschlossen sind.",
       "missingValues": [
         "NA"
       ],
@@ -108,7 +108,7 @@
     {
       "name": "laborwechsel",
       "type": "string",
-      "description": "Laborwechsel bzw. Änderungen in den Labormethoden.",
+      "description": "Gibt an, ob es Laborwechsel bzw. Änderungen in den Labormethoden gab.",
       "missingValues": [
         "NA"
       ],
@@ -138,7 +138,7 @@
     {
       "name": "normalisierung",
       "type": "string",
-      "description": "Normalisierung nach Durchfluss.",
+      "description": "Gibt an, ob die Viruslast nach Durchfluss normalisiert wurde.",
       "missingValues": [
         "NA"
       ],
@@ -165,7 +165,7 @@
     {
       "name": "unter_bg",
       "type": "string",
-      "description": "Mindestens die Hälfte der gemessenen Gene liegen unterhalb der Bestimmungsgrenze.",
+      "description": "Gibt an, ob mindestens die Hälfte der gemessenen Gene unterhalb der Bestimmungsgrenze liegen.",
       "missingValues": [
         "NA"
       ],
