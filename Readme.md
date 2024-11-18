@@ -126,8 +126,12 @@ In der Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-insti
 
 #### Variablen und Variablenausprägungen  
 
-Die Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen:
+<!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_einzelstandorte", "lang": "de"} -->
 
+Die Datei [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen. Ein maschinenlesbares Datenschema ist im [Frictionless-Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json) hinterlegt:
+> [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json)
+
+<!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Typ     | Ausprägungen                                                                                   | Beschreibung                                                                                                                                                                                                                                     |
 |:----------------------|:--------|:-----------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | standort              | string  | Eintrag kann nicht leer sein                                                                   | Standort der Kläranlage.                                                                                                                                                                                                                         |
@@ -145,7 +149,10 @@ Die Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut
 | typ                   | string  | Werte: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`                             | Virustyp.                                                                                                                                                                                                                                        |
 | unter_bg              | string  | Werte: `ja`, `nein`<br>Fehlende Werte: `NA`                                                    | Gibt an, ob mindestens die Hälfte der gemessenen Gene unterhalb der Bestimmungsgrenze liegen.                                                                                                                                                                |
 
-Eine maschinenlesbares Datenschema zu diesem Datensatz finden sie in der Datei [`frictionless_data_schema_amelag_einzelstandorte.json`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json).
+<!-- DATA_SCHEMA_TABLE_END -->
+
+<!-- DATA_SCHEMA_SPECIFICATION_END -->
+
 
 
 ### Daten über alle Standorte aggregiert
@@ -156,8 +163,12 @@ In der Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-ins
 
 #### Variablen und Variablenausprägungen  
 
-Die Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen:
+<!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_aggregierte_kurve", "lang": "de"} -->
 
+Die Datei [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen. Ein maschinenlesbares Datenschema ist im [Frictionless-Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json) hinterlegt:
+> [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json)
+
+<!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Typ     | Ausprägungen                                                       | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                                |
 |:----------------------|:--------|:-------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | datum                 | date    | Format: `YYYY-MM-DD`                                               | Datum des Mittwochs einer Woche. Die Daten der unterliegenden Einzelzeitreihen werden innerhalb des Zeitraums vom vorherigen Donnerstag bis zum angegebenen Mittwoch gemittelt.                                                                                                                                                                                                                                                                                                                                                                                           |
@@ -170,9 +181,12 @@ Die Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-instit
 | normalisierung        | string  | Werte: `ja`, `nein`<br>Fehlende Werte: `NA`                        | Gibt an, ob die unterliegenden Einzelzeitreihen nach Durchfluss normalisiert sind.                                                                                                                                                                                                                                                                                                                                                               |
 | typ                   | string  | Werte: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B` | Virustyp.                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-Eine maschinenlesbares Datenschema zu diesem Datensatz finden sie in der Datei [`frictionless_data_schema_amelag_aggregierte_kurve.json`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json).
 
 
+
+<!-- DATA_SCHEMA_TABLE_END -->
+
+<!-- DATA_SCHEMA_SPECIFICATION_END -->
 ### Kontextmaterialien
 
 Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://edoc.rki.de/handle/176904/11665) werden die zur Erstellung der Analyse verwendeten R-Skripte bereitgestellt. Die Skripte befinden sich im Ordner "[Kontextmatrialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" des Datensatzes.
@@ -343,7 +357,11 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 
 #### Variables and variable values  
 
-The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the variables and their characteristics shown in the following table:
+<!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_einzelstandorte", "lang": "en"} -->
+
+The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Frictionless Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json):
+> [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json)
+
 
 | Variable              | Type    | Characteristic                                                                                  | Description |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------|:----------- |
@@ -362,8 +380,9 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 | typ                   | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`                             | Virus type. |
 | unter_bg              | string  | Values: `ja`, `nein`<br>Missing Values: `NA`                                                    | Indicates if at least half of the measured genes are under the limit of quantification  (`ja`=yes, `nein`=no). |
 
-A machine-readable data schema of this data file can be found here: [`frictionless_data_schema_amelag_einzelstandorte.en.json`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.en.json).
+<!-- DATA_SCHEMA_TABLE_END -->
 
+<!-- DATA_SCHEMA_SPECIFICATION_END -->
 
 ### Data aggregated across all WWTP 
 
@@ -373,7 +392,11 @@ In the file [`amelag_aggregated_curve.tsv`](https://github.com/robert-koch-insti
 
 #### Variables and variable characteristics  
 
-The file [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) contains the variables and their values shown in the following table:
+<!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_aggregierte_kurve", "lang": "en"} -->
+
+The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Frictionless Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json):
+> [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json)
+
 
 | Variable              | Type    | Characteristic                                                      | Description |
 |:----------------------|:--------|:--------------------------------------------------------------------|:----------- |
@@ -387,8 +410,9 @@ The file [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institu
 | normalisierung        | string  | Values: `ja`, `nein`<br>Missing Values: `NA`                        | Indicates whether individual time series were normalized by flowrate (`ja`=yes, `nein`=no). |
 | typ                   | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B` | Virus type. |
 
-A machine-readable data schema of this data file can be found here: [`frictionless_data_schema_amelag_aggregierte_kurve.en.json`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.en.json).
+<!-- DATA_SCHEMA_TABLE_END -->
 
+<!-- DATA_SCHEMA_SPECIFICATION_END -->
 
 ### Context materials
 
