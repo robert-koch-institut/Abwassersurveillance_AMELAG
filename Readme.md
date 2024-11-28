@@ -128,8 +128,8 @@ In der Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-insti
 
 <!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_einzelstandorte", "lang": "de"} -->
 
-Die Datei [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen. Ein maschinenlesbares Datenschema ist im [Frictionless-Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json) hinterlegt:
-> [frictionless_data_schema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_einzelstandorte.json)
+Die Datei [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen. Ein maschinenlesbares Datenschema ist im [Data Package Standard](https://datapackage.org/) in [tableschema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_einzelstandorte.json) hinterlegt:
+> [tableschema_amelag_einzelstandorte.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_einzelstandorte.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Typ     | Ausprägungen                                                                                   | Beschreibung                                                                                                                                                                                                                                     |
@@ -165,8 +165,8 @@ In der Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-ins
 
 <!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_aggregierte_kurve", "lang": "de"} -->
 
-Die Datei [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen. Ein maschinenlesbares Datenschema ist im [Frictionless-Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json) hinterlegt:
-> [frictionless_data_schema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/frictionless_data_schema_amelag_aggregierte_kurve.json)
+Die Datei [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) enthält die in der folgenden Tabelle abgebildeten Variablen und deren Ausprägungen. Ein maschinenlesbares Datenschema ist im [Data Package Standard](https://datapackage.org/) in [tableschema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.json) hinterlegt:
+> [tableschema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Typ     | Ausprägungen                                                       | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -356,8 +356,8 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 
 <!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_einzelstandorte", "lang": "en"} -->
 
-The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Frictionless Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_einzelstandorte.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadata/schemas/frictionless_data_schema_amelag_einzelstandorte.en.json):
-> [frictionless_data_schema_amelag_einzelstandorte.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadata/schemas/frictionless_data_schema_amelag_einzelstandorte.en.json)
+The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Data Package Format](https://datapackage.org/) in [tableschema_amelag_einzelstandorte.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_einzelstandorte.en.json):
+> [tableschema_amelag_einzelstandorte.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_einzelstandorte.en.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Type    | Characteristic                                                                                  | Description                                                                                                                                                                                                                                     |
@@ -391,8 +391,8 @@ In the file [`amelag_aggregated_curve.tsv`](https://github.com/robert-koch-insti
 
 <!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_aggregierte_kurve", "lang": "en"} -->
 
-The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Frictionless Data Format](https://specs.frictionlessdata.io/) in [frictionless_data_schema_amelag_aggregierte_kurve.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadata/schemas/frictionless_data_schema_amelag_aggregierte_kurve.en.json):
-> [frictionless_data_schema_amelag_aggregierte_kurve.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadata/schemas/frictionless_data_schema_amelag_aggregierte_kurve.en.json)
+The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Data Package Format](https://datapackage.org/) in [tableschema_amelag_aggregierte_kurve.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.en.json):
+> [tableschema_amelag_aggregierte_kurve.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.en.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Type    | Characteristic                                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                      |
