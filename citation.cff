@@ -18,7 +18,7 @@ abstract: >-
   Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit
   anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert
   werden.
-date-released: '2024-10-23'
+date-released: '2024-11-27'
 keywords:
   - COVID-19
   - SARS-CoV-2
@@ -36,8 +36,8 @@ keywords:
 message: Cite me!
 url: https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG
 license: CC-BY-4.0
-doi: 10.5281/zenodo.13982570
-version: '2024-10-22T10:00:00+02:00'
+doi: 10.5281/zenodo.14229359
+version: '2024-11-26T10:00:00+01:00'
 authors:
   - family-names: Robert Koch-Institut
     given-names: Fachgebiet 32
