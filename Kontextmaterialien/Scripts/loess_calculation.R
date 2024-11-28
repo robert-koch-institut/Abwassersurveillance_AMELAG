@@ -25,24 +25,45 @@ df <- df %>%
   filter(min_obs_exceeded > 0) %>%
   arrange(standort, typ, datum)
 
-# compute loess predictions
+# calculate loess estimates, see help(loess.as) for details of the set options
+# loess sometimes does not work well for small samples with many
+# values below limit of quantification, in this case the span is set automatically
+# to 0.75
 pred <- df %>%
   group_by(standort, typ) %>%
   mutate(obs = row_number()) %>%
   nest() %>%
-  mutate(pred = map(data, ~
-                      predict(
-                        loess.as(
-                          .x$obs[!is.na(.x$log_viruslast)],
-                          .x$log_viruslast[!is.na(.x$log_viruslast)],
-                          criterion = "aicc",
-                          family = "gaussian",
-                          degree = 2,
-                          control = loess.control(surface = "direct")
-                        ),
-                        newdata = data.frame(x = .x$obs),
-                        se = TRUE
-                      ))) %>%
+  mutate(pred = map(data, ~ tryCatch({predict(
+    loess.as(
+      .x$obs[!is.na(.x$log_viruslast)],
+      .x$log_viruslast[!is.na(.x$log_viruslast)],
+      criterion = "aicc",
+      family = "gaussian",
+      degree = 2,
+      control = loess.control(surface = "direct")
+    ),
+    newdata = data.frame(x = .x$obs),
+    se = TRUE)},
+    warning = function(w) {
+      message("Warning in group ", unique(Standort), ", pathogen ",
+              unique(typ),
+              ": ", conditionMessage(w))
+      predict(
+        loess.as(
+          .x$obs[!is.na(.x$log_viruslast)],
+          .x$log_viruslast[!is.na(.x$log_viruslast)],
+          family = "gaussian",
+          degree = 2,
+          user.span = .75,
+          control = loess.control(surface = "direct")
+        ),
+        newdata = data.frame(x = .x$obs),
+        se = TRUE)
+    })
+  ))
+
+# extract and unnest relevant list 
+pred <- pred %>% 
   select(pred) %>%
   unnest(cols = c(pred))
 
