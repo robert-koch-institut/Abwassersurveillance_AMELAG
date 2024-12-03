@@ -1,7 +1,7 @@
 {
   "name": "10.5281/zenodo.10782701",
-  "title": "Wastewater surveillance AMELAG",
-  "description": "This file lists and describes the data files in this open data repository. For more information on the Data Package Standard, see https://datapackage.org/. More information about this dataset can be found on Zenodo (https://doi.org/10.5281/zenodo.10782701) or Github (https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG)",
+  "title": "Abwassersurveillance AMELAG [en]",
+  "description": "This file gives an overview of the data provided in the dataset in Data Package Standard format (https://datapackage.org). The documented data set is available on Zenodo (https://doi.org/10.5281/zenodo.10782701) and Github (https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG).",
   "homepage": "https://doi.org/10.5281/zenodo.10782701",
   "resources": [
     {
