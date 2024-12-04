@@ -1,0 +1,97 @@
+{
+  "fields": [
+    {
+      "name": "datum",
+      "type": "date",
+      "description": "Datum des Mittwochs einer Woche. Die Daten der unterliegenden Einzelzeitreihen werden innerhalb des Zeitraums vom vorherigen Donnerstag bis zum angegebenen Mittwoch gemittelt.",
+      "format": "%Y-%m-%d"
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "description": "Anzahl der Standorte, die mindestens einen Messwert im durch \"datum\" beschriebenen Zeitraum übermittelt haben.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "anteil_bev",
+      "type": "number",
+      "description": "Anteil der Gesamtbevölkerung in Deutschland, der an die übermittelnden Kläranlagen angeschlossen ist.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "viruslast",
+      "type": "number",
+      "description": "Gemessene Viruslast (in Genkopien pro Liter), gemittelt über alle Standorte und für SARS-CoV-2 gewichtet nach angeschlossenen Einwohnern der Kläranlagen. Vor der Mittelung über die Standorte wurden alle Messwerte der Standorte in den letzten 7 Tagen jeweils mittels 10er-Logarithmus transformiert und über die einzelnen Standorte gemittelt. Die angegebene Viruslast ist der auf die Originalskala zurücktransformierte Mittelwert.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_vorhersage",
+      "type": "number",
+      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression, zurücktransformiert auf die Originalskala).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_obere_schranke",
+      "type": "number",
+      "description": "Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_untere_schranke",
+      "type": "number",
+      "description": "Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "normalisierung",
+      "type": "string",
+      "description": "Gibt an, ob die unterliegenden Einzelzeitreihen nach Durchfluss normalisiert sind.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    },
+    {
+      "name": "typ",
+      "type": "string",
+      "description": "Virustyp.",
+      "constraints": {
+        "enum": [
+          "SARS-CoV-2",
+          "Influenza A",
+          "Influenza B",
+          "Influenza A+B"
+        ]
+      }
+    }
+  ]
+}

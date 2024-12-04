@@ -1,0 +1,180 @@
+{
+  "fields": [
+    {
+      "name": "standort",
+      "type": "string",
+      "description": "Location of the wastewater treatment.",
+      "constraints": {
+        "required": true
+      }
+    },
+    {
+      "name": "bundesland",
+      "type": "string",
+      "description": "Federal state (abbreviated) in which the wastewater treatment plant is located.",
+      "constraints": {
+        "enum": [
+          "BB",
+          "BE",
+          "BW",
+          "BY",
+          "HB",
+          "HE",
+          "HH",
+          "MV",
+          "NI",
+          "NW",
+          "RP",
+          "SH",
+          "SL",
+          "SN",
+          "ST",
+          "TH"
+        ]
+      }
+    },
+    {
+      "name": "datum",
+      "type": "date",
+      "description": "Date on which the 24-hour composite sample started in the wastewater treatment plant.",
+      "format": "%Y-%m-%d",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "viruslast",
+      "type": "number",
+      "description": "Measured viral load in gene copies per liter.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_vorhersage",
+      "type": "number",
+      "description": "Predicated viral load (using a LOESS regression, optimized using AICc criterion for the 10s logarithmized viral loads).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_obere_schranke",
+      "type": "number",
+      "description": "Upper bound of the pointwise 95% confidence interval of the LOESS predicted value.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_untere_schranke",
+      "type": "number",
+      "description": "Lower bound of the pointwise 95% confidence interval of the LOESS predicted value.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_aenderung",
+      "type": "number",
+      "description": "Change in the LOESS predicted value compared to the previous week, i.e. ratio of the current value and the previous week's value.",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "einwohner",
+      "type": "integer",
+      "description": "Number of inhabitants connected to the site's sewage treatment plant.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "laborwechsel",
+      "type": "string",
+      "description": "Indicates whether change in laboratory or change in laboratory mathods occurred.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    },
+    {
+      "name": "trend",
+      "type": "string",
+      "description": "Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "Ansteigend",
+          "Fallend",
+          "Unverändert",
+          "keine Daten vorhanden"
+        ]
+      }
+    },
+    {
+      "name": "normalisierung",
+      "type": "string",
+      "description": "Indicates whether values were normalized by flowrate (`ja`=yes, `nein`=no)",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    },
+    {
+      "name": "typ",
+      "type": "string",
+      "description": "Virus type.",
+      "constraints": {
+        "enum": [
+          "SARS-CoV-2",
+          "Influenza A",
+          "Influenza B",
+          "Influenza A+B"
+        ]
+      }
+    },
+    {
+      "name": "unter_bg",
+      "type": "string",
+      "description": "Indicates if at least half of the measured genes are under the limit of quantification  (`ja`=yes, `nein`=no).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "fields": [
+    {
+      "name": "standort",
+      "type": "string",
+      "description": "Standort der Kläranlage.",
+      "constraints": {
+        "required": true
+      }
+    },
+    {
+      "name": "bundesland",
+      "type": "string",
+      "description": "Kürzel des Bundeslandes, in dem sich die Kläranlage befindet.",
+      "constraints": {
+        "enum": [
+          "BB",
+          "BE",
+          "BW",
+          "BY",
+          "HB",
+          "HE",
+          "HH",
+          "MV",
+          "NI",
+          "NW",
+          "RP",
+          "SH",
+          "SL",
+          "SN",
+          "ST",
+          "TH"
+        ]
+      }
+    },
+    {
+      "name": "datum",
+      "type": "date",
+      "description": "Datum, an dem die 24-Stunden-Mischprobenahme in der Kläranlage begonnen hat.",
+      "format": "%Y-%m-%d",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "viruslast",
+      "type": "number",
+      "description": "Gemessene Viruslast (in Genkopien pro Liter).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_vorhersage",
+      "type": "number",
+      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression, optimiert mittels AICc-Kriterium für die 10er-logarithmierten Viruslasten).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_obere_schranke",
+      "type": "number",
+      "description": "Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_untere_schranke",
+      "type": "number",
+      "description": "Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_aenderung",
+      "type": "number",
+      "description": "Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert.",
+      "missingValues": [
+        "NA"
+      ]
+    },
+    {
+      "name": "einwohner",
+      "type": "integer",
+      "description": "Anzahl an Einwohnern, die an die Kläranlage angeschlossen sind.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "laborwechsel",
+      "type": "string",
+      "description": "Gibt an, ob es Laborwechsel bzw. Änderungen in den Labormethoden gab.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    },
+    {
+      "name": "trend",
+      "type": "string",
+      "description": "Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "Ansteigend",
+          "Fallend",
+          "Unverändert",
+          "keine Daten vorhanden"
+        ]
+      }
+    },
+    {
+      "name": "normalisierung",
+      "type": "string",
+      "description": "Gibt an, ob die Viruslast nach Durchfluss normalisiert wurde.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    },
+    {
+      "name": "typ",
+      "type": "string",
+      "description": "Virustyp.",
+      "constraints": {
+        "enum": [
+          "SARS-CoV-2",
+          "Influenza A",
+          "Influenza B",
+          "Influenza A+B"
+        ]
+      }
+    },
+    {
+      "name": "unter_bg",
+      "type": "string",
+      "description": "Gibt an, ob mindestens die Hälfte der gemessenen Gene unterhalb der Bestimmungsgrenze liegen.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    }
+  ]
+}
