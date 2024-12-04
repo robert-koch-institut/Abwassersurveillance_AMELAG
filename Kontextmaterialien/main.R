@@ -16,8 +16,16 @@ weight_pathogen <- c("TRUE", "FALSE", "FALSE", "FALSE")
 # set TRUE or FALSE
 show_log_data = TRUE
 
-# set number of observations per date that have to be there to allow aggregation
+# minimum of observations per treatment plant that are required to be analyzed,
+# also minimum number of treatment plants having at least one observations
+# in a certain week such that an aggregated value is calculated
 min_obs = 10
+
+# number of days without measurements that are not allowed to be exceeded for
+# a treatment plant: if exceed, all previous measurements are dropped and it
+# takes again at least 10 observations
+# default: 4 weeks
+wo_meas_period = 28
 
 # (install and) load here package
 pacman::p_load(here)
