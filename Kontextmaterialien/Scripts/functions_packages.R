@@ -9,6 +9,10 @@ pacman::p_load(here,
                scales,
                lubridate)
 
+# population in Germany at end of June 2023
+# https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/_inhalt.html, accessed on 25/10/2023
+pop <- 84482000
+
 # define function that computes variance of a weighted mean
 var_weighted <- function(x = NULL, wt = NULL) {
   xm = weighted.mean(x, wt)
@@ -52,10 +56,7 @@ eng_county <- function(Bundesland = "Bayern") {
   )
 }
 
-# population in Germany at end of June 2023
-# https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/_inhalt.html, accessed on 25/10/2023
-pop <- 84482000
-
+# function to plot sites with few data
 plot_not_enough_data <- function(county = county) {
   p1 <-  ggplot() +
     annotate(
