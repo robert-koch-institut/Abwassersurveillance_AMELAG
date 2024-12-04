@@ -1,10 +1,6 @@
 # read in data for single treatment plants
-data_combined <- read_tsv(here(read_data_here,
-                               "amelag_einzelstandorte.tsv"))
-
-# heatmap
-plot_data <- data_combined %>%
-  # remove NAs at the beginning of each series 
+plot_data <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv")) %>%
+  # remove NAs at the beginning of each series
   # and sites without trends (not enough data)
   filter(trend != "keine Daten vorhanden") %>%
   # add week and day
@@ -50,9 +46,10 @@ plot_data <- data_combined %>%
 bl <- c("all", unique(plot_data$bundesland))
 for (state in bl) {
   # use self-defined functions to draw heatmap
-  heatmap(plot_data = plot_data,
-          virus = "SARS-CoV-2",
-          county = state,
-          lab_change = TRUE)
+  heatmap(
+    plot_data = plot_data,
+    virus = "SARS-CoV-2",
+    county = state,
+    lab_change = TRUE
+  )
 }
-

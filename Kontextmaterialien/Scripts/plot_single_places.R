@@ -1,13 +1,21 @@
 # read in data for single treatment plants
-data_combined <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv")) %>%
+data_plots <- data_combined %>%
   select(-loess_aenderung)
 
 # should log data be shown?
 if (show_log_data)
 {
-  data_combined <-
-    data_combined %>%
-    mutate_at(vars(contains("loess"), viruslast), ~ log10(.))
+  data_plots <-
+    data_plots %>%
+    mutate_at(
+      vars(
+        loess_vorhersage,
+        loess_obere_schranke,
+        loess_untere_schranke,
+        viruslast
+      ),
+      ~ log10(.)
+    )
   ytit <-
     expression(atop("Viruslast im Abwasser", atop(paste(
       "in ", log[10], " Genkopien / Liter"
@@ -23,50 +31,29 @@ if (show_log_data)
   filename_add <- ""
 }
 
-data_combined <- data_combined %>%
+data_plots <- data_plots %>%
   # set date of laboratory / method change
-  mutate(Lab_change_date = as.Date(ifelse(laborwechsel == "ja", datum, NA))) %>%
-  group_by(standort, typ) %>%
-  # create variable indicating whether minimum numbers of observations are available
-  mutate(min_obs_exceeded = ifelse(sum(!is.na(viruslast)) >= min_obs, 1, 0)) %>%
-  ungroup()
+  mutate(Lab_change_date = as.Date(ifelse(laborwechsel == "ja", datum, NA)),
+         # replace umlaute
+         label = replace_umlauts(standort))
 
-# replace umlaute
-data_combined <- data_combined %>%
-  mutate(label = replace_umlauts(standort))
-
-# export data for single places with sufficient observations
-data_combined %>%
-  filter(min_obs_exceeded > 0) %>%
-  select(-min_obs_exceeded) %>%
+# export data for single places
+data_plots %>%
+  select(-Lab_change_date, -labor, -loess_period) %>%
   mutate(wochentag = lubridate::wday(datum, label = TRUE, week_start = 1)) %>%
   arrange(label, datum) %>%
   group_by(typ, label) %>%
-  group_walk(~ write_xlsx(.x, here(
+  group_walk( ~ write_xlsx(.x, here(
     results_here,
     .y$typ,
     "Single_Sites",
     paste0(.y$label, filename_add, "_Abwasserdaten.xlsx")
   )))
 
-if ((data_combined %>% filter(min_obs_exceeded < 1) %>% nrow()) > 0)
-  # export data for single places without sufficient observations
-  data_combined %>%
-  filter(min_obs_exceeded < 1) %>%
-  select(standort, typ, datum, viruslast, label) %>%
-  mutate(wochentag = lubridate::wday(datum, label = TRUE, week_start = 1)) %>%
-  arrange(label, datum) %>%
-  group_by(typ, label) %>%
-  group_walk(~ write_xlsx(.x, here(
-    results_here,
-    .y$typ,
-    "Single_Sites",
-    paste0(.y$label, filename_add, "_Abwasserdaten.xlsx")
-  )))
-
-# save plots for single places with sufficient observations
-data_combined %>%
-  filter(min_obs_exceeded > 0) %>%
+# save plots for single places
+data_plots %>%
+  # for speeding up calculations drop NAs
+  filter(!is.na(viruslast)) %>%
   group_by(typ, label) %>%
   group_map(
     ~
@@ -79,13 +66,19 @@ data_combined %>%
         ),
         ggplot(data = .x) +
           geom_ribbon(
-            aes(ymin = loess_untere_schranke, ymax = loess_obere_schranke),
-            # shadowing cnf intervals
+            aes(
+              ymin = loess_untere_schranke,
+              ymax = loess_obere_schranke,
+              group = interaction(loess_period, labor)
+            ),
             fill = "lightblue"
           ) +
           aes(x = datum, y = viruslast) +
           geom_point(aes(color = unter_bg)) +
-          geom_line(aes(datum, y = loess_vorhersage), linewidth = 1) +
+          geom_line(
+            aes(datum, y = loess_vorhersage, group = interaction(loess_period, labor)),
+            linewidth = 1
+          ) +
           scale_color_manual(
             values = c("black", "grey"),
             name = "Nachweis",
@@ -101,44 +94,6 @@ data_combined %>%
             xintercept = as.numeric(.x$Lab_change_date),
             linetype = "dashed"
           ),
-        width = 30,
-        height = 15,
-        units = "cm"
-      )
-  )
-
-if ((data_combined %>% filter(min_obs_exceeded < 1) %>% nrow()) > 0)
-  # save plots for single places without sufficient observations
-  data_combined %>%
-  filter(min_obs_exceeded < 1) %>%
-  group_by(typ, label) %>%
-  group_map(
-    ~
-      ggsave(
-        here(
-          results_here,
-          .y$typ,
-          "Single_Sites",
-          paste0(.y$label, filename_add, "_Loess_Kurve.pdf")
-        ),
-        ggplot(data = .x) +
-          aes(x = datum, y = viruslast) +
-          geom_point(aes(color = unter_bg)) +
-          theme_minimal() +
-          theme(axis.text.x = element_text(angle = 45))  +
-          scale_color_manual(
-            values = c("black", "grey"),
-            name = "Nachweis",
-            breaks = c("nein", "ja"),
-            labels = c("positiv (> BG)", "negativ (< BG)")
-          ) +
-          scale_x_date(date_breaks = "weeks", date_labels = "%U-%Y") +
-          geom_vline(
-            xintercept = as.numeric(.x$Lab_change_date),
-            linetype = "dashed"
-          ) +
-          scale_y_continuous(labels = ~ format(.x, scientific = FALSE)) +
-          labs(y =  ytit, x = "Kalenderwoche"),
         width = 30,
         height = 15,
         units = "cm"
