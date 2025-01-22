@@ -19,6 +19,11 @@ show_log_data = TRUE
 # set number of observations per date that have to be there to allow aggregation
 min_obs = 10
 
+# number of days without measurements that are needed to start a new loess period,
+# i.e. a new loess estimation is done after such a time frame without measurements
+# default: 4 weeks
+wo_meas_period = 28
+
 # (install and) load here package
 pacman::p_load(here)
 
@@ -70,9 +75,6 @@ source(here(scripts_here, "plot_single_places.R"), encoding = "UTF-8")
 
 # plot aggregated curve
 source(here(scripts_here, "plot_aggregated_curve.R"), encoding = "UTF-8")
-
-# plot heatmaps
-source(here(scripts_here, "plot_heatmap.R"), encoding = "UTF-8")
 
 # plot loq plots
 source(here(scripts_here, "plot_loq_plot.R"), encoding = "UTF-8")
