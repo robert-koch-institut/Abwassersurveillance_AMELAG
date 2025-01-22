@@ -2,7 +2,7 @@
 
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien#context-materials)
 
-Diese Dokumentation gibt einen Überblick über die R-Skripte, die erforderlich sind, um die im [Abwasser-Wochenbericht des Robert-Koch-Instituts](https://edoc.rki.de/handle/176904/11665) dargestellten Ergebnisse zu replizieren, mit Ausnahme des Teils über die Virusvarianten. Die dortigen Ergebnisse wurden unter Verwendung von R 4.4.1 (64 bit, Windows) generiert. Sie können die Projektumgebung mithilfe des `renv`-Pakets (https://rstudio.github.io/renv/articles/renv) neu erstellen.
+Diese Dokumentation gibt einen Überblick über die R-Skripte, die erforderlich sind, um die im [Abwasser-Wochenbericht des Robert-Koch-Instituts](https://edoc.rki.de/handle/176904/11665) dargestellten Ergebnisse zu replizieren. Die dortigen Ergebnisse wurden unter Verwendung von R 4.4.1 (64 bit, Windows) generiert. Sie können die Projektumgebung mithilfe des `renv`-Pakets (https://rstudio.github.io/renv/articles/renv) neu erstellen.
 
 Beachten Sie, dass die Ergebnisse in Unterordnern mit den Namen `Results/'Pathogen'` gespeichert werden. Die Daten werden aus dem Hauptverzeichnis bezogen. Die Ergebnisordner werden automatisch erstellt, wenn Sie `main.R` ausführen.
 Wenn Sie RStudio verwenden, starten Sie RStudio durch Ausführen des R-Projekts `amelag_open_code.Rproj` und führen Sie die Skripte dort aus, andernfalls müssen Sie die Pfade am Anfang des Skripts `main.R` anpassen. Wenn Sie die anderen Skripte öffnen, stellen Sie sicher, dass die deutschen Umlaute korrekt angezeigt werden, dies kann in RStudio sichergestellt werden, indem Sie Ihr Skript im richtigen Format neu laden ("File -> Reopen with Encoding -> UTF-8"). 
@@ -24,19 +24,17 @@ Das R-Skript [`main.R`](https://github.com/robert-koch-institut/Abwassersurveill
 
 * [`plot_aggregated_curve.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_aggregated_curve.R): Erzeugt für jedes Pathogen eine Zeitreihendarstellung mit einer LOESS-Kurve für die über alle Standorte aggregierten Daten.  
 
-* [`plot_heatmap.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_heatmap.R): Erzeugt eine Heatmap, die Trends für alle Standorte zeigt, die genügend Daten geliefert haben. Bisher wird dies für SARS-CoV-2 für alle Bundesländer einzeln und einmal zusammen getan, dies kann aber am Ende des Skripts angepasst werden.
-
 * [`plot_loq_plot.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_loq_plot.R): Erzeugt für jedes Pathogen ein gestapeltes Balkendiagramm, das für jede Woche die Anteil an Messwerten oberhalb und unterhalb der Bestimmungsgrenze anzeigt.  
 
 
 ### Ergebnisse 
 
-Nach dem Ausführen von `main.R` enthalten die Unterordner des Ordners `Results'` die Heatmap(s), die aggregierte Kurve sowie das gestapelte Balkendiagramm im Hauptverzeichnis, die Kurven und Daten für die einzelnen Standorte sind in dem jeweiligen Unterordner `Single_Sites` zu finden.
+Nach dem Ausführen von `main.R` enthalten die Unterordner des Ordners `Results'` die aggregierte Kurve sowie das gestapelte Balkendiagramm im Hauptverzeichnis, die Kurven und Daten für die einzelnen Standorte sind in dem jeweiligen Unterordner `Single_Sites` zu finden.
 
 
 ## Context materials  
 
-This documentation provides an overview of the R scripts necessary to replicate the results shown in the [Robert-Koch Institute weekly report on wastewater surveillance](https://edoc.rki.de/handle/176904/11665) excluding the part on the virus variants. The results there were obtained by using R 4.4.1 (64 bit, Windows). You can recreate the project environment by using the `renv` package (https://rstudio.github.io/renv/articles/renv).
+This documentation provides an overview of the R scripts necessary to replicate the results shown in the [Robert-Koch Institute weekly report on wastewater surveillance](https://edoc.rki.de/handle/176904/11665). The results there were obtained by using R 4.4.1 (64 bit, Windows). You can recreate the project environment by using the `renv` package (https://rstudio.github.io/renv/articles/renv).
 
 Note that the results are stored subfolder named `Results/'pathogen'`. The folders should already exist or be created automatically when running [`main.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/main.R). If you use RStudio, start RStudio by running the R project `amelag_open_code.Rproj` and run the scripts there, otherwise you have to adjust the paths at the beginning of the script `main.R`. If you open the other scripts, make sure that German umlauts are displayed correctly, this can be guaranteed in RStudio by reloading your script in proper format ("File -> Reopen with Encoding -> UTF-8"). 
 
@@ -56,9 +54,7 @@ The R script [`main.R`](https://github.com/robert-koch-institut/Abwassersurveill
 
 * [`plot_aggregated_curve.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_aggregated_curve.R): Generates for each pathogen a time series plot containing a loess curve for data aggregated over all sites.  
 
-* [`plot_heatmap.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_heatmap.R): Generates a heatmap which shows trends for all places that provided sufficient data. So far, this is done for SARS-CoV-2 for all federal states individually and once together, but this can be customized at the end of the script.  
-
 * [`plot_loq_plot.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_loq_plot.R): Generates for each pathogen a stacked barplot showing the share of sampled values below and above the limit of quantification.  
 
 ### Results
-After running `main.R`, the subfolders of the folder `Results` contain the heatmap(s), the aggregated curve and the stacked barplot in the main directory, the curves and data for the single sites are stored in the subfolder `Single_Sites`.
+After running `main.R`, the subfolders of the folder `Results` contain the aggregated curve and the stacked barplot in the main directory, the curves and data for the single sites are stored in the subfolder `Single_Sites`.
