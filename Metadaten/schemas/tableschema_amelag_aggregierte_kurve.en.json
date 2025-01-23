@@ -1,0 +1,97 @@
+{
+  "fields": [
+    {
+      "name": "datum",
+      "type": "date",
+      "description": "Date of Wednesdays of a week. The data of the underlying individual time series are averaged within the period from the previous Thursday to the specified Wednesday.",
+      "format": "%Y-%m-%d"
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "description": "Number of locations that have transmitted at least one measured value in the period defined by \"date\".",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "anteil_bev",
+      "type": "number",
+      "description": "Proportion of the total population in Germany that is connected to the transmitting sewage treatment plants.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "viruslast",
+      "type": "number",
+      "description": "Measured viral load (in gene copies per liter averaged over all sites and, for SARS-CoV-2, weighted by connected inhabitants of the wastewater treatment plants). Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale.",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_vorhersage",
+      "type": "number",
+      "description": "Predicted viral load (predicted using a LOESS regression, transformed back to the original scale).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_obere_schranke",
+      "type": "number",
+      "description": "Upper bound of the 95% confidence interval of the LOESS predicted value.",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "loess_untere_schranke",
+      "type": "number",
+      "description": "Lower bound of the 95% confidence interval of the LOESS predicted value.",
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
+      "name": "normalisierung",
+      "type": "string",
+      "description": "Indicates whether individual time series were normalized by flowrate (`ja`=yes, `nein`=no).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "enum": [
+          "ja",
+          "nein"
+        ]
+      }
+    },
+    {
+      "name": "typ",
+      "type": "string",
+      "description": "Virus type.",
+      "constraints": {
+        "enum": [
+          "SARS-CoV-2",
+          "Influenza A",
+          "Influenza B",
+          "Influenza A+B"
+        ]
+      }
+    }
+  ]
+}

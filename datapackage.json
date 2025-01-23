@@ -1,0 +1,26 @@
+{
+  "name": "10.5281/zenodo.10782701",
+  "title": "Abwassersurveillance AMELAG",
+  "description": "Diese Datei gibt eine Übersicht über die im Datensatz enthaltenen Daten im Data Package Standard (https://datapackage.org). Der dokumentierte Datensatz ist auf den Plattformen Zenodo (https://doi.org/10.5281/zenodo.10782701) und Github (https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG) verfügbar.",
+  "homepage": "https://doi.org/10.5281/zenodo.10782701",
+  "resources": [
+    {
+      "name": "amelag_aggregierte_kurve",
+      "type": "table",
+      "path": "amelag_aggregierte_kurve.tsv",
+      "scheme": "file",
+      "format": "tsv",
+      "mediatype": "text/csv",
+      "schema": "Metadaten/schemas/tableschema_amelag_aggregierte_kurve.json"
+    },
+    {
+      "name": "amelag_einzelstandorte",
+      "type": "table",
+      "path": "amelag_einzelstandorte.tsv",
+      "scheme": "file",
+      "format": "tsv",
+      "mediatype": "text/csv",
+      "schema": "Metadaten/schemas/tableschema_amelag_einzelstandorte.json"
+    }
+  ]
+}
