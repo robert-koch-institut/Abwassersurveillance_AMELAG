@@ -12,8 +12,9 @@ Nordufer 20
 <br>
 
 **Zitieren**  
-Robert Koch-Institut. (2024). Abwassersurveillance AMELAG [Data set]. Zenodo. [DOI: 10.5281/zenodo.14718330](https://doi.org/10.5281/zenodo.14718330)
-
+<!-- CITATION_START: {"citation_style": "apa"} -->
+Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.14718330](https://doi.org/10.5281/zenodo.14718330)
+<!-- CITATION_END -->
 
 ---
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
@@ -134,7 +135,7 @@ Die Datei [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/A
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Typ     | Ausprägungen                                                                                   | Beschreibung                                                                                                                                                                                                                                     |
 |:----------------------|:--------|:-----------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| standort              | string  | Eintrag kann nicht leer sein                                                                   | Standort der Kläranlage.                                                                                                                                                                                                                         |
+| standort              | string  |                                                                                                | Standort der Kläranlage.                                                                                                                                                                                                                         |
 | bundesland            | string  | Werte: `BB`, `BE`, `BW`, `BY`, `HB`, `HE`, `HH`, …                                             | Kürzel des Bundeslandes, in dem sich die Kläranlage befindet.                                                                                                                                                                                    |
 | datum                 | date    | Format: `YYYY-MM-DD`<br>Fehlende Werte: `NA`                                                   | Datum, an dem die 24-Stunden-Mischprobenahme in der Kläranlage begonnen hat.                                                                                                                                                                     |
 | viruslast             | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                            | Gemessene Viruslast (in Genkopien pro Liter).                                                                                                                                                                                                    |
@@ -243,7 +244,9 @@ Nordufer 20
 <br>
 
 **Cite**  
-Robert Koch-Institut. (2025). Wastewater surveillance AMELAG [Data set]. Zenodo. [DOI: 10.5281/zenodo.14718330](https://doi.org/10.5281/zenodo.14718330)
+<!-- CITATION_START: {"citation_style": "apa"} -->
+Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.14718330](https://doi.org/10.5281/zenodo.14718330)
+<!-- CITATION_END -->
 
 ---
 
@@ -362,7 +365,7 @@ The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Ab
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Type    | Characteristic                                                                                  | Description                                                                                                                                                                                                                                     |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| standort              | string  | Value can not be missing                                                                        | Location of the wastewater treatment.                                                                                                                                                                                                           |
+| standort              | string  |                                                                                                 | Location of the wastewater treatment.                                                                                                                                                                                                           |
 | bundesland            | string  | Values: `BB`, `BE`, `BW`, `BY`, `HB`, `HE`, `HH`, …                                             | Federal state (abbreviated) in which the wastewater treatment plant is located.                                                                                                                                                                 |
 | datum                 | date    | Format: `YYYY-MM-DD`<br>Missing values: `NA`                                                    | Date on which the 24-hour composite sample started in the wastewater treatment plant.                                                                                                                                                           |
 | viruslast             | number  | Values: `≥0`<br>Missing values: `NA`                                                            | Measured viral load in gene copies per liter.                                                                                                                                                                                                   |
