@@ -75,112 +75,6 @@ plot_not_enough_data <- function(county = county) {
   return(p1)
 }
 
-# plot heatmap
-heatmap <- function(plot_data = plot_data,
-                    virus = "SARS-CoV-2",
-                    county = "all",
-                    lab_change = TRUE) {
-  # select pathogen
-  plot_data <- plot_data %>%
-    filter(typ == !!(virus))
-  
-  # select county (if applicable)
-  if (county != "all")
-    plot_data <- plot_data %>%
-      filter(bundesland == !!(county))
-  
-  # if no data available
-  if (nrow(plot_data) < 1) {
-    p1 <- plot_not_enough_data(county = county)
-  } else {
-    if (lab_change)
-      # adding the dates where the lab changes (to plot_data); new variable: Lab_change_date
-      plot_data <- plot_data %>%
-        group_by(typ, standort) %>%
-        fill(laborwechsel, .direction = "updown") %>%
-        mutate(
-          Lab_change = ifelse(laborwechsel != lag(laborwechsel), 1, 0),
-          Lab_change = replace(Lab_change, is.na(Lab_change), 0)
-        ) %>%
-        ungroup() %>%
-        mutate(
-          Lab_change_date = as.Date(ifelse(Lab_change == 1, woche, NA)),
-          # adding dates of lab changes only to respective rows in the heatmap
-          y = as.numeric(factor(BL_Standort, levels = rev(
-            unique(.$BL_Standort)
-          ))),
-          ymin = y - 0.5,
-          ymax = y + 0.5,
-          xintercept = Lab_change_date
-        )
-    
-    # plot heatmap
-    p1 <- plot_data %>%
-      ggplot(aes(woche, BL_Standort)) +
-      geom_tile(aes(fill = trend), colour = "white") +
-      scale_fill_manual(
-        values = c("#eac66c", "#ce7b47", "#9a333d", "gray90"),
-        name = "Trend:  ",
-        breaks = c(
-          "Fallend",
-          "Unverändert",
-          "Ansteigend",
-          "Keine Daten vorhanden"
-        ),
-        labels = c(
-          "Fallend",
-          "Unverändert",
-          "Ansteigend",
-          "Keine Daten vorhanden"
-        )
-      )  +
-      labs(x = "Kalenderwoche", y = "") +
-      theme_classic() +
-      theme(legend.position = "bottom") +
-      scale_y_discrete(limits = rev, expand = c(0, 0)) +
-      scale_x_date(
-        date_labels = "%W \n%Y",
-        date_breaks = "1 week",
-        expand = c(0, 0)
-      )
-    # add lab changes
-    if (lab_change)
-      p1 <- p1 +
-      geom_segment(
-        aes(
-          x = xintercept,
-          xend = xintercept,
-          y = ymin,
-          yend = ymax
-        ),
-        linetype = "dotted",
-        color = "white",
-        linewidth = 0.5
-      )
-    
-  }
-  if (county != "all") {
-    p1 <- p1 +
-      labs(title = county)
-    width = 25
-    height = 15
-  } else {
-    width = 30
-    height = 45
-  }
-  print(p1)
-  ggsave(
-    here(results_here, virus, paste0("heatmap_", county, ".png")),
-    plot = p1,
-    width = width,
-    height = height,
-    units = "cm",
-    dpi = 150
-  )
-  
-  
-}
-
 # loq plot
 loq_plot <- function(plot_data = plot_data, virus = "Influenza-A") {
   # select pathogen
@@ -193,8 +87,12 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza-A") {
     theme_classic() +
     theme(legend.position = "bottom") +
     scale_x_date(
-      date_labels = "%W \n%Y",
       date_breaks = "4 week",
+      labels = function(x) {
+        week_labels <- lubridate::isoweek(x) 
+        year_labels <- lubridate::isoyear(x)  
+        paste0(week_labels, "\n", year_labels)
+      },
       expand = c(0, 0)
     ) +
     scale_y_continuous(expand = c(0, 0), labels = scales::percent) +
