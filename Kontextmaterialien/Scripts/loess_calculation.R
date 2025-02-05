@@ -25,7 +25,7 @@ temp <- df %>%
 
 df <- df %>%
   # first drop loess estimates and derived quantities (to show how to calculate them)
-  select(-contains("loess"), -trend) %>%
+  select(-contains("loess")) %>%
   # merge with loess period data set created above
   left_join(temp) %>%
   group_by(standort, typ) %>%
@@ -161,51 +161,22 @@ df <- df %>%
   # drop variables
   select(-min_log_viruslast, -at_least_one_loq)
 
-# compute changes over time (trend analysis)
-change <-
-  df %>%
-  select(standort, typ, datum, loess_vorhersage) %>%
-  arrange(standort, datum) %>%
-  filter(!is.na(loess_vorhersage)) %>%
-  group_by(standort, typ) %>%
-  # compute relative change
-  mutate(loess_aenderung = (loess_vorhersage / lag(loess_vorhersage, 7)) -
-           1) %>%
-  na.omit() %>%
-  # compute whether there is a positive trend using different thresholds
-  mutate(
-    trend = case_when(
-      loess_aenderung > 0.15 ~ "Ansteigend",
-      between(loess_aenderung, -0.15, 0.15) ~ "Unverändert",
-      loess_aenderung < -0.15 ~ "Fallend"
-    )
-  ) %>%
-  ungroup()  %>%
-  select(-loess_vorhersage)
-
-# combine these data frames
+# arrange data
 data_combined <-
-  change %>%
-  arrange(standort, typ, datum) %>%
-  # and merge with whole data set
-  right_join(df  %>% filter(!is.na(loess_vorhersage)), by = c("standort", "typ", "datum")) %>%
-  arrange(standort, datum) %>%
-  # create day variable
-  mutate(tag = lubridate::wday(datum, week_start = 1))
+  df  %>% filter(!is.na(loess_vorhersage)) %>%
+  arrange(standort, datum)
 
 # add data with few measurements
 data_combined <- data_combined %>%
   bind_rows(df_small)
 
 # clean up
-rm(change, df, df_small, pred, pred_list, reps, temp)
+rm(df, df_small, pred, pred_list, reps, temp)
 
 # clean up data
 data_combined <- data_combined %>%
-  mutate(trend = ifelse(tag != 3, NA, trend)) %>%
   group_by(standort, typ) %>%
   mutate(
-    trend = ifelse(datum == min(datum), "keine Daten vorhanden", trend),
     # combine changes in data for plots
     loess_period = loess_period + labor,
     loess_period = factor(loess_period)
