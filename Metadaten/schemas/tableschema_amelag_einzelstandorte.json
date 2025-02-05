@@ -87,14 +87,6 @@
       }
     },
     {
-      "name": "loess_aenderung",
-      "type": "number",
-      "description": "Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert.",
-      "missingValues": [
-        "NA"
-      ]
-    },
-    {
       "name": "einwohner",
       "type": "integer",
       "description": "Anzahl an Einwohnern, die an die Kläranlage angeschlossen sind.",
@@ -116,22 +108,6 @@
         "enum": [
           "ja",
           "nein"
-        ]
-      }
-    },
-    {
-      "name": "trend",
-      "type": "string",
-      "description": "Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung))",
-      "missingValues": [
-        "NA"
-      ],
-      "constraints": {
-        "enum": [
-          "Ansteigend",
-          "Fallend",
-          "Unverändert",
-          "keine Daten vorhanden"
         ]
       }
     },

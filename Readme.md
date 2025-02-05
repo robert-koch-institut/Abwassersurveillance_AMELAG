@@ -12,8 +12,9 @@ Nordufer 20
 <br>
 
 **Zitieren**  
-Robert Koch-Institut. (2024). Abwassersurveillance AMELAG [Data set]. Zenodo. [DOI: 10.5281/zenodo.14718330](https://doi.org/10.5281/zenodo.14718330)
-
+<!-- CITATION_START: {"citation_style": "apa"} -->
+Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.14762608](https://doi.org/10.5281/zenodo.14762608)
+<!-- CITATION_END -->
 
 ---
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
@@ -78,13 +79,6 @@ Die Auswertung der Daten erfolgt am RKI über R-Skripte. Die Skripte sind in den
 
 Für jeden Standort werden die Messwerte für SARS-CoV-2 (normalisiert) und Influenza A und B-Virus (nicht normalisiert) in Genkopien pro Liter (Genkopien/L) angegeben. Zusätzlich werden die Messwerte der logarithmierten und ggf. normalisierten Genkopien mittels einer lokal gewichteten Regression (LOESS) geglättet und zugehörige Konfidenzintervalle berechnet. 
 
-Für SARS-CoV-2 wird ein Trend berechnet. Der Trend für eine Kläranlage ergibt sich aus der Veränderung des von der LOESS-Methode geschätzten Werts an einem Mittwoch einer Woche gegenüber dem für den vorherigen Mittwoch vorhergesagten Wert, wobei die Werte vorher zurück auf die Originalskala transformiert wurden. 
-- `fallend`: die geglättete Viruslast ist um mehr als 15% zur Vorwoche gesunken 
-- `ansteigend`: die geglättete Viruslast ist um mehr als 15% zur Vorwoche gestiegen
-- `gleichbleibend`: die geglättete Viruslast hat sich nicht mehr als 15% zur Vorwoche verändert 
-- `keine Daten vorhanden`:  für den Mittwoch dieser oder der vergangenen Woche leigt kein geglätteter LOESS-Wert vor
-- `NA`: ist für alle Tage außer Mittwoch eingetragen. 
-
 #### Aggregation der Standortwerte
 
 Es werden die einzelnen Zeitreihen der Standorte aggregiert, um einen bundesweiten Verlauf der SARS-CoV-2 bzw. Influenzaviren-Viruslast im Abwasser abzubilden. Dafür werden in jeder Woche, in der für mindestens 10 Standorte Messwerte vorliegen, der Mittelwert über die über eine Woche gemittelten logarithmierten Messwerte der einzelnen Standorte berechnet. Dabei wird nach den angeschlossenen Einwohnern der Kläranlage gewichtet. Für Influenzaviren erfolgt derzeit keine Gewichtung nach Einwohnern. 
@@ -96,7 +90,7 @@ Bei der Datenbewertung sind einige Besonderheiten zu beachten:
 * Es wurden an den unterschiedlichen Kläranlagen und für die unterschiedlichen Viren verschiedene Zielgene gemessen 
     * SARS-CoV-2: eine Kombination aus vorzugsweise N1, N2, E, ORF oder RdRp
     * Influenza A-Virus: M1
-    * InfluenzaB-Virus: M1, NS1, NS2, HA
+    * Influenza B-Virus: M1, NS1, NS2, HA
 * Der Standort Hamburg ist mit zwei Zuläufen vertreten: “Hamburg Nord” und “Hamburg Süd”.
 * Bei Werten unterhalb der Bestimmungsgrenze (BG) wird mit der Hälfte der Bestimmungsgrenze als Wert gerechnet (0,5 * BG).
 
@@ -134,17 +128,15 @@ Die Datei [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/A
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Typ     | Ausprägungen                                                                                   | Beschreibung                                                                                                                                                                                                                                     |
 |:----------------------|:--------|:-----------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| standort              | string  | Eintrag kann nicht leer sein                                                                   | Standort der Kläranlage.                                                                                                                                                                                                                         |
+| standort              | string  |                                                                                                | Standort der Kläranlage.                                                                                                                                                                                                                         |
 | bundesland            | string  | Werte: `BB`, `BE`, `BW`, `BY`, `HB`, `HE`, `HH`, …                                             | Kürzel des Bundeslandes, in dem sich die Kläranlage befindet.                                                                                                                                                                                    |
 | datum                 | date    | Format: `YYYY-MM-DD`<br>Fehlende Werte: `NA`                                                   | Datum, an dem die 24-Stunden-Mischprobenahme in der Kläranlage begonnen hat.                                                                                                                                                                     |
 | viruslast             | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                            | Gemessene Viruslast (in Genkopien pro Liter).                                                                                                                                                                                                    |
 | loess_vorhersage      | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                            | Vorhergesagte Viruslast (mittels einer LOESS-Regression, optimiert mittels AICc-Kriterium für die 10er-logarithmierten Viruslasten).                                                                                                             |
 | loess_obere_schranke  | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                            | Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.                                                                                                                                                                  |
 | loess_untere_schranke | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                            | Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.                                                                                                                                                                 |
-| loess_aenderung       | number  | Fehlende Werte: `NA`                                                                           | Änderung des LOESS-Vorhersagewerts zur Vorwoche, d.h. Quotient aus aktuellem Wert und dem Vorwochenwert.                                                                                                                                         |
 | einwohner             | integer | Werte: `≥0`<br>Fehlende Werte: `NA`                                                            | Anzahl an Einwohnern, die an die Kläranlage angeschlossen sind.                                                                                                                                                                                  |
 | laborwechsel          | string  | Werte: `ja`, `nein`<br>Fehlende Werte: `NA`                                                    | Gibt an, ob es Laborwechsel bzw. Änderungen in den Labormethoden gab.                                                                                                                                                                            |
-| trend                 | string  | Werte: `Ansteigend`, `Fallend`, `Unverändert`, `keine Daten vorhanden`<br>Fehlende Werte: `NA` | Kategorisierte Veränderung des geglätteten LOESS-Wertes von einem Mittwoch zum Mittwoch der Vorwoche (siehe [Datenauswertung](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung)) |
 | normalisierung        | string  | Werte: `ja`, `nein`<br>Fehlende Werte: `NA`                                                    | Gibt an, ob die Viruslast nach Durchfluss normalisiert wurde.                                                                                                                                                                                    |
 | typ                   | string  | Werte: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`                             | Virustyp.                                                                                                                                                                                                                                        |
 | unter_bg              | string  | Werte: `ja`, `nein`<br>Fehlende Werte: `NA`                                                    | Gibt an, ob mindestens die Hälfte der gemessenen Gene unterhalb der Bestimmungsgrenze liegen.                                                                                                                                                    |
@@ -243,7 +235,9 @@ Nordufer 20
 <br>
 
 **Cite**  
-Robert Koch-Institut. (2025). Wastewater surveillance AMELAG [Data set]. Zenodo. [DOI: 10.5281/zenodo.14718330](https://doi.org/10.5281/zenodo.14718330)
+<!-- CITATION_START: {"citation_style": "apa"} -->
+Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.14762608](https://doi.org/10.5281/zenodo.14762608)
+<!-- CITATION_END -->
 
 ---
 
@@ -307,13 +301,6 @@ Normalization is automated with the data import. The measured Influenza data are
 The data are evaluated at the RKI using R scripts. The scripts are contained in the [context materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien). A detailed description of the methodology is provided in the [technical guidelines](http://www.rki.de/abwassersurveillance). The results are published in the RKI´s [weekly report](https://www.rki.de/DE/Content/Institut/OrgEinheiten/Abt3/FG32/Abwassersurveillance/Bericht_Abwassersurveillance.html). 
 For each WWTP, the measured values for SARS-CoV-2 (normalized) and Inlfuenza A and B viruses (not normalized) are reported in gene copies per liter (gene copies/L). In addition, the measured values of the logarithmized normalized gene copies are smoothed using a locally weighted regression (LOESS) and associated confidence intervals are calculated. 
 
-A trend is calculated for SARS-CoV-2. The trend for a WWTP results from the change in the value estimated by the LOESS method on a Wednesday of a week compared to the value predicted for the previous Wednesday, whereby the values were previously transformed back to the original scale. 
-- `falling`: The smoothed viral load has fallen by more than 15% compared to the previous week 
-- `increasing`: The smoothed viral load has increased by more than 15% compared to the previous week
-- `stable`: The smoothed viral load has not changed by more than 15% compared to the previous week 
-- `No data available`: No smoothed LOESS value is available for the Wednesday of this or the previous week
-- `NA`: Is entered for all days except Wednesday. 
-
 #### Aggregation of the WWTP values
 
 The individual time series of the WWTP are aggregated in order to depict a nationwide course of the SARS-CoV-2 and Influenzavirus viral loads in wastewater. For each week in which measured values are available for at least 10 sites, the average of the logarithmized measured values of the individual sites averaged over one week is calculated. This value is then weighted by the number of inhabitants connected to the WWTPs. The influenza data are currently not weighted by the number of inhabitants.
@@ -362,17 +349,15 @@ The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Ab
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable              | Type    | Characteristic                                                                                  | Description                                                                                                                                                                                                                                     |
 |:----------------------|:--------|:------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| standort              | string  | Value can not be missing                                                                        | Location of the wastewater treatment.                                                                                                                                                                                                           |
+| standort              | string  |                                                                                                 | Location of the wastewater treatment.                                                                                                                                                                                                           |
 | bundesland            | string  | Values: `BB`, `BE`, `BW`, `BY`, `HB`, `HE`, `HH`, …                                             | Federal state (abbreviated) in which the wastewater treatment plant is located.                                                                                                                                                                 |
 | datum                 | date    | Format: `YYYY-MM-DD`<br>Missing values: `NA`                                                    | Date on which the 24-hour composite sample started in the wastewater treatment plant.                                                                                                                                                           |
 | viruslast             | number  | Values: `≥0`<br>Missing values: `NA`                                                            | Measured viral load in gene copies per liter.                                                                                                                                                                                                   |
 | loess_vorhersage      | number  | Values: `≥0`<br>Missing values: `NA`                                                            | Predicated viral load (using a LOESS regression, optimized using AICc criterion for the 10s logarithmized viral loads).                                                                                                                         |
 | loess_obere_schranke  | number  | Values: `≥0`<br>Missing values: `NA`                                                            | Upper bound of the pointwise 95% confidence interval of the LOESS predicted value.                                                                                                                                                              |
 | loess_untere_schranke | number  | Values: `≥0`<br>Missing values: `NA`                                                            | Lower bound of the pointwise 95% confidence interval of the LOESS predicted value.                                                                                                                                                              |
-| loess_aenderung       | number  | Missing values: `NA`                                                                            | Change in the LOESS predicted value compared to the previous week, i.e. ratio of the current value and the previous week's value.                                                                                                               |
 | einwohner             | integer | Values: `≥0`<br>Missing values: `NA`                                                            | Number of inhabitants connected to the site's sewage treatment plant.                                                                                                                                                                           |
 | laborwechsel          | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                    | Indicates whether change in laboratory or change in laboratory mathods occurred.                                                                                                                                                                |
-| trend                 | string  | Values: `Ansteigend`, `Fallend`, `Unverändert`, `keine Daten vorhanden`<br>Missing values: `NA` | Categorized change in the smoothed LOESS value from a Wednesday to the Wednesday of the previous week (see [data evaluation](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Datenauswertung)) |
 | normalisierung        | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                    | Indicates whether values were normalized by flowrate (`ja`=yes, `nein`=no)                                                                                                                                                                      |
 | typ                   | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`                             | Virus type.                                                                                                                                                                                                                                     |
 | unter_bg              | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                    | Indicates if at least half of the measured genes are under the limit of quantification  (`ja`=yes, `nein`=no).                                                                                                                                  |
