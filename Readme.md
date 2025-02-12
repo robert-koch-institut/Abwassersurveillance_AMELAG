@@ -1,7 +1,7 @@
 Datensatzdokumentation  
 # Abwassersurveillance AMELAG  
 
-[Robert Koch-Institut](https.//rki.de) | RKI  
+[Robert Koch-Institut](https://rki.de) | RKI  
 Nordufer 20  
 13353 Berlin  
 
@@ -191,17 +191,22 @@ Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://edoc.rki.de/
 
 > [Kontextmatrialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
 
+
+<!-- FOOTER_START: {"lang": "de"} -->
+
+
+
 ### Metadaten  
 
 Zur Erhöhung der Auffindbarkeit sind die bereitgestellten Daten mit Metadaten beschrieben. Über GitHub Actions werden Metadaten an die entsprechenden Plattformen verteilt. Für jede Plattform existiert eine spezifische Metadatendatei, diese sind im Metadatenordner hinterlegt:  
 
-> [Metadaten/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/)    
+> [Metadaten/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadaten/) 
 
-Versionierung und DOI-Vergabe erfolgt über [Zenodo.org](https://zenodo.org). Die für den Import in Zenodo bereitgestellten Metadaten sind in der [zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json) hinterlegt. Die Dokumentation der einzelnen Metadatenvariablen ist unter https://developers.zenodo.org/#representation nachlesbar.   
+Versionierung und DOI-Vergabe erfolgt über [Zenodo.org](https://zenodo.org). Die für den Import in Zenodo bereitgestellten Metadaten sind in der [zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json) hinterlegt. Die Dokumentation der einzelnen Metadatenvariablen ist unter https://developers.zenodo.org/#representation nachlesbar.
  
 > [Metadaten/zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json)  
 
-In der zenodo.json ist neben der Publikationsdatum (`"publication_date"`) auch der Datenstand in folgendem Format enthalten (Beispiel):  
+In der zenodo.json ist neben dem Publikationsdatum (`"publication_date"`) auch der Datenstand in folgendem Format enthalten (Beispiel):  
 
 ```
   "dates": [
@@ -227,8 +232,9 @@ Offene Forschungsdaten des RKI werden auf [Zenodo.org](http://Zenodo.org/), [Git
 
 Der Datensatz "Abwassersurveillance AMELAG" ist lizenziert unter  der [Creative Commons Namensnennung 4.0 International Public License | CC-BY 4.0 International](https://creativecommons.org/licenses/by/4.0/deed.de).  
 
-Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Daten_der_Notaufnahmesurveillance/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
-
+Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
+<!-- FOOTER_END -->
+ 
 
  
 # Wastewater surveillance AMELAG  
@@ -418,7 +424,10 @@ The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/
 
 To reproduce the results of the [AMELAG weekly report](https://edoc.rki.de/handle/176904/11665), the R scripts used to create the analysis are provided. The scripts can be found in the "[Contextual materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" folder of the dataset.
 
-> [Context Matrials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
+> [Context Materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
+
+<!-- FOOTER_START: {"lang": "en"} -->
+
 
 ### Metadata
 
@@ -458,3 +467,6 @@ The "Abwassersurveillance AMELAG" dataset is licensed under the [Creative Common
 
 The data provided in the dataset are freely available, with the condition of attributing the Robert Koch Institute as the source, for anyone to process and modify, create derivatives of the dataset and use them for commercial and non-commercial purposes.      
 Further information about the license can be found in the [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) or [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) file of the dataset.
+
+
+<!-- FOOTER_END -->
