@@ -6,7 +6,8 @@
       "description": "Location of the wastewater treatment.",
       "constraints": {
         "required": true
-      }
+      },
+      "example": "Aachen, Ratzeburg, Weil am Rhein"
     },
     {
       "name": "bundesland",
