@@ -1,5 +1,5 @@
 version 1.1
-@totalColumns 14
+@totalColumns 12
 @separator TAB
 standort: notEmpty
 bundesland: any("BB", "BE", "BW", "BY", "HB", "HE", "HH", "MV", "NI", "NW", "RP", "SH", "SL", "SN", "ST", "TH")

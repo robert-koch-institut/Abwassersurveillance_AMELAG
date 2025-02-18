@@ -6,7 +6,8 @@
       "description": "Standort der Kläranlage.",
       "constraints": {
         "required": true
-      }
+      },
+      "example": "Aachen, Ratzeburg, Weil am Rhein"
     },
     {
       "name": "bundesland",
