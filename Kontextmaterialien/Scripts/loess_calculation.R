@@ -1,6 +1,8 @@
 # read in data
 df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
-               show_col_types = FALSE)
+               show_col_types = FALSE) %>%
+  # rename RSV A/B to avoid problems when saving data
+  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ))
 
 # store column names
 df_colnames <- names(df)
@@ -176,10 +178,8 @@ rm(df, df_small, pred, pred_list, reps, temp)
 # clean up data
 data_combined <- data_combined %>%
   group_by(standort, typ) %>%
-  mutate(
-    # combine changes in data for plots
+  mutate(# combine changes in data for plots
     loess_period = loess_period + labor,
-    loess_period = factor(loess_period)
-  ) %>%
+    loess_period = factor(loess_period)) %>%
   ungroup() %>%
   select(all_of(df_colnames), loess_period, labor)

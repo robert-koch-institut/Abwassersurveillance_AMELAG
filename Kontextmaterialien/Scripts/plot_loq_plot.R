@@ -1,5 +1,7 @@
 # read in data for single treatment plants
 plot_data <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv")) %>%
+  # rename RSV A/B to avoid problems when saving data
+  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ)) %>% 
   filter(!is.na(viruslast)) %>%
   # create week variable
   mutate(woche = as.Date(cut(datum, "week"))) %>%
