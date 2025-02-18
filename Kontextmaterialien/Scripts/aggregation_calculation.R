@@ -1,10 +1,12 @@
 # read in data
 df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
-               show_col_types = FALSE)
+               show_col_types = FALSE) %>%
+  # rename RSV A/B to avoid problems when saving data
+  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ))
 
 # generate weeks starting on Thursday
 thursday_data <-
-  df%>%
+  df %>%
   distinct(datum) %>%
   mutate(
     Tag = lubridate::wday(datum, week_start = 1),
@@ -26,11 +28,9 @@ df_agg <- df %>%
   # add dates with NAs before measurements to avoid that 7-days-averages
   # drop values if no previous dates are available
   group_by(standort, typ) %>%
-  pad(
-    by = "datum",
-    interval = "day",
-    start_val = min(df$datum) - 7
-  ) %>%
+  pad(by = "datum",
+      interval = "day",
+      start_val = min(df$datum) - 7) %>%
   ungroup() %>%
   # for each site, compute 7-day averages
   group_by(standort, typ, th_week) %>%
@@ -142,14 +142,14 @@ df_agg <- df_agg %>%
     viruslast = 10 ^ (log_viruslast)
   ) %>%
   # select and rename relevant variables
-  select(datum,
-         n = n_non_na,
-         anteil_bev,
-         viruslast,
-         contains("loess"),
-         -contains("vorhersage_df"),
-         -contains("vorhersage_se"),
-         normalisierung,
-         typ) %>% 
+  select(
+    datum,
+    n = n_non_na,
+    anteil_bev,
+    viruslast,
+    contains("loess"),-contains("vorhersage_df"),-contains("vorhersage_se"),
+    normalisierung,
+    typ
+  ) %>%
   # drop na entries
   filter(!is.na(viruslast))

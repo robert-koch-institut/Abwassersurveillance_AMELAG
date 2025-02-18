@@ -152,7 +152,7 @@ Die Datei [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/A
 
 ### Daten über alle Standorte aggregiert
 
-In der Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) ist die Zeitreihe der SARS-CoV-2-, Influenza A- und Influenza B-Viruslast einzeln und als Summe (Influenza A+B) sowie von RSV A, RSV B einzeln und als Summe (RSV A+B) und gemeinsamen Messungen von RSV A und RSV B (RSV A/B) auf aggregierter bzw. bundesweiter Ebene enthalten. 
+In der Datei [`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) ist die Zeitreihe der SARS-CoV-2-, Influenza A- und Influenza B-Viruslast einzeln und als Summe (Influenza A+B) sowie von RSV A, RSV B einzeln und als Summe (RSV A+B) und der gemeinsamen Messungen von RSV A und RSV B (RSV A/B) auf aggregierter bzw. bundesweiter Ebene enthalten. 
 
 > [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv)
 
