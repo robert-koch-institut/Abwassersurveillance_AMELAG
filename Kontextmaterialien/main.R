@@ -9,8 +9,24 @@ if (!"pacman" %in% rownames(installed.packages()))
 
 # set virus that should be analyzed and whether weights should be applied when
 # aggregating over sites
-pathogens <- c("SARS-CoV-2", "Influenza A", "Influenza B", "Influenza A+B")
-weight_pathogen <- c("TRUE", "FALSE", "FALSE", "FALSE")
+pathogens <- c(
+  "SARS-CoV-2",
+  "Influenza A",
+  "Influenza B",
+  "Influenza A+B",
+  "RSV A",
+  "RSV B",
+  "RSV A+B",
+  "RSV AB"
+)
+weight_pathogen <- c("TRUE",
+                     "FALSE",
+                     "FALSE",
+                     "FALSE",
+                     "FALSE",
+                     "FALSE",
+                     "FALSE",
+                     "FALSE")
 
 # should log data be shown in created graphics?
 # set TRUE or FALSE
@@ -34,12 +50,20 @@ read_data_here <-
   normalizePath(file.path(here(), ".."))
 results_here <-
   here(here(), "Results")
-var_names <- paste0("results_here_",
-                    c("sars", "influenza_a", "influenza_b", "influenza_gesamt"))
-paths = paste(here(
-  results_here,
-  pathogens
-))
+var_names <- paste0(
+  "results_here_",
+  c(
+    "sars",
+    "influenza_a",
+    "influenza_b",
+    "influenza_gesamt",
+    "rsv_a",
+    "rsv_b",
+    "rsv_gesamt",
+    "rsv_ab"
+  )
+)
+paths = paste(here(results_here, pathogens))
 
 # check if results directory exists
 if (!dir.exists(here(results_here)))
@@ -58,14 +82,13 @@ for (i in seq_along(var_names)) {
 }
 
 # (install and) load packages, read in functions, directories and self-defined values
-source(here(scripts_here, "functions_packages.R"),
-       encoding = "UTF-8")
+source(here(scripts_here, "functions_packages.R"), encoding = "UTF-8")
 
 # this script is for understanding how loess curve, confidence intervals
 # and trends are calculated from single site data; no output is created
 source(here(scripts_here, "loess_calculation.R"), encoding = "UTF-8")
 
-# this script is for understanding how aggregation of data takes place and how 
+# this script is for understanding how aggregation of data takes place and how
 # loess curve and trends are calculated for aggregated data, i.e. it is also shown
 # how the aggregated data set is derived from single site data; no output is created
 source(here(scripts_here, "aggregation_calculation.R"), encoding = "UTF-8")

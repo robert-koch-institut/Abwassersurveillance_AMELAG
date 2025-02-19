@@ -1,26 +1,45 @@
 # read in data
 df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
-               show_col_types = FALSE)
+               show_col_types = FALSE) %>%
+  # rename RSV A/B to avoid problems when saving data
+  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ))
+
+# generate weeks starting on Thursday
+thursday_data <-
+  df %>%
+  distinct(datum) %>%
+  mutate(
+    Tag = lubridate::wday(datum, week_start = 1),
+    is_thursday = ifelse(Tag == 4, 1, 0),
+    th_week = cumsum(is_thursday)
+  ) %>%
+  dplyr::select(datum, th_week, Tag)
 
 # create aggregated data (aggregated over all sites)
 df_agg <- df %>%
+  left_join(thursday_data) %>%
+  group_by(standort, typ) %>%
+  # complete data
+  fill(normalisierung, .direction = "updown") %>%
+  mutate(unter_bg = ifelse(is.na(viruslast), "nein", unter_bg)) %>%
+  ungroup() %>%
   # create log values
   mutate(log_viruslast = log10(viruslast)) %>%
-  # generate week starting on Thursdays
-  mutate(
-    Tag = lubridate::wday(datum, week_start = 1),
-    is_donnerstag = ifelse(Tag == 4, 1, 0),
-    don_woche = cumsum(is_donnerstag)
-  ) %>%
-  # for each site, compute 7-day averages
-  group_by(standort, typ, don_woche) %>%
-  mutate_at(vars(contains("viruslast")), ~ mean(., na.rm = TRUE)) %>%
+  # add dates with NAs before measurements to avoid that 7-days-averages
+  # drop values if no previous dates are available
+  group_by(standort, typ) %>%
+  pad(by = "datum",
+      interval = "day",
+      start_val = min(df$datum) - 7) %>%
   ungroup() %>%
-  # take only wednesday values (i.e. averages from the last 7 days starting/ending from
-  # wednesdays)
-  filter(Tag == 3, !is.na(log_viruslast)) %>%
+  # for each site, compute 7-day averages
+  group_by(standort, typ, th_week) %>%
+  mutate_at(vars(contains("viruslast")), ~ mean(., na.rm = TRUE)) %>%
+  # take only one value per week, site
+  filter(datum == max(datum, na.rm = TRUE)) %>%
+  ungroup() %>%
   # remove sites without available weight
-  filter(!is.na(einwohner))
+  filter(!is.na(einwohner), !is.na(log_viruslast))
 
 # Create an empty list as placeholder
 agg_list <- list()
@@ -43,10 +62,13 @@ df_agg <- map_dfr(agg_list, bind_rows) %>%
   # important
   arrange(typ, datum) %>%
   group_by(datum) %>%
-  # ensure that influenza gesamt is sum of the single viruses
+  # ensure that influenza and rsv gesamt is sum of the single viruses
   mutate(
-    log_viruslast = ifelse(typ == "influenza_gesamt", log10(sum(
-      10 ^ log_viruslast[typ %in% c("influenza_a", "influenza_b")], na.rm = TRUE
+    log_viruslast = ifelse(typ == "Influenza A+B", log10(sum(
+      10 ^ log_viruslast[typ %in% c("Influenza A", "Influenza B")], na.rm = TRUE
+    )), log_viruslast),
+    log_viruslast = ifelse(typ == "RSV A+B", log10(sum(
+      10 ^ log_viruslast[typ %in% c("RSV A", "RSV B")], na.rm = TRUE
     )), log_viruslast),
     # drop created zeros (if only NAs are summed up, a zero is created)
     log_viruslast = ifelse(log_viruslast < 0.0000001, NA, log_viruslast)
@@ -57,20 +79,35 @@ df_agg <- map_dfr(agg_list, bind_rows) %>%
 pred <- df_agg %>%
   group_by(typ) %>%
   nest() %>%
-  mutate(pred = map(data, ~
-                      predict(
-                        loess.as(
-                          .x$obs[!is.na(.x$log_viruslast)],
-                          .x$log_viruslast[!is.na(.x$log_viruslast)],
-                          criterion = "aicc",
-                          family = "gaussian",
-                          degree = 2,
-                          control = loess.control(surface = "direct"),
-                          weights = sqrt(.x$weights[!is.na(.x$log_viruslast)])
-                        ),
-                        newdata = data.frame(x = .x$obs),
-                        se = TRUE
-                      ))) %>%
+  mutate(pred = map(data, ~ tryCatch({
+    predict(
+      loess.as(
+        .x$obs[!is.na(.x$log_viruslast)],
+        .x$log_viruslast[!is.na(.x$log_viruslast)],
+        criterion = "aicc",
+        family = "gaussian",
+        degree = 2,
+        weights = sqrt(.x$weights[!is.na(.x$log_viruslast)]),
+        control = loess.control(surface = "direct")
+      ),
+      newdata = data.frame(x = .x$obs),
+      se = TRUE
+    )
+  }, warning = function(w) {
+    message("Warning in pathogen ", unique(typ), ": ", conditionMessage(w))
+    predict(
+      loess.as(
+        .x$obs[!is.na(.x$log_viruslast)],
+        .x$log_viruslast[!is.na(.x$log_viruslast)],
+        family = "gaussian",
+        degree = 2,
+        user.span = .75,
+        control = loess.control(surface = "direct")
+      ),
+      newdata = data.frame(x = .x$obs),
+      se = TRUE
+    )
+  }))) %>%
   select(pred) %>%
   unnest(cols = c(pred))
 
@@ -103,4 +140,16 @@ df_agg <- df_agg %>%
     loess_obere_schranke = 10 ^ loess_obere_schranke,
     loess_vorhersage = 10 ^ (loess_vorhersage),
     viruslast = 10 ^ (log_viruslast)
-  )
+  ) %>%
+  # select and rename relevant variables
+  select(
+    datum,
+    n = n_non_na,
+    anteil_bev,
+    viruslast,
+    contains("loess"),-contains("vorhersage_df"),-contains("vorhersage_se"),
+    normalisierung,
+    typ
+  ) %>%
+  # drop na entries
+  filter(!is.na(viruslast))

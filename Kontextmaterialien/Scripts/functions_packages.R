@@ -9,9 +9,11 @@ pacman::p_load(here,
                scales,
                lubridate)
 
-# population in Germany at end of June 2023
-# https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/_inhalt.html, accessed on 25/10/2023
-pop <- 84482000
+# population in Germany at end of 2022 (should match more or less date of
+# collection of connected inhabitants of treatment plants)
+# https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/_inhalt.html, 
+# accessed on 25/10/2023
+pop <- 84358845
 
 # define function that computes variance of a weighted mean
 var_weighted <- function(x = NULL, wt = NULL) {
@@ -126,25 +128,26 @@ aggregation <- function(df = df_agg,
   # if weighting then use inhabitants as weights, else set weights to 1
   if (weighting)
     df <- df %>%
-      mutate(weighting_var = einwohner) %>%
-      # for non-normalized data below limit of detection, draw random value below
-      # limit of detection to introduce some noise for calculation of the variance
-      # of the mean (otherwise, the mean for a week over all places might have zero
-      # variance)
-      mutate(
-        value = ifelse(
-          unter_bg == "ja" & normalisierung == "nein",
-          runif(n(), 0.00001, 2 * viruslast),
-          viruslast
-        ),
-        sim_log = log10(viruslast)
-      )
-  else
+      mutate(weighting_var = einwohner) else
     df <- df %>%
-      mutate(weighting_var = 1, sim_log = log_viruslast)
+      mutate(weighting_var = 1)
   
+  # set seed for replicability
+  set.seed(22)
   df <- df %>%
-    group_by(datum) %>%
+    # for non-normalized data below limit of detection, draw random value below
+    # limit of detection to introduce some noise for calculation of the variance
+    # of the mean (otherwise, the mean for a week over all places might have zero
+    # variance)
+    mutate(
+      viruslast = ifelse(
+        unter_bg == "ja" & normalisierung == "nein",
+        runif(n(), 0.00001, 2 * viruslast),
+        viruslast
+      ),
+      sim_log = log10(viruslast)
+    ) %>% 
+    group_by(th_week) %>%
     # compute weights for loess curve, these are the inverse values of the variance
     # of the (weighted) mean of the observations
     mutate(weights = (1 / var_weighted(x = sim_log, wt = weighting_var))) %>%

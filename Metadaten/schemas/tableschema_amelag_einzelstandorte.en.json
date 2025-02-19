@@ -135,7 +135,11 @@
           "SARS-CoV-2",
           "Influenza A",
           "Influenza B",
-          "Influenza A+B"
+          "Influenza A+B",
+          "RSV A",
+          "RSV B",
+          "RSV A+B",
+          "RSV A/B"
         ]
       }
     },

@@ -1,6 +1,5 @@
 # read in data for single treatment plants
-data_plots <- data_combined %>%
-  select(-loess_aenderung)
+data_plots <- data_combined
 
 # should log data be shown?
 if (show_log_data)
