@@ -12,9 +12,9 @@ plot_data <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv")) %>%
   mutate(proportion = n / sum(n)) %>%
   mutate(unter_bg = factor((unter_bg == "ja") * 1, levels = c("1", "0"))) %>%
   ungroup() %>%
-  # take only most recent year
+  # show only most recent 14 months (roundabout)
   group_by(typ) %>%
-  filter(woche >= max(woche) - 365) %>%
+  filter(woche >= max(woche) - 425) %>%
   ungroup()
 
 # loop through virus types and make plots for each of them
