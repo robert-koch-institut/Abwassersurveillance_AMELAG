@@ -259,7 +259,7 @@ Wastewater surveillance is a technique for detecting pathogens in wastewater to 
 ### Administrative and organizational information
 
 AMELAG is a project funded by the [Federal Ministry of Health (BMG)](https://www.bundesgesundheitsministerium.de/en/index.html) and is being conducted in cooperation with the Federal Ministry for the Environment, Nature Conservation, Nuclear Safety and [Consumer Protection (BMUV)](https://www.bmuv.de/en/).
-The project is being carried out jointly by the Robert Koch Institute (RKI) and the [Federal Environment Agency (UBA)](https://www.umweltbundesamt.de/en). Further information on AMELAG can be found on the [project website](https://www.rki.de/EN/Content/Institute/DepartmentsUnits/InfDiseaseEpidem/Div32/WastewaterSurveillance/WastewaterSurveillance.html).  
+The project is being carried out jointly by the Robert Koch Institute (RKI) and the [Federal Environment Agency (UBA)](https://www.umweltbundesamt.de/en). Further information on AMELAG can be found on the [project website](https://www.rki.de/EN/Topics/Research-and-data/Surveillance-panel/Wastewater-surveillance/wastewater-surveillance-node.html).  
 The participating WWTPs are responsible for taking samples, which are analyzed by the participating laboratories. In addition to commercial laboratories, state laboratories and the Federal Environment Agency, the Central Medical Service of the German Armed Forces also carries out part of the analysis.
 
 Some of the WWTPs and laboratories are also involved in wastewater surveillance projects in the federal states (Baden-Württemberg, Bavaria, Berlin, Brandenburg, Hamburg, Hesse, Rhineland-Palatinate, Saxony-Anhalt). 
