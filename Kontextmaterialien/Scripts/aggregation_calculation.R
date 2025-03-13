@@ -41,6 +41,34 @@ df_agg <- df %>%
   # remove sites without available weight
   filter(!is.na(einwohner), !is.na(log_viruslast))
 
+df_agg <- df_agg %>%
+  # calculate unweighted means over the weeks as these unweighted means can be
+  # used to calculate differnces between site/lab combination from these means.
+  # in this way, average differences in the viral loads that are site/lab
+  # specific can be adjusted for.
+  group_by(typ, th_week) %>%
+  mutate(mean_log_viruslast = mean(log_viruslast)) %>%
+  ungroup() %>%
+  # calculate differences from these means
+  mutate(log_viruslast_dev = log_viruslast - mean_log_viruslast) %>%
+  group_by(standort, typ) %>%
+  mutate(
+    # add lab number per site (first lab gets 0, second lab gets 1 etc.)
+    laborwechsel_numerisch = ifelse(laborwechsel == "ja", 1, 0),
+    labor = cumsum(laborwechsel_numerisch),
+  ) %>%
+  ungroup() %>%
+  # average over these for each virus/site/lab combination
+  group_by(typ, standort, labor) %>%
+  mutate(log_viruslast_dev = mean(log_viruslast_dev)) %>%
+  ungroup() %>%
+  # adjust for these deviations
+  mutate(log_viruslast = log_viruslast - log_viruslast_dev) %>%
+  # drop variables no longer needed
+  select(-mean_log_viruslast,
+         -log_viruslast_dev,
+         -labor,-laborwechsel_numerisch)
+
 # Create an empty list as placeholder
 agg_list <- list()
 
@@ -62,7 +90,7 @@ df_agg <- map_dfr(agg_list, bind_rows) %>%
   # important
   arrange(typ, datum) %>%
   group_by(datum) %>%
-  # ensure that influenza and rsv gesamt is sum of the single viruses
+  # ensure that influenza and rsv gesamt are sums of the single viruses
   mutate(
     log_viruslast = ifelse(typ == "Influenza A+B", log10(sum(
       10 ^ log_viruslast[typ %in% c("Influenza A", "Influenza B")], na.rm = TRUE
@@ -147,7 +175,9 @@ df_agg <- df_agg %>%
     n = n_non_na,
     anteil_bev,
     viruslast,
-    contains("loess"),-contains("vorhersage_df"),-contains("vorhersage_se"),
+    contains("loess"),
+    -contains("vorhersage_df"),
+    -contains("vorhersage_se"),
     normalisierung,
     typ
   ) %>%

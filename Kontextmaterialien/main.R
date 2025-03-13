@@ -19,14 +19,7 @@ pathogens <- c(
   "RSV A+B",
   "RSV AB"
 )
-weight_pathogen <- c("TRUE",
-                     "FALSE",
-                     "FALSE",
-                     "FALSE",
-                     "FALSE",
-                     "FALSE",
-                     "FALSE",
-                     "FALSE")
+weight_pathogen <- rep(TRUE, length(pathogens))
 
 # should log data be shown in created graphics?
 # set TRUE or FALSE
