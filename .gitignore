@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 /Kontextmaterialien/Results/
+/Kontextmaterialien/renv/.gitignore
 .tsv
