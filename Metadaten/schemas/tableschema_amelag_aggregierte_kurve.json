@@ -31,7 +31,7 @@
     {
       "name": "viruslast",
       "type": "number",
-      "description": "Gemessene Viruslast (in Genkopien pro Liter), gemittelt über alle Standorte und für SARS-CoV-2 gewichtet nach angeschlossenen Einwohnern der Kläranlagen. Vor der Mittelung über die Standorte wurden alle Messwerte der Standorte in den letzten 7 Tagen jeweils mittels 10er-Logarithmus transformiert und über die einzelnen Standorte gemittelt. Die angegebene Viruslast ist der auf die Originalskala zurücktransformierte Mittelwert.",
+      "description": "Gemessene Viruslast (in Genkopien pro Liter), gemittelt über alle Standorte und gewichtet nach angeschlossenen Einwohnern der Kläranlagen. Vor der Mittelung über die Standorte wurden alle Messwerte der Standorte in den letzten 7 Tagen jeweils mittels 10er-Logarithmus transformiert und über die einzelnen Standorte gemittelt. Die angegebene Viruslast ist der auf die Originalskala zurücktransformierte Mittelwert.",
       "missingValues": [
         "NA"
       ],
