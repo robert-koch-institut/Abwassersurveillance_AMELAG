@@ -2,7 +2,12 @@
 df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
                show_col_types = FALSE) %>%
   # rename RSV A/B to avoid problems when saving data
-  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ))
+  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ)) %>%
+  # remove unreliable / variable Influenza data from Dresden from aggregation
+  filter(!(
+    standort == "Dresden" &
+      typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
+  ))
 
 # generate weeks starting on Thursday
 thursday_data <-
