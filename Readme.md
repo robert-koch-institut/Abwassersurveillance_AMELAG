@@ -1,4 +1,4 @@
-Datensatzdokumentation  
+Dokumentation
 # Abwassersurveillance AMELAG  
 
 [Robert Koch-Institut](https://rki.de) | RKI  
@@ -12,9 +12,8 @@ Nordufer 20
 <br>
 
 **Zitieren**  
-<!-- CITATION_START: {"citation_style": "apa"} -->
 Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15051206](https://doi.org/10.5281/zenodo.15051206)
-<!-- CITATION_END -->
+
 
 ---
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
@@ -164,26 +163,26 @@ Die Datei [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut
 > [tableschema_amelag_aggregierte_kurve.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
-| Variable              | Typ     | Ausprägungen                                                                                       | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-|:----------------------|:--------|:---------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| datum                 | date    | Format: `YYYY-MM-DD`                                                                               | Datum des Mittwochs einer Woche. Die Daten der unterliegenden Einzelzeitreihen werden innerhalb des Zeitraums vom vorherigen Donnerstag bis zum angegebenen Mittwoch gemittelt.                                                                                                                                                                                                                                                              |
-| n                     | integer | Werte: `≥0`<br>Fehlende Werte: `NA`                                                                | Anzahl der Standorte, die mindestens einen Messwert im durch "datum" beschriebenen Zeitraum übermittelt haben.                                                                                                                                                                                                                                                                                                                               |
-| anteil_bev            | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                                | Anteil der Gesamtbevölkerung in Deutschland, der an die übermittelnden Kläranlagen angeschlossen ist.                                                                                                                                                                                                                                                                                                                                        |
+| Variable              | Typ     | Ausprägungen                                                                                       | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|:----------------------|:--------|:---------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| datum                 | date    | Format: `YYYY-MM-DD`                                                                               | Datum des Mittwochs einer Woche. Die Daten der unterliegenden Einzelzeitreihen werden innerhalb des Zeitraums vom vorherigen Donnerstag bis zum angegebenen Mittwoch gemittelt.                                                                                                                                                                                                                                               |
+| n                     | integer | Werte: `≥0`<br>Fehlende Werte: `NA`                                                                | Anzahl der Standorte, die mindestens einen Messwert im durch "datum" beschriebenen Zeitraum übermittelt haben.                                                                                                                                                                                                                                                                                                                |
+| anteil_bev            | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                                | Anteil der Gesamtbevölkerung in Deutschland, der an die übermittelnden Kläranlagen angeschlossen ist.                                                                                                                                                                                                                                                                                                                         |
 | viruslast             | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                                | Gemessene Viruslast (in Genkopien pro Liter), gemittelt über alle Standorte und gewichtet nach angeschlossenen Einwohnern der Kläranlagen. Vor der Mittelung über die Standorte wurden alle Messwerte der Standorte in den letzten 7 Tagen jeweils mittels 10er-Logarithmus transformiert und über die einzelnen Standorte gemittelt. Die angegebene Viruslast ist der auf die Originalskala zurücktransformierte Mittelwert. |
-| loess_vorhersage      | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                                | Vorhergesagte Viruslast (mittels einer LOESS-Regression, zurücktransformiert auf die Originalskala).                                                                                                                                                                                                                                                                                                                                         |
-| loess_obere_schranke  | number  | Werte: `≥0`                                                                                        | Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.                                                                                                                                                                                                                                                                                                                                                              |
-| loess_untere_schranke | number  | Werte: `≥0`                                                                                        | Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.                                                                                                                                                                                                                                                                                                                                                             |
-| normalisierung        | string  | Werte: `ja`, `nein`<br>Fehlende Werte: `NA`                                                        | Gibt an, ob die unterliegenden Einzelzeitreihen nach Durchfluss normalisiert sind.                                                                                                                                                                                                                                                                                                                                                           |
-| typ                   | string  | Werte: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`, `RSV A`, `RSV B`, `RSV A+B`, … | Virustyp.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| loess_vorhersage      | number  | Werte: `≥0`<br>Fehlende Werte: `NA`                                                                | Vorhergesagte Viruslast (mittels einer LOESS-Regression, zurücktransformiert auf die Originalskala).                                                                                                                                                                                                                                                                                                                          |
+| loess_obere_schranke  | number  | Werte: `≥0`                                                                                        | Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.                                                                                                                                                                                                                                                                                                                                               |
+| loess_untere_schranke | number  | Werte: `≥0`                                                                                        | Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.                                                                                                                                                                                                                                                                                                                                              |
+| normalisierung        | string  | Werte: `ja`, `nein`<br>Fehlende Werte: `NA`                                                        | Gibt an, ob die unterliegenden Einzelzeitreihen nach Durchfluss normalisiert sind.                                                                                                                                                                                                                                                                                                                                            |
+| typ                   | string  | Werte: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`, `RSV A`, `RSV B`, `RSV A+B`, … | Virustyp.                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 <!-- DATA_SCHEMA_TABLE_END -->
 
 <!-- DATA_SCHEMA_SPECIFICATION_END -->
 ### Kontextmaterialien
 
-Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://edoc.rki.de/handle/176904/11665) werden die zur Erstellung der Analyse verwendeten R-Skripte bereitgestellt. Die Skripte befinden sich im Ordner "[Kontextmatrialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" des Datensatzes.
+Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://edoc.rki.de/handle/176904/11665) werden die zur Erstellung der Analyse verwendeten R-Skripte bereitgestellt. Die Skripte befinden sich im Ordner "[Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" des Datensatzes.
 
-> [Kontextmatrialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
+> [Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
 
 
 <!-- FOOTER_START: {"lang": "de"} -->
@@ -213,6 +212,22 @@ In der zenodo.json ist neben dem Publikationsdatum (`"publication_date"`) auch d
   ],
 ```    
 
+
+Zusätzlich beschreiben wir tabellarische Daten mithilfe des [Data Package Standards](https://datapackage.org/).
+Ein Data Package ist eine strukturierte Sammlung von Daten und zugehörigen Metadaten, die den Austausch und die Wiederverwendung von Daten erleichtert. Es besteht aus einer datapackage.json-Datei, die zentrale Informationen wie die enthaltenen Ressourcen, ihre Formate und Schema-Definitionen beschreibt.
+
+Der Data Package Standard wird von der [Open Knowledge Foundation](https://okfn.org/) bereitgestellt und ist ein offenes Format, das eine einfache, maschinenlesbare Beschreibung von Datensätzen ermöglicht.
+
+Die Liste der in diesem Repository enthaltenen Daten ist in folgender Datei hinterlegt:
+
+> [datapackage.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/datapackage.json)
+
+Für tabellarische Daten definieren wir zusätzlich ein [Table Schema](https://datapackage.org/standard/table-schema/), das die Struktur der Tabellen beschreibt, einschließlich Spaltennamen, Datentypen und Validierungsregeln. Diese Schema-Dateien finden sich unter:
+
+> [Metadaten/schemas/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadaten/schemas) 
+
+
+
 ## Hinweise zur Nachnutzung der Daten  
 
 Offene Forschungsdaten des RKI werden auf [Zenodo.org](http://Zenodo.org/), [GitHub.com](http://GitHub.com/), [OpenCoDE](https://gitlab.opencode.de) und [Edoc.rki.de](http://Edoc.rki.de/) bereitgestellt:  
@@ -230,7 +245,11 @@ Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung 
 <!-- FOOTER_END -->
  
 
- 
+<br><br><br>
+----------------------
+<br><br><br>
+
+Documentation
 # Wastewater surveillance AMELAG  
 
 [Robert Koch Institute](https://www.rki.de/EN) | RKI  
@@ -244,9 +263,8 @@ Nordufer 20
 <br>
 
 **Cite**  
-<!-- CITATION_START: {"citation_style": "apa"} -->
 Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15051206](https://doi.org/10.5281/zenodo.15051206)
-<!-- CITATION_END -->
+
 
 ---
 
@@ -392,17 +410,17 @@ The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/
 > [tableschema_amelag_aggregierte_kurve.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.en.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
-| Variable              | Type    | Characteristic                                                                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|:----------------------|:--------|:----------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| datum                 | date    | Format: `YYYY-MM-DD`                                                                                | Date of Wednesdays of a week. The data of the underlying individual time series are averaged within the period from the previous Thursday to the specified Wednesday.                                                                                                                                                                                                                                                            |
-| n                     | integer | Values: `≥0`<br>Missing values: `NA`                                                                | Number of locations that have transmitted at least one measured value in the period defined by "date".                                                                                                                                                                                                                                                                                                                           |
-| anteil_bev            | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Proportion of the total population in Germany that is connected to the transmitting sewage treatment plants.                                                                                                                                                                                                                                                                                                                     |
+| Variable              | Type    | Characteristic                                                                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                     |
+|:----------------------|:--------|:----------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| datum                 | date    | Format: `YYYY-MM-DD`                                                                                | Date of Wednesdays of a week. The data of the underlying individual time series are averaged within the period from the previous Thursday to the specified Wednesday.                                                                                                                                                                                                                                           |
+| n                     | integer | Values: `≥0`<br>Missing values: `NA`                                                                | Number of locations that have transmitted at least one measured value in the period defined by "date".                                                                                                                                                                                                                                                                                                          |
+| anteil_bev            | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Proportion of the total population in Germany that is connected to the transmitting sewage treatment plants.                                                                                                                                                                                                                                                                                                    |
 | viruslast             | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Measured viral load (in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants). Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale. |
-| loess_vorhersage      | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Predicted viral load (predicted using a LOESS regression, transformed back to the original scale).                                                                                                                                                                                                                                                                                                                               |
-| loess_obere_schranke  | number  | Values: `≥0`                                                                                        | Upper bound of the 95% confidence interval of the LOESS predicted value.                                                                                                                                                                                                                                                                                                                                                         |
-| loess_untere_schranke | number  | Values: `≥0`                                                                                        | Lower bound of the 95% confidence interval of the LOESS predicted value.                                                                                                                                                                                                                                                                                                                                                         |
-| normalisierung        | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                        | Indicates whether individual time series were normalized by flowrate (`ja`=yes, `nein`=no).                                                                                                                                                                                                                                                                                                                                      |
-| typ                   | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`, `RSV A`, `RSV B`, `RSV A+B`, … | Virus type.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| loess_vorhersage      | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Predicted viral load (predicted using a LOESS regression, transformed back to the original scale).                                                                                                                                                                                                                                                                                                              |
+| loess_obere_schranke  | number  | Values: `≥0`                                                                                        | Upper bound of the 95% confidence interval of the LOESS predicted value.                                                                                                                                                                                                                                                                                                                                        |
+| loess_untere_schranke | number  | Values: `≥0`                                                                                        | Lower bound of the 95% confidence interval of the LOESS predicted value.                                                                                                                                                                                                                                                                                                                                        |
+| normalisierung        | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                        | Indicates whether individual time series were normalized by flowrate (`ja`=yes, `nein`=no).                                                                                                                                                                                                                                                                                                                     |
+| typ                   | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`, `RSV A`, `RSV B`, `RSV A+B`, … | Virus type.                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 <!-- DATA_SCHEMA_TABLE_END -->
 
@@ -421,11 +439,11 @@ To reproduce the results of the [AMELAG weekly report](https://edoc.rki.de/handl
 
 To increase findability, the provided data are described with metadata. The Metadata are distributed to the relevant platforms via GitHub Actions. There is a specific metadata file for each platform; these are stored in the metadata folder:
 
-> [Metadaten/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadaten/)
+> [Metadata/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadata/)
 
 Versioning and DOI assignment are performed via [Zenodo.org](https://zenodo.org). The metadata prepared for import into Zenodo are stored in the [zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json). Documentation of the individual metadata variables can be found at https://developers.zenodo.org/representation.
 
-> [Metadaten/zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json)
+> [Metadata/zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadata/zenodo.json)
 
 The zenodo.json includes the publication date and the date of the data status in the following format (example):
 ```
@@ -440,6 +458,22 @@ The zenodo.json includes the publication date and the date of the data status in
   ],
 ```
 
+
+Additionally, we describe tabular data using the [Data Package Standard](https://datapackage.org/).  
+A Data Package is a structured collection of data and associated metadata that facilitates data exchange and reuse. It consists of a `datapackage.json` file that contains key information such as the included resources, their formats, and schema definitions.  
+
+The Data Package Standard is provided by the [Open Knowledge Foundation](https://okfn.org/) and is an open format that enables a simple, machine-readable description of datasets.  
+
+The list of data included in this repository can be found in the following file:  
+
+> [datapackage.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/datapackage.json)  
+
+For tabular data, we additionally define a [Table Schema](https://datapackage.org/standard/table-schema/) that describes the structure of the tables, including column names, data types, and validation rules. These schema files can be found in:  
+
+> [Metadata/schemas/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadata/schemas)  
+
+
+
 ## Guidelines for Reuse of the Data
 
 Open data from the RKI are available on [Zenodo.org](http://Zenodo.org/), [GitHub.com](http://GitHub.com/), [OpenCoDE](https://gitlab.opencode.de), and [Edoc.rki.de](http://Edoc.rki.de/):
@@ -451,7 +485,7 @@ Open data from the RKI are available on [Zenodo.org](http://Zenodo.org/), [GitHu
 
 ### License
 
-The "Abwassersurveillance AMELAG" dataset is licensed under the [Creative Commons Attribution 4.0 International Public License | CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en).
+The "Wastewater surveillance AMELAG" dataset is licensed under the [Creative Commons Attribution 4.0 International Public License | CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en).
 
 The data provided in the dataset are freely available, with the condition of attributing the Robert Koch Institute as the source, for anyone to process and modify, create derivatives of the dataset and use them for commercial and non-commercial purposes.      
 Further information about the license can be found in the [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) or [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) file of the dataset.
