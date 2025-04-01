@@ -31,7 +31,7 @@
     {
       "name": "viruslast",
       "type": "number",
-      "description": "Measured viral load (in gene copies per liter averaged over all sites and, for SARS-CoV-2, weighted by connected inhabitants of the wastewater treatment plants). Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale.",
+      "description": "Measured viral load (in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants). Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale.",
       "missingValues": [
         "NA"
       ],
