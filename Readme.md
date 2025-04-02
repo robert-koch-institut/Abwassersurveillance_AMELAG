@@ -13,7 +13,7 @@ Nordufer 20
 
 **Zitieren**  
 <!-- CITATION_START: {"citation_style": "apa"} -->
-Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15089417](https://doi.org/10.5281/zenodo.15089417)
+Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15124845](https://doi.org/10.5281/zenodo.15124845)
 <!-- CITATION_END -->
 
 ---
@@ -245,7 +245,7 @@ Nordufer 20
 
 **Cite**  
 <!-- CITATION_START: {"citation_style": "apa"} -->
-Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15089417](https://doi.org/10.5281/zenodo.15089417)
+Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15124845](https://doi.org/10.5281/zenodo.15124845)
 <!-- CITATION_END -->
 
 ---
