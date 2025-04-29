@@ -7,19 +7,7 @@ df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
   filter(!(
     standort == "Dresden" &
       typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
-  )) %>% 
-  # remove inconsistent Sars data from a few sites from aggregation
-  filter(!(
-    standort %in% c(
-      "Bottrop",
-      "Dinslaken",
-      "Dortmund-Deusen",
-      "Dortmund-Scharnhorst",
-      "Duisburg",
-      "Emschermündung"
-    ) &
-      typ %in% "SARS-CoV-2"
-  ))
+  )) 
 
 # generate weeks starting on Thursday
 thursday_data <-
