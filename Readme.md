@@ -95,7 +95,7 @@ Bei der Datenbewertung sind einige Besonderheiten zu beachten:
     * RSV A: N
     * RSV B: N
     * RSV A/B: M, N
-* Der Standort Hamburg ist mit zwei Zuläufen vertreten: “Hamburg Nord” und “Hamburg Süd”.
+* Einige Städte sind mit mehr als einer Kläranlage bzw. mehr als einem Zulauf vertreten.  
 * Bei Werten unterhalb der Bestimmungsgrenze (BG) wird mit der Hälfte der Bestimmungsgrenze als Wert gerechnet (0,5 * BG).
 
 #### Limitationen 
@@ -347,7 +347,7 @@ Some things to take into account when evaluating the data:
     * RSV A: N
     * RSV B: N
     * RSV A/B: M, N
-* The Hamburg site is represented by two inflows: "Hamburg North" and "Hamburg South".
+* Some cities are have more than one sewage treatment plant or more than one inflow.  
 * For values below the limit of quantification (LOQ), half of the LOQ is used as the value (0.5 * LOQ).
 
 #### Limitations 
