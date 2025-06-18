@@ -78,36 +78,128 @@ plot_not_enough_data <- function(county = county) {
 }
 
 # loq plot
-loq_plot <- function(plot_data = plot_data, virus = "Influenza-A") {
+loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
   # select pathogen
   plot_data <- plot_data %>%
     filter(typ == !!(virus))
   
+  # add row for zero values
+  plot_data_y <- plot_data %>%
+    complete(woche, nesting(unter_bg), fill = list(n = 0, proportion = 0.0)) %>%
+    # add year variable (year according to Wednesday of the calender week)
+    mutate(Y = year(woche + 2))
+  
+  # sum observations per week
+  plot_data_w <- plot_data_y %>%
+    group_by(Y, woche) %>%
+    summarise(n = sum(n))
+  
+  # set some graphic parameters
+  f0 <- 1.05
+  fh <- .2
+  annotation_text_size = 1.6
+  
+  # store maximum number of observations per week
+  n_max <- max(plot_data_w %>% pull(n))
+  
   # basic plot
-  p <- ggplot(data = plot_data, aes(x = woche, y = proportion, fill = unter_bg)) +
-    geom_bar(stat = "identity") +
-    theme_classic() +
+  p <- ggplot(data = plot_data_y, aes(x = woche)) +
+    geom_bar(
+      stat = "identity",
+      aes(y = proportion, fill = unter_bg),
+      color = "black",
+      size = .2,
+      alpha = .8
+    ) +
+    theme_minimal() +
     theme(legend.position = "bottom") +
     scale_x_date(
       date_breaks = "4 week",
       labels = function(x) {
-        week_labels <- lubridate::isoweek(x) 
-        year_labels <- lubridate::isoyear(x)  
+        week_labels <- lubridate::isoweek(x)
+        year_labels <- lubridate::isoyear(x)
         paste0(week_labels, "\n", year_labels)
       },
       expand = c(0, 0)
     ) +
-    scale_y_continuous(expand = c(0, 0), labels = scales::percent) +
-    geom_text(aes(label = n), position = position_stack(vjust = 0.5)) +
+    scale_y_continuous(
+      expand = expansion(mult = c(0, .011)),
+      labels = scales::percent,
+      breaks = .25 * c(0:4),
+      minor_breaks = NULL
+    )  +
+    geom_text(aes(
+      label = n,
+      y = ifelse(unter_bg == 0, -0.05, 1.01),
+      vjust = ifelse(unter_bg == 0, 2, 0)
+    ),
+    position = position_stack(),
+    size = annotation_text_size) +
     labs(x = "Kalenderwoche", y = "Anteil der Abwasserstichproben") +
+    geom_rect(
+      data = plot_data_w,
+      aes(
+        ymin = f0,
+        ymax = f0 + fh,
+        xmin = woche - 3.5 * .9,
+        xmax = woche + 3.5 * .9
+      ),
+      fill = "white",
+      color = "black",
+      linewidth = .2,
+      show.legend = F
+    ) +
+    geom_rect(
+      data = plot_data_w %>% filter(n == n_max),
+      aes(
+        ymin = f0,
+        ymax = f0 + fh * round(n / n_max, digits = 1),
+        xmin = woche - 3.5 * .9,
+        xmax = woche + 3.5 * .9
+      ),
+      fill =  "darkgray",
+      color = "black",
+      linewidth = .2,
+      alpha = .8,
+      show.legend = F
+    ) +
+    geom_rect(
+      data = plot_data_w %>% filter(n != n_max),
+      aes(
+        ymin = f0,
+        ymax = f0 + fh * round(n / n_max, digits = 1),
+        xmin = woche - 3.5 * .9,
+        xmax = woche + 3.5 * .9
+      ),
+      fill = "lightgray",
+      color = "black",
+      linewidth = .2,
+      alpha = .8,
+      show.legend = F
+    ) +
+    geom_text(data = plot_data_w,
+              aes(
+                label = n,
+                y = f0 + fh + .01,
+                vjust = 0
+              ),
+              size = annotation_text_size) +
+    theme(
+      panel.spacing = unit(.1, 'lines'),
+      strip.text.x = element_text(
+        angle = 0,
+        hjust = 0,
+        vjust = 0
+      )
+    ) +
     scale_fill_manual(
-      values = c("#CE7B47", "#EAC66C"),
+      values = RColorBrewer::brewer.pal(12, "Set3")[c(5, 7)],
       name = paste(virus, "Nachweise", sep = " "),
       breaks = c("0", "1"),
       labels = c("positiv (> BG)", "negativ (< BG)")
     )
   
-  # save plots
+  # save plot
   ggsave(
     here(results_here, virus, "Nachweisbarkeit_Anteile.png"),
     plot = p,
