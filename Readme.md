@@ -273,7 +273,7 @@ Documentation
 
 <br> 
 
-**Beitragende**   
+**Contributors**   
 [Unit 32](https://www.rki.de/EN/Institute/Organisation/Departments/Department-3/Unit-32/unit-32-surveillance-and-demis-focal-point-public-health-service-node.html) &sup1;
 
 &emsp;&emsp;&sup1; [Robert Koch Institute](https://www.rki.de/en)
