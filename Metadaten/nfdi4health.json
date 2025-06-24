@@ -20,7 +20,7 @@
     ],
     "ids": [
       {
-        "identifier": "10.5281/zenodo.15181815",
+        "identifier": "10.5281/zenodo.15689644",
         "typeGeneral": "Dataset",
         "relationType": "A references B",
         "scheme": "DOI"
@@ -38,19 +38,19 @@
     "keywords": [
       {
         "label": "COVID-19",
-        "code": "D000086382"
+        "code": "http://id.nlm.nih.gov/mesh/D000086382"
       },
       {
         "label": "SARS-CoV-2",
-        "code": "D000086402"
+        "code": "http://id.nlm.nih.gov/mesh/D000086402"
       },
       {
         "label": "Abwasserbasierte epidemiologische Überwachung",
-        "code": "D000079686"
+        "code": "http://id.nlm.nih.gov/mesh/D000079686"
       },
       {
         "label": "Wastewater-Based Epidemiological Monitoring",
-        "code": "D000079686"
+        "code": "http://id.nlm.nih.gov/mesh/D000079686"
       },
       {
         "label": "Epidemiologie",
@@ -97,14 +97,20 @@
         },
         "label": "CC BY 4.0 (Creative Commons Attribution 4.0 International)"
       },
-      "version": "2025-04-08"
+      "version": "2025-06-17"
     },
     "webpage": "https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG",
     "contributors": [
       {
         "affiliations": [
           {
-            "name": "Robert Koch-Institut"
+            "name": "Robert Koch-Institut",
+            "identifiers": [
+              {
+                "identifier": "01k5qnb77",
+                "scheme": "ROR"
+              }
+            ]
           }
         ],
         "nameType": "Personal",
