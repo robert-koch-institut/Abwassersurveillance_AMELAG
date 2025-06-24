@@ -1,28 +1,36 @@
+ <!-- HEADER_START: {"lang": "de"} -->
+
+
 Dokumentation
-# Abwassersurveillance AMELAG  
+# Abwassersurveillance AMELAG
 
-[Robert Koch-Institut](https://rki.de) | RKI  
-Nordufer 20  
-13353 Berlin  
+<br> 
+<br> 
+<br> 
 
-<br>
+[**Robert Koch-Institut**](https://www.rki.de/), & [**Umweltbundesamt**](https://www.umweltbundesamt.de/)
 
-**Fachgebiet 32 | Surveillance und elektronisches Melde- und Informationssystem (DEMIS) | ÖGD-Kontaktstelle**
+<br> 
 
-<br>
+**Beitragende**   
+[Fachgebiet 32](https://www.rki.de/DE/Institut/Organisation/Abteilungen/Abteilung-3/FG32/fg32-surveillance-und-elektronisches-melde-und-informationssystem-demis-oegd-kontaktstelle-node.html) &sup1;
+
+&emsp;&emsp;&sup1; [Robert Koch-Institut](https://www.rki.de/)
+
+<br> 
 
 **Zitieren**  
-<!-- CITATION_START: {"citation_style": "apa"} -->
-Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15689644](https://doi.org/10.5281/zenodo.15689644)
-<!-- CITATION_END -->
+Robert Koch-Institut, & Umweltbundesamt. (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15689644](https://doi.org/10.5281/zenodo.15689644)
 
+
+<!-- HEADER_END -->
 ---
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Wastewater-surveillance-AMELAG)
 
 ## Informationen zum Datensatz und Entstehungskontext
 
-Das Vorhaben „Abwassermonitoring für die epidemiologische Lagebewertung“ (AMELAG) läuft vom 22.11.2022 bis zum 31.12.2025. Behörden, Kläranlagen und Labore arbeiten zusammen, um Proben zu nehmen, zu analysieren und zu bewerten. Das Ziel dieses Vorhabens ist es, SARS-CoV-2-Nachweise aus dem Abwasser als zusätzlichen Indikator zur epidemiologischen Lagebewertung auf Länder- und Bundesebene zu etablieren. Ebenso ist es das Ziel, Strukturen und Prozesse für ein bundesweites Netzwerk für die Abwassersurveillance weiter auszubauen, Konzepte für eine Verstetigung zu erstellen und die Möglichkeiten für ein Monitoring von weiteren Krankheitserregern im Abwasser zu erforschen. Aktuell werden Abwasserproben von ausgewählten Kläranlagen auf SARS-CoV-2, Influenzaviren und Respiratorische Synzytial-Viren (RSV) untersucht. 
-Bei der Abwassersurveillance werden Erreger im Abwasser gemessen um Gesundheitsschutzmaßnahmen besser steuern zu können. Abwassersurveillance kann einen Beitrag für eine Reihe von [Anwendungsfällen](https://doi.org/10.25646/12208) liefern. Abwasserdaten unterliegen speziellen Limitationen, beispielsweise erlauben sie keine genaue Einschätzung von Krankheitsschwere oder Belastung des Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert werden. 
+Das Vorhaben „Abwassermonitoring für die epidemiologische Lagebewertung“ (AMELAG) läuft vom 22.11.2022 bis zum 31.12.2025. Behörden, Kläranlagen und Labore arbeiten zusammen, um Proben zu nehmen, zu analysieren und zu bewerten. Das Ziel dieses Vorhabens ist es, SARS-CoV-2-Nachweise aus dem Abwasser als zusätzlichen Indikator zur epidemiologischen Lagebewertung auf Länder- und Bundesebene zu etablieren. Ebenso ist es das Ziel, Strukturen und Prozesse für ein bundesweites Netzwerk für die Abwassersurveillance weiter auszubauen, Konzepte für eine Verstetigung zu erstellen und die Möglichkeiten für ein Monitoring von weiteren Krankheitserregern im Abwasser zu erforschen. Aktuell werden Abwasserproben von ausgewählten Kläranlagen auf SARS-CoV-2, Influenzaviren und Respiratorische Synzytial-Viren (RSV) untersucht.  
+Bei der Abwassersurveillance werden Erreger im Abwasser gemessen um Gesundheitsschutzmaßnahmen besser steuern zu können. Abwassersurveillance kann einen Beitrag für eine Reihe von [Anwendungsfällen](https://doi.org/10.25646/12208) liefern. Abwasserdaten unterliegen speziellen Limitationen, beispielsweise erlauben sie keine genaue Einschätzung von Krankheitsschwere oder Belastung des Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert werden.  
 
 ### Administrative und organisatorische Angaben
 
@@ -75,7 +83,7 @@ Die Normalisierung erfolgt automatisiert mit dem Datenimport. Die gemessenen Vir
 
 ### Datenauswertung
 
-Die Auswertung der Daten erfolgt am RKI über R-Skripte. Die Skripte sind in den [Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien) enthalten. Eine genaue Beschreibung der Methodikist in den [technischen Leitfäden](http://www.rki.de/abwassersurveillance) hinterlget. Die Ergebnisse werden wöchentlich im AMELAG [Wochenbericht](https://edoc.rki.de/handle/176904/11665) auf der RKI-Webseite veröffentlicht. 
+Die Auswertung der Daten erfolgt am RKI über R-Skripte. Die Skripte sind in den [Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien) enthalten. Eine genaue Beschreibung der Methodik ist in den [technischen Leitfäden](http://www.rki.de/abwassersurveillance) hinterlegt. Die Ergebnisse werden wöchentlich im AMELAG [Wochenbericht](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht) auf der RKI-Webseite veröffentlicht. 
 
 Für jeden Standort werden die Messwerte für SARS-CoV-2 (normalisiert), Influenza A und B-Virus (nicht normalisiert) sowie RSV A, RSV B und das gemeinsam gemessene RSV A/B (nicht normalisiert) in Genkopien pro Liter (Genkopien/L) angegeben. Zusätzlich werden die Messwerte der logarithmierten und ggf. normalisierten Genkopien mittels einer lokal gewichteten Regression (LOESS) geglättet und zugehörige Konfidenzintervalle berechnet. 
 
@@ -241,7 +249,7 @@ Offene Forschungsdaten des RKI werden auf [Zenodo.org](http://Zenodo.org/), [Git
  
 ### Lizenz  
 
-Der Datensatz "Abwassersurveillance AMELAG" ist lizenziert unter  der [Creative Commons Namensnennung 4.0 International Public License | CC-BY 4.0 International](https://creativecommons.org/licenses/by/4.0/deed.de).  
+Der Datensatz "Abwassersurveillance AMELAG" ist lizenziert unter der [Creative Commons Namensnennung 4.0 International Public License | CC-BY 4.0 International](https://creativecommons.org/licenses/by/4.0/deed.de).  
 
 Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
 <!-- FOOTER_END -->
@@ -250,31 +258,38 @@ Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung 
 <br><br><br>
 ----------------------
 <br><br><br>
+ 
+<!-- HEADER_START: {"lang": "en"} -->
+
 
 Documentation
-# Wastewater surveillance AMELAG  
+# Wastewater Surveillance AMELAG
 
-[Robert Koch Institute](https://www.rki.de/EN) | RKI  
-Nordufer 20  
-13353 Berlin  
+<br> 
+<br> 
+<br> 
 
-<br>
+[**Robert Koch Institute**](https://www.rki.de/en), & [**Federal Environment Agency**](https://www.umweltbundesamt.de/en)
 
-**Unit 32 | Surveillance** 
+<br> 
 
-<br>
+**Beitragende**   
+[Unit 32](https://www.rki.de/EN/Institute/Organisation/Departments/Department-3/Unit-32/unit-32-surveillance-and-demis-focal-point-public-health-service-node.html) &sup1;
+
+&emsp;&emsp;&sup1; [Robert Koch Institute](https://www.rki.de/en)
+
+<br> 
 
 **Cite**  
-<!-- CITATION_START: {"citation_style": "apa"} -->
-Robert Koch-Institut, F. 32 . (2025). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15689644](https://doi.org/10.5281/zenodo.15689644)
-<!-- CITATION_END -->
+Robert Koch Institute, & Federal Environment Agency. (2025). Wastewater surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.15689644](https://doi.org/10.5281/zenodo.15689644)
 
+
+<!-- HEADER_END -->
 ---
 
 ## Information on the dataset and context of origin
 
-In AMELAG (“Abwassermonitoring für die epidemiologische Lagebewertung”, German for wastewater monitoring for epidemiological situation assessment), running from 22.11.2022 to 31.12.2025, local authorities, wastewater treatment plants (WWTP) and laboratories are working together to take, analyze and evaluate wastewater samples. The project aims at testing wastewater samples for selected pathogens and to establish it as an additional indicator for the epidemiological situation assessment at state and federal level. Further aims of the project include further development of structures and processes for a nationwide wastewater surveillance network, to develop concepts for continuity and to research the possibilities for monitoring other pathogens in wastewater. Currently, wastewater samples from selected treatment plants are being tested for SARS-CoV-2, influenza viruses and eespiratory syncytial viruses (RSV). 
-
+In AMELAG (“Abwassermonitoring für die epidemiologische Lagebewertung”, German for wastewater monitoring for epidemiological situation assessment), running from 22.11.2022 to 31.12.2025, local authorities, wastewater treatment plants (WWTP) and laboratories are working together to take, analyze and evaluate wastewater samples. The project aims at testing wastewater samples for selected pathogens and to establish it as an additional indicator for the epidemiological situation assessment at state and federal level. Further aims of the project include further development of structures and processes for a nationwide wastewater surveillance network, to develop concepts for continuity and to research the possibilities for monitoring other pathogens in wastewater. Currently, wastewater samples from selected treatment plants are being tested for SARS-CoV-2, influenza viruses and eespiratory syncytial viruses (RSV).  
 Wastewater surveillance is a technique for detecting pathogens in wastewater to better control health protection measures. Wastewater surveillance has a range of [applications](https://doi.org/10.25646/12208). Wastewater data, however, underlie several limiations. For example, they do not allow for an accurate assessment of disease severity or the burden on the healthcare system. In epidemiological assessments, the data should be combined with other indicators, e.g. from syndromic surveillance. 
 
 ### Administrative and organizational information
@@ -328,7 +343,7 @@ Normalization is automated with the data import. The measured Influenza and RSV 
 
 ### Data evaluation
 
-The data are evaluated at the RKI using R scripts. The scripts are contained in the [context materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien). A detailed description of the methodology is provided in the [technical guidelines](http://www.rki.de/abwassersurveillance). The results are published in the RKI´s [weekly report](https://edoc.rki.de/handle/176904/11665). 
+The data are evaluated at the RKI using R scripts. The scripts are contained in the [context materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien). A detailed description of the methodology is provided in the [technical guidelines](http://www.rki.de/abwassersurveillance). The results are published in the RKI´s [weekly report](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht). 
 For each WWTP, the measured values for SARS-CoV-2 (normalized), Influenza A and B viruses (not normalized) and RSV A, RSV B and RSV A/B are reported in gene copies per liter (gene copies/L). In addition, the measured values of the logarithmized normalized gene copies are smoothed using a locally weighted regression (LOESS) and associated confidence intervals are calculated. 
 
 #### Aggregation of the WWTP values
@@ -443,11 +458,11 @@ To reproduce the results of the [AMELAG weekly report](https://edoc.rki.de/handl
 
 To increase findability, the provided data are described with metadata. The Metadata are distributed to the relevant platforms via GitHub Actions. There is a specific metadata file for each platform; these are stored in the metadata folder:
 
-> [Metadata/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadata/)
+> [Metadaten/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadaten/)
 
 Versioning and DOI assignment are performed via [Zenodo.org](https://zenodo.org). The metadata prepared for import into Zenodo are stored in the [zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json). Documentation of the individual metadata variables can be found at https://developers.zenodo.org/representation.
 
-> [Metadata/zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadata/zenodo.json)
+> [Metadaten/zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json)
 
 The zenodo.json includes the publication date and the date of the data status in the following format (example):
 ```
@@ -457,7 +472,7 @@ The zenodo.json includes the publication date and the date of the data status in
       "start": "2023-09-11T15:00:21+02:00",
       "end": "2023-09-11T15:00:21+02:00",
       "type": "Collected",
-      "description": "Date when the Dataset was created"
+      "description": "Date when the dataset was created"
     }
   ],
 ```
@@ -474,7 +489,7 @@ The list of data included in this repository can be found in the following file:
 
 For tabular data, we additionally define a [Table Schema](https://datapackage.org/standard/table-schema/) that describes the structure of the tables, including column names, data types, and validation rules. These schema files can be found in:  
 
-> [Metadata/schemas/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadata/schemas)  
+> [Metadaten/schemas/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadaten/schemas)  
 
 
 
