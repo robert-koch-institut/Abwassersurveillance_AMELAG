@@ -84,7 +84,7 @@ Die Normalisierung erfolgt automatisiert mit dem Datenimport. Die gemessenen Vir
 
 ### Datenauswertung
 
-Die Auswertung der Daten erfolgt am RKI über R-Skripte. Die Skripte sind in den [Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien) enthalten. Eine genaue Beschreibung der ist in den [technischen Leitfäden](http://www.rki.de/abwassersurveillance) hinterlegt. Die Ergebnisse werden wöchentlich im AMELAG [Wochenbericht](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht) auf der RKI-Webseite veröffentlicht. 
+Die Auswertung der Daten erfolgt am RKI über R-Skripte. Die Skripte sind in den [Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien) enthalten. Eine genaue Beschreibung der Methodik ist in den [technischen Leitfäden](http://www.rki.de/abwassersurveillance) hinterlegt. Die Ergebnisse werden wöchentlich im AMELAG [Wochenbericht](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht) auf der RKI-Webseite veröffentlicht. 
 
 Für jeden Standort werden die Messwerte für SARS-CoV-2 (normalisiert), Influenza A und B-Virus (nicht normalisiert) sowie RSV A, RSV B und das gemeinsam gemessene RSV A/B (nicht normalisiert) in Genkopien pro Liter (Genkopien/L) angegeben. Zusätzlich werden die Messwerte der logarithmierten und ggf. normalisierten Genkopien mittels einer lokal gewichteten Regression (LOESS) geglättet und zugehörige Konfidenzintervalle berechnet. 
 
