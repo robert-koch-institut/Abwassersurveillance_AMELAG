@@ -10,8 +10,7 @@ if (show_log_data)
       vars(
         loess_vorhersage,
         loess_obere_schranke,
-        loess_untere_schranke,
-        viruslast
+        loess_untere_schranke,!!sym(viruslast_untersucht)
       ),
       ~ log10(.)
     )
@@ -42,7 +41,7 @@ data_plots %>%
   mutate(wochentag = lubridate::wday(datum, label = TRUE, week_start = 1)) %>%
   arrange(label, datum) %>%
   group_by(typ, label) %>%
-  group_walk( ~ write_xlsx(.x, here(
+  group_walk(~ write_xlsx(.x, here(
     results_here,
     .y$typ,
     "Single_Sites",
@@ -52,7 +51,7 @@ data_plots %>%
 # save plots for single places
 data_plots %>%
   # for speeding up calculations drop NAs
-  filter(!is.na(viruslast)) %>%
+  filter(!is.na(!!sym(viruslast_untersucht))) %>%
   group_by(typ, label) %>%
   group_map(
     ~
@@ -72,7 +71,7 @@ data_plots %>%
             ),
             fill = "lightblue"
           ) +
-          aes(x = datum, y = viruslast) +
+          aes(x = datum, y = !!sym(viruslast_untersucht)) +
           geom_point(aes(color = unter_bg)) +
           geom_line(
             aes(datum, y = loess_vorhersage, group = interaction(loess_period, labor)),

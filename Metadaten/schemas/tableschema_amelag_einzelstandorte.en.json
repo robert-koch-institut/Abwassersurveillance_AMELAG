@@ -55,9 +55,20 @@
       }
     },
     {
+      "name": "viruslast_normalisiert",
+      "type": "number",
+      "description": "Flow-normalized viral load (as described in the variable \"viruslast\").",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": "Predicated viral load (using a LOESS regression, optimized using AICc criterion for the 10s logarithmized viral loads).",
+      "description": "Predicted viral load (predicted using a LOESS regression and the non-normalized viral loads, transformed back to the original scale).",
       "missingValues": [
         "NA"
       ],
@@ -102,20 +113,6 @@
       "name": "laborwechsel",
       "type": "string",
       "description": "Indicates whether change in laboratory or change in laboratory mathods occurred.",
-      "missingValues": [
-        "NA"
-      ],
-      "constraints": {
-        "enum": [
-          "ja",
-          "nein"
-        ]
-      }
-    },
-    {
-      "name": "normalisierung",
-      "type": "string",
-      "description": "Indicates whether values were normalized by flowrate (`ja`=yes, `nein`=no)",
       "missingValues": [
         "NA"
       ],

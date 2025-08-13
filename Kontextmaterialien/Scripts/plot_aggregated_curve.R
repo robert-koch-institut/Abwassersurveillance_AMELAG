@@ -8,7 +8,7 @@ if (show_log_data)
 {
   df_agg  <-
     df_agg  %>%
-    mutate_at(vars(contains("loess"), viruslast), ~ log10(.))
+    mutate_at(vars(contains("loess"), !!sym(viruslast_untersucht)), ~ log10(.))
   ytit <-
     expression(atop("Viruslast im Abwasser", atop(paste(
       "in ", log[10], " Genkopien / Liter"
@@ -40,7 +40,7 @@ df_agg %>%
           # shadowing cnf intervals
           fill = "lightblue"
         ) +
-        aes(x = datum, y = viruslast) +
+        aes(x = datum, y = !!sym(viruslast_untersucht)) +
         geom_point(colour = "grey") +
         geom_line(aes(datum, y = loess_vorhersage), linewidth = 1) +
         theme_minimal() +
