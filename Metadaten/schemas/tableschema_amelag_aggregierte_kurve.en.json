@@ -40,9 +40,20 @@
       }
     },
     {
+      "name": "viruslast_normalisiert",
+      "type": "number",
+      "description": "Flow-normalized viral load (as described in the variable \"viruslast\").",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": "Predicted viral load (predicted using a LOESS regression, transformed back to the original scale).",
+      "description": "Predicted viral load (predicted using a LOESS regression and the non-normalized viral loads, transformed back to the original scale).",
       "missingValues": [
         "NA"
       ],
@@ -64,20 +75,6 @@
       "description": "Lower bound of the 95% confidence interval of the LOESS predicted value.",
       "constraints": {
         "minimum": 0
-      }
-    },
-    {
-      "name": "normalisierung",
-      "type": "string",
-      "description": "Indicates whether individual time series were normalized by flowrate (`ja`=yes, `nein`=no).",
-      "missingValues": [
-        "NA"
-      ],
-      "constraints": {
-        "enum": [
-          "ja",
-          "nein"
-        ]
       }
     },
     {

@@ -40,9 +40,20 @@
       }
     },
     {
+      "name": "viruslast_normalisiert",
+      "type": "number",
+      "description": "Nach dem Durchfluss normalisierte Viruslast (wie in der Variable \"viruslast\" beschrieben).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression, zurücktransformiert auf die Originalskala).",
+      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression auf Basis der nicht-normalisierten Viruslasten, zurücktransformiert auf die Originalskala).",
       "missingValues": [
         "NA"
       ],
@@ -64,20 +75,6 @@
       "description": "Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
       "constraints": {
         "minimum": 0
-      }
-    },
-    {
-      "name": "normalisierung",
-      "type": "string",
-      "description": "Gibt an, ob die unterliegenden Einzelzeitreihen nach Durchfluss normalisiert sind.",
-      "missingValues": [
-        "NA"
-      ],
-      "constraints": {
-        "enum": [
-          "ja",
-          "nein"
-        ]
       }
     },
     {
