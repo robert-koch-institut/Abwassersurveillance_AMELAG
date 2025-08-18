@@ -57,7 +57,7 @@ Die Verarbeitung, Aufbereitung und Veröffentlichung der Daten erfolgen durch da
 
 In AMELAG wurden aufbauend auf die im Rahmen des [ESI-CorA-Projekts](https://doi.org/10.5281/zenodo.10781652) erstellten Handreichungen zur Probennahme und Laboranalytik [technische Leitfäden](http://www.rki.de/abwassersurveillance) entwickelt. Die SARS-CoV-2-Rohdaten der im ESI-CorA-Projekt analysierten Abwasserproben wurden in AMELAG nachgenutzt und sind in den ausgewerteten Daten enthalten.
 An jeder beteiligten Kläranlage werden in aller Regel zwei Mal pro Woche Rohabwasserproben entnommen und zusammen mit den Begleitparametern (z.B. Volumenstrom, pH-Wert, Temperatur), die für die Normalisierung und Qualitätssicherung nötig sind, erhoben. Die Rohabwasserproben sollen, sofern möglich, nach dem Sandfang der Kläranlage entnommen werden. Es wird eine 24-Stunden-Mischprobe entnommen, welche mit einem automatischen Probennehmer durchgeführt wird. Die 24-Stunden-Probennahmen erfolgen in der Regel jeweils montags auf dienstags und mittwochs auf donnerstags. Im Regelfall wird ein Liter der Probe in Probenflaschen abgefüllt und an das Analyselabor versendet.
-Im Labor erfolgt die Aufkonzentrierung, Extraktion der viralen Nukleinsäure und Quantifizierung der viralen Gensequenzen durch digitale PCR (dPCR) oder quantitative real time PCR (qRT-PCR). Bei SARS-CoV-2 werden mindestens zwei Genfragmente (Vorzugsweise N1, N2, E, ORF oder RdRp) bestimmt, bei den Influenzaviren ein Genfragment (M1 für Influenza-A-Virus und M1, NS1, NS2 oder HA für Influenza-B-Virus) und bei RSV ebenfalls ein Genfragment (N RSV A und RSV B, M oder N für das gemeinsam gemessene RSV A/B).
+Im Labor erfolgt die Aufkonzentrierung, Extraktion der viralen Nukleinsäure und Quantifizierung der viralen Gensequenzen durch digitale PCR (dPCR) oder quantitative real time PCR (qRT-PCR). Bei SARS-CoV-2 werden mindestens zwei Genfragmente (vorzugsweise N1, N2, E, ORF oder RdRp) bestimmt, bei den Influenzaviren ein Genfragment (vorzugsweise M1 für Influenza-A-Virus und M1, NS1, NS2 oder HA für Influenza-B-Virus) und bei RSV ebenfalls ein Genfragment (vorzugsweise N für RSV A und RSV B, M oder N für das gemeinsam gemessene RSV A/B).
 
 > Robert Koch-Institut, Fachgebiet 32 (2024): "ESI-CorA: SARS-CoV-2-Abwassersurveillance" [Data set]. Zenodo. DOI: [10.5281/zenodo.10781653](https://doi.org/10.5281/zenodo.10781652)
 
@@ -74,7 +74,7 @@ Mit dem Datenimport werden die Daten auf Plausibilität geprüft. Dabei werden d
 #### Normalisierungsverfahren
 
 Eine variierende Abwasserzusammensetzung, z. B. aufgrund von unregelmäßigen industriellen Einflüssen oder Starkregenereignissen, kann zu veränderten Konzentrationen der Viren führen. Um diese externen Einflüsse zu berücksichtigen, kann die gemessene Viruslast normalisiert werden. 
-In AMELAG wird die SARS-CoV-2-Last auf den Durchfluss der Kläranlage normalisiert. Dabei ist der Trockenwetterzufluss der Kläranlage die Referenz. Folgende Formel wurde hierbei verwendet: 
+In AMELAG ist die auf den Durchfluss der Kläranlage normalisierte Viruslast unter der Variable `viruslast_normalisiert` verfügbar. Dabei ist der Trockenwetterzufluss der Kläranlage die Referenz. Folgende Formel wurde hierbei verwendet: 
 
 $$ Gene_{normalisiert} = {Q_{KA\_aktuell}}/{Q_{KA\_median}} \cdot Gene_{gemittelt} $$
 
@@ -83,17 +83,17 @@ wo:
 - $Q_{KA\_aktuell}$ : Volumenstrom der Kläranlage im Probenahmezeitraum und  
 - $Q_{KA\_median}$ : Median des Volumenstrom der Kläranlage  
 
-Die Normalisierung erfolgt automatisiert mit dem Datenimport. Die gemessenen Viruslasten von Influenzaviren und RSV werden derzeit nicht normalisiert, da sich keine verbesserte Datenqualität durch die Normalisierung feststellen lässt. 
+Die Normalisierung erfolgt automatisiert mit dem Datenimport. Die gemessenen Viruslasten im Wochenbericht sowie in der Variable `viruslast` sind nicht normalisiert, da sich keine verbesserte Datenqualität durch die Normalisierung feststellen lässt. 
 
 ### Datenauswertung
 
 Die Auswertung der Daten erfolgt am RKI über R-Skripte. Die Skripte sind in den [Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien) enthalten. Eine genaue Beschreibung der Methodik ist in den [technischen Leitfäden](http://www.rki.de/abwassersurveillance) hinterlegt. Die Ergebnisse werden wöchentlich im AMELAG [Wochenbericht](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht) auf der RKI-Webseite veröffentlicht. 
 
-Für jeden Standort werden die Messwerte für SARS-CoV-2 (normalisiert), Influenza A und B-Virus (nicht normalisiert) sowie RSV A, RSV B und das gemeinsam gemessene RSV A/B (nicht normalisiert) in Genkopien pro Liter (Genkopien/L) angegeben. Zusätzlich werden die Messwerte der logarithmierten und ggf. normalisierten Genkopien mittels einer lokal gewichteten Regression (LOESS) geglättet und zugehörige Konfidenzintervalle berechnet. 
+Für jeden Standort werden die nicht normalisierten Messwerte (optional können auch die normalisierten Messwerte verwendet werden) für SARS-CoV-2, Influenza A und B-Virus sowie RSV A, RSV B und das gemeinsam gemessene RSV A/B in Genkopien pro Liter (Genkopien/L) angegeben. Zusätzlich werden die Messwerte der logarithmierten Genkopien mittels einer lokal gewichteten Regression (LOESS) geglättet und zugehörige Konfidenzintervalle berechnet. 
 
 #### Aggregation der Standortwerte
 
-Es werden die einzelnen Zeitreihen der Standorte aggregiert, um einen bundesweiten Verlauf der jeweiligen Viruslast im Abwasser abzubilden. Dafür wird zunächst der Mittelwert über die über eine Woche gemittelten logarithmierten Messwerte der einzelnen Standorte berechnet. Dann wird für jeden Standort für jede Woche die Differenz vom Wochenmittelwert über alle Standorte dieser Woche berechnet. Für jede Standort-Labor-Kombination wird der Mittelwert über diese Differenzen über alle Wochen gebildet um diesen Mittelwert danach von den ursprünglich gemessenen Werten abzuziehen. Dadurch wird für mittlere Unterschiede in den Viruslasten zwischen unterschiedlichen Standort-Labor-Kombinationen, adjustiert. Abschließend wird in jeder Woche, in der für mindestens 10 Standorte Messwerte vorliegen, der Mittelwert über diese adjustierten Werte berechnet. Dabei wird nach den angeschlossenen Einwohnern der Kläranlage gewichtet.
+Es werden die einzelnen Zeitreihen der Standorte aggregiert, um einen bundesweiten Verlauf der jeweiligen Viruslast im Abwasser abzubilden. Dafür wird zunächst der Mittelwert über die über eine Woche gemittelten Messwerte der einzelnen Standorte berechnet. Dann wird für jeden Standort für jede Woche die Differenz vom Wochenmittelwert über alle Standorte dieser Woche berechnet. Für jede Standort-Labor-Kombination wird der Mittelwert über diese Differenzen über alle Wochen gebildet um diesen Mittelwert danach von den ursprünglich gemessenen Werten abzuziehen. Dadurch wird für mittlere Unterschiede in den Viruslasten zwischen unterschiedlichen Standort-Labor-Kombinationen, adjustiert. Abschließend wird in jeder Woche, in der für mindestens 10 Standorte Messwerte vorliegen, der Mittelwert über diese adjustierten Werte berechnet. Dabei wird nach den angeschlossenen Einwohnern der Kläranlage gewichtet.
 Da mit verschiedenen Kläranlagen und Laboren viele Akteure in die Datenerhebung involviert sind, kann es zu Unregelmäßigkeiten in den Daten der Einzelstandorte kommen, die einen großen Einfluss auf die über alle Standorte aggregierten Werte haben können. Sobald solche Auffälligkeiten festgestellt werden, werden diese Werte bis zur vollständigen Abklärung der Ursachen aus den aggregierten Kurven (`amelag_aggregierte_kurve.tsv`) ausgeschlossen. In den Daten der Einzelstandorte (`amelag_aggregierte_kurve.tsv`) bleiben die Werte weiterhin enthalten.
 
 ### Hinweise zur Datenauswertung
@@ -102,10 +102,10 @@ Bei der Datenbewertung sind einige Besonderheiten zu beachten:
 
 * Es wurden an den unterschiedlichen Kläranlagen und für die unterschiedlichen Viren verschiedene Zielgene gemessen 
     * SARS-CoV-2: eine Kombination aus vorzugsweise N1, N2, E, ORF oder RdRp
-    * Influenza A-Virus: M1
-    * Influenza B-Virus: M1, NS1, NS2, HA
-    * RSV A: N
-    * RSV B: N
+    * Influenza A-Virus: vorzugsweise M1
+    * Influenza B-Virus: vorzugsweise M1, NS1, NS2, HA
+    * RSV A: vorzugsweise N
+    * RSV B: vorzugsweise N
     * RSV A/B: M, N
 * Einige Städte sind mit mehr als einer Kläranlage bzw. mehr als einem Zulauf vertreten.  
 * Bei Werten unterhalb der Bestimmungsgrenze (BG) wird mit der Hälfte der Bestimmungsgrenze als Wert gerechnet (0,5 * BG).
@@ -114,7 +114,7 @@ Bei der Datenbewertung sind einige Besonderheiten zu beachten:
 
 Abwasserdaten erlauben keinen Rückschluss auf die Krankheitsschwere oder die Belastung des Gesundheitssystems. Aus Abwasserdaten kann nach aktuellem Stand nicht präzise auf Inzidenz/Prävalenz oder die Untererfassung (die sog. „Dunkelziffer”) geschlossen werden. Für die epidemiologische Lagebewertung sollten die Daten immer in Zusammenschau mit anderen Indikatoren, z.B. aus der syndromischen Surveillance, betrachtet werden.
 Absolute Viruslasten können insbesondere über längere Zeiträume nicht direkt im Hinblick auf die Anzahl an Infizierten verglichen werden, da sich die ausgeschiedene Virusmenge pro infizierter Person beispielsweise zwischen verschiedenen Virusvarianten unterscheiden kann.
-Die ermittelten Werte werden durch eine Vielzahl von Faktoren (z.B. Veränderungen der Abwasserzuleitung, Starkregenereignisse oder touristische Ereignisse) beeinflusst, was durch die Normalisierung nur teilweise ausgeglichen werden kann.
+Die ermittelten Werte werden durch eine Vielzahl von Faktoren (z.B. Veränderungen der Abwasserzuleitung, Starkregenereignisse oder touristische Ereignisse) beeinflusst, was durch Normalisierungsmethoden bisher nicht ausgeglichen werden kann.
 
 Von der Probenahme bis zur Datenübermittlung und Veröffentlichung vom RKI kann es zu einem Zeitverzug von bis zu zwei Wochen kommen.
 
@@ -130,7 +130,7 @@ Im Datensatz zusätzlich enthalten sind:
 
 ### Daten für die einzelnen Standorte
 
-In der Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) sind die normalisierten Daten zur SARS-CoV-2-Viruslast und die nicht normalisierten Daten zu Influenza A- und B-Viruslast (einzeln und als Summe) sowie zu RSV A, RSV B, deren Summe (RSV A+B) und gemeinsamen Messungen von RSV A und B (RSV A/B) für die einzelnen Standorte angegeben. 
+In der Datei [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) sind die normalisierten und nicht normalisierten Daten zur Viruslast für SARS-CoV-2, Influenza A und B (einzeln und als Summe) sowie zu RSV A, RSV B, deren Summe (RSV A+B) und gemeinsamen Messungen von RSV A und B (RSV A/B) für die einzelnen Standorte angegeben. 
 
 > [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv)
 
@@ -317,7 +317,7 @@ The data are processed, edited and published by the Department MF 4 | Subject an
 
 In AMELAG, [technical guidelines](http://www.rki.de/abwassersurveillance) were developed based on the handouts for sampling and laboratory analysis created as part of the [ESI-CorA project](https://doi.org/10.5281/zenodo.10781652). The raw data of the SARS-CoV-2 samples analyzed in the ESI-CorA project are reused in AMELAG and included in the evaluated data.
 Raw wastewater samples are generally collected twice a week at each participating WWTP, along with essential parameters such as volume flow, pH value, and temperature. These parameters are necessary for normalization and quality assurance. Where possible, the raw sewage samples should be taken after the grit chamber of the WWTP. A 24-hour composite sample is collected using an automatic sampler. The 24-hour samples are usually taken from Mondays to Tuesdays, and from Wednesdays to Thursdays. As a rule, one liter of the sample is filled into sample bottles and sent to the analysis laboratory.
-In the laboratory, the viral nucleic acid is concentrated, extracted and the viral gene sequences are quantified by digital PCR (dPCR) or quantitative real-time PCR (qRT-PCR). For SARS-CoV-2, at least two representative gene fragments (preferably N1, N2, E, ORF or RdRp) are determined, for the Influenza virus only one gene fragment (M1 for Influenza A Virus and M1, NS1, NS2 or HA for Influenza B Virus), for RSV also only one gene fragment (N for RSV A and RSV B, M or N for RSV A/B).
+In the laboratory, the viral nucleic acid is concentrated, extracted and the viral gene sequences are quantified by digital PCR (dPCR) or quantitative real-time PCR (qRT-PCR). For SARS-CoV-2, at least two representative gene fragments (preferably N1, N2, E, ORF or RdRp) are determined, for the Influenza virus only one gene fragment (preferably M1 for Influenza A Virus and M1, NS1, NS2 or HA for Influenza B Virus), for RSV also only one gene fragment (preferably N for RSV A and RSV B, M or N for RSV A/B).
 
 > Robert Koch Institute, Department 32 (2024): "ESI-CorA: SARS-CoV-2 wastewater surveillance" [Dataset]. Zenodo. DOI: [10.5281/zenodo.10781653](https://doi.org/10.5281/zenodo.10781652)
 
@@ -334,7 +334,7 @@ A plausibility check is run on the data as they are imported. The formats, compl
 #### Normalization procedure
 
 A varying wastewater composition, e.g. due to irregular industrial influences or heavy rainfall events, can lead to changing concentrations of the pathogens. To take these external influences into account, the measured viral load can be normalized. 
-In AMELAG, normalization of the SARS-CoV-2 data is performed according to flow rate. The dry weather inflow of the WWTP is the reference. The following formula was used: 
+In AMELAG, the viral load normalized to the flow rate of the wastewater treatment plant is available as `viruslast_normalisiert`. The dry weather inflow of the WWTP is the reference. The following formula was used: 
 
 $$ Gene_{normalized} = {Q_{KA\_current}}/{Q_{KA\_median}} \cdot Gene_{averaged} $$
 
@@ -343,12 +343,12 @@ where:
 - $Q_{KA\_aktuell}$ : Volume flow of the wastewater treatment plant in the sampling period and  
 - $Q_{KA\_median}$ : Median of the volume flow of the wastewater treatment plant  
 
-Normalization is automated with the data import. The measured Influenza and RSV data are currently not normalized as the normalization does not show an imporved data quality.  
+Normalization is automated with the data import. The measured virus loads provided in the weekly report and in the variable `virusload` are not normalized, as normalization does not improve data quality.
 
 ### Data evaluation
 
 The data are evaluated at the RKI using R scripts. The scripts are contained in the [context materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Kontextmaterialien). A detailed description of the methodology is provided in the [technical guidelines](http://www.rki.de/abwassersurveillance). The results are published in the RKI´s [weekly report](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht). 
-For each WWTP, the measured values for SARS-CoV-2 (normalized), Influenza A and B viruses (not normalized) and RSV A, RSV B and RSV A/B are reported in gene copies per liter (gene copies/L). In addition, the measured values of the logarithmized normalized gene copies are smoothed using a locally weighted regression (LOESS) and associated confidence intervals are calculated. 
+For each WWTP, the non-normalized measured values (optional: the normalized values) for SARS-CoV-2, Influenza A and B viruses and RSV A, RSV B and RSV A/B are reported in gene copies per liter (gene copies/L). In addition, the measured values of the logarithmized gene copies are smoothed using a locally weighted regression (LOESS) and associated confidence intervals are calculated. 
 
 #### Aggregation of the WWTP values
 
@@ -361,10 +361,10 @@ Some things to take into account when evaluating the data:
 
 * Different target genes were measured at the different sites
     * SARS-CoV-2: a combination of preferably N1, N2, E, ORF oder RdRp
-    * Influenza A-Virus: M1
-    * Influenza B-Virus: M1, NS1, NS2, HA
-    * RSV A: N
-    * RSV B: N
+    * Influenza A-Virus: preferably M1
+    * Influenza B-Virus: preferably M1, NS1, NS2, HA
+    * RSV A: preferably N
+    * RSV B: preferably N
     * RSV A/B: M, N
 * Some cities are have more than one sewage treatment plant or more than one inflow.  
 * For values below the limit of quantification (LOQ), half of the LOQ is used as the value (0.5 * LOQ).
@@ -373,7 +373,7 @@ Some things to take into account when evaluating the data:
 
 Wastewater data do not allow conclusions to be drawn about disease severity or the burden on the healthcare system. At present, it is not possible to draw precise conclusions about incidence/prevalence or underreporting from wastewater data. When assessing a sitaution epidemiologically, the data should always be considered in combination with other indicators, such as those from syndromic surveillance.
 Absolute viral loads cannot be compared directly to the number of infected persons, especially over longer periods of time, as, for example, the amount of virus excreted per infected person can differ between different virus variants.
-The values determined are influenced by a variety of factors (e.g. changes in the wastewater supply, heavy rainfall events, or tourist events), which can only be partially compensated for by normalization.
+The determined values are influenced by a variety of factors (e.g., changes in the wastewater inflow, heavy rainfall events, or tourist events), which cannot be compensated by normalization methods thus far.
 The time delay from sampling to transmission and further publication by the RKI can take up to two weeks. 
 
 ## Content and structure of the dataset  
@@ -388,7 +388,7 @@ The dataset also contains:
 
 ### Data for individual WWTP 
 
-The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the normalized SARS-CoV-2, non-normalized influenza viral load data and non-normalized RSV data for the individual sites. 
+The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the normalized and non-normalized data on viral load of SARS-CoV-2, influenza and RSV data for the individual sites. 
 
 > [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv)
 
