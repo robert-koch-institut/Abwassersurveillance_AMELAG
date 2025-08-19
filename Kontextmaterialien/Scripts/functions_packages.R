@@ -249,7 +249,7 @@ aggregation <- function(df = df_agg,
     )))) %>%
     # compute weighted means
     mutate_at(vars(contains("viruslast")), # if at least a certain amount of sites provides data
-              ~ if (mean(n_non_na) < min_obs) {
+              ~ if (mean(n_non_na) < min_obs_agg) {
                 NA
               } else
               {

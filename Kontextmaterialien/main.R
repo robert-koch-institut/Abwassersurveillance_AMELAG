@@ -15,8 +15,11 @@ show_log_data = TRUE
 # set TRUE or FALSE
 use_normalized_data = FALSE
 
-# set number of observations per date that have to be there to allow aggregation
+# minimum of observations per treatment plant that are required to be analyzed
 min_obs = 10
+
+# minimum of number of treatment plants that are required to aggregate them
+min_obs_agg = 20
 
 # number of days without measurements that are needed to start a new loess period,
 # i.e. a new loess estimation is done after such a time frame without measurements

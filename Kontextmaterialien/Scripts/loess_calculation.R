@@ -179,8 +179,23 @@ rm(df, df_small, pred, pred_list, reps, temp)
 # clean up data
 data_combined <- data_combined %>%
   group_by(standort, typ) %>%
-  mutate(# combine changes in data for plots
+  mutate(
+    # combine changes in data for plots
     loess_period = loess_period + labor,
     loess_period = factor(loess_period)) %>%
   ungroup() %>%
-  select(all_of(df_colnames), loess_period, labor)
+  select(
+    standort,
+    bundesland,
+    datum,
+    !!sym(viruslast_untersucht),
+    loess_vorhersage,
+    loess_obere_schranke,
+    loess_untere_schranke,
+    einwohner,
+    laborwechsel,
+    typ,
+    unter_bg,
+    loess_period,
+    labor
+  )
