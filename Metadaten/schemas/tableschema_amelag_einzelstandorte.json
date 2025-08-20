@@ -55,9 +55,20 @@
       }
     },
     {
+      "name": "viruslast_normalisiert",
+      "type": "number",
+      "description": "Nach dem Durchfluss normalisierte Viruslast (wie in der Variable \"viruslast\" beschrieben).",
+      "missingValues": [
+        "NA"
+      ],
+      "constraints": {
+        "minimum": 0
+      }
+    },
+    {
       "name": "loess_vorhersage",
       "type": "number",
-      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression, optimiert mittels AICc-Kriterium für die 10er-logarithmierten Viruslasten).",
+      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression auf Basis der nicht-normalisierten Viruslasten, optimiert mittels AICc-Kriterium für die 10er-logarithmierten Viruslasten).",
       "missingValues": [
         "NA"
       ],
@@ -102,20 +113,6 @@
       "name": "laborwechsel",
       "type": "string",
       "description": "Gibt an, ob es Laborwechsel bzw. Änderungen in den Labormethoden gab.",
-      "missingValues": [
-        "NA"
-      ],
-      "constraints": {
-        "enum": [
-          "ja",
-          "nein"
-        ]
-      }
-    },
-    {
-      "name": "normalisierung",
-      "type": "string",
-      "description": "Gibt an, ob die Viruslast nach Durchfluss normalisiert wurde.",
       "missingValues": [
         "NA"
       ],

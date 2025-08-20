@@ -7,7 +7,7 @@ df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
   filter(!(
     standort == "Dresden" &
       typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
-  )) 
+  ))
 
 # generate weeks starting on Thursday
 thursday_data <-
@@ -25,18 +25,32 @@ df_agg <- df %>%
   left_join(thursday_data) %>%
   group_by(standort, typ) %>%
   # complete data
-  fill(normalisierung, .direction = "updown") %>%
-  mutate(unter_bg = ifelse(is.na(viruslast), "nein", unter_bg)) %>%
+  mutate(unter_bg = ifelse(is.na(!!sym(
+    viruslast_untersucht
+  )), "nein", unter_bg)) %>%
   ungroup() %>%
   # create log values
-  mutate(log_viruslast = log10(viruslast)) %>%
+  mutate(log_viruslast = log10(!!sym(viruslast_untersucht)))
+
+# add dates with NAs before measurements to avoid that 7-days-averages
+# drop values if no previous dates are available
+new_rows  <- df_agg %>%
   # add dates with NAs before measurements to avoid that 7-days-averages
   # drop values if no previous dates are available
   group_by(standort, typ) %>%
-  pad(by = "datum",
-      interval = "day",
-      start_val = min(df$datum) - 7) %>%
-  ungroup() %>%
+  summarise(min_date = min(datum, na.rm = TRUE), .groups = 'drop') %>%
+  # Create a sequence of dates for the 7 days before the minimum date
+  rowwise() %>%
+  do(data.frame(
+    standort = .$standort,
+    typ = .$typ,
+    datum = seq(.$min_date - days(7), .$min_date - days(1), by = "day")
+  )) %>%  # Set value to NA for new rows
+  ungroup()
+
+# combine data
+df_agg <- bind_rows(df_agg, new_rows) %>%
+  arrange(standort, typ, datum) %>%
   # for each site, compute 7-day averages
   group_by(standort, typ, th_week) %>%
   mutate_at(vars(contains("viruslast")), ~ mean(., na.rm = TRUE)) %>%
@@ -70,9 +84,8 @@ df_agg <- df_agg %>%
   # adjust for these deviations
   mutate(log_viruslast = log_viruslast - log_viruslast_dev) %>%
   # drop variables no longer needed
-  select(-mean_log_viruslast,
-         -log_viruslast_dev,
-         -labor,-laborwechsel_numerisch)
+  select(-mean_log_viruslast,-log_viruslast_dev,-labor,
+         -laborwechsel_numerisch,)
 
 # Create an empty list as placeholder
 agg_list <- list()
@@ -171,20 +184,15 @@ df_agg <- df_agg %>%
     # transform to original scale
     loess_untere_schranke = 10 ^ loess_untere_schranke,
     loess_obere_schranke = 10 ^ loess_obere_schranke,
-    loess_vorhersage = 10 ^ (loess_vorhersage),
-    viruslast = 10 ^ (log_viruslast)
+    loess_vorhersage = 10 ^ (loess_vorhersage),!!sym(viruslast_untersucht) := 10 ^ (log_viruslast)
   ) %>%
   # select and rename relevant variables
   select(
     datum,
     n = n_non_na,
-    anteil_bev,
-    viruslast,
-    contains("loess"),
-    -contains("vorhersage_df"),
-    -contains("vorhersage_se"),
-    normalisierung,
+    anteil_bev, !!sym(viruslast_untersucht),
+    contains("loess"), -contains("vorhersage_df"), -contains("vorhersage_se"),
     typ
   ) %>%
   # drop na entries
-  filter(!is.na(viruslast))
+  filter(!is.na(!!sym(viruslast_untersucht)))

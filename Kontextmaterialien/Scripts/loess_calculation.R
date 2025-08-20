@@ -9,7 +9,7 @@ df_colnames <- names(df)
 
 # helping dataframe to get periods for loess estimation
 temp <- df %>%
-  filter(!is.na(viruslast)) %>%
+  filter(!is.na(!!sym(viruslast_untersucht))) %>%
   group_by(standort, typ) %>%
   # compute differences between consecutive measurement days
   mutate(
@@ -37,7 +37,7 @@ df <- df %>%
     labor = cumsum(laborwechsel_numerisch),
   ) %>%
   # create log values
-  mutate(log_viruslast = log10(viruslast)) %>%
+  mutate(log_viruslast = log10(!!sym(viruslast_untersucht))) %>%
   # drop variables not needed any more
   dplyr::select(-laborwechsel_numerisch) %>%
   # fill NAs
@@ -48,8 +48,10 @@ df <- df %>%
   # indicate whether minimum of observations is met in loess period, also consider that
   # laboratory changes also constitute a new time frame
   group_by(typ, standort, loess_period, labor) %>%
-  mutate(n = sum(!is.na(viruslast)),
-         min_obs_exceeded = ifelse(n >= min_obs, 1, 0)) %>%
+  mutate(n = sum(!is.na(!!sym(
+    viruslast_untersucht
+  ))),
+  min_obs_exceeded = ifelse(n >= min_obs, 1, 0)) %>%
   ungroup()
 
 # save data set with too few observations to calculate loess curve,
@@ -157,8 +159,7 @@ df <- df %>%
     # transform to original scale
     loess_untere_schranke = 10 ^ loess_untere_schranke,
     loess_obere_schranke = 10 ^ loess_obere_schranke,
-    loess_vorhersage = 10 ^ (loess_vorhersage),
-    viruslast = 10 ^ (log_viruslast)
+    loess_vorhersage = 10 ^ (loess_vorhersage),!!sym(viruslast_untersucht) := 10 ^ (log_viruslast)
   ) %>%
   # drop variables
   select(-min_log_viruslast, -at_least_one_loq)
@@ -178,8 +179,23 @@ rm(df, df_small, pred, pred_list, reps, temp)
 # clean up data
 data_combined <- data_combined %>%
   group_by(standort, typ) %>%
-  mutate(# combine changes in data for plots
+  mutate(
+    # combine changes in data for plots
     loess_period = loess_period + labor,
     loess_period = factor(loess_period)) %>%
   ungroup() %>%
-  select(all_of(df_colnames), loess_period, labor)
+  select(
+    standort,
+    bundesland,
+    datum,
+    !!sym(viruslast_untersucht),
+    loess_vorhersage,
+    loess_obere_schranke,
+    loess_untere_schranke,
+    einwohner,
+    laborwechsel,
+    typ,
+    unter_bg,
+    loess_period,
+    labor
+  )

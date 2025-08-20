@@ -11,7 +11,7 @@ pacman::p_load(here,
 
 # population in Germany at end of 2022 (should match more or less date of
 # collection of connected inhabitants of treatment plants)
-# https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/_inhalt.html, 
+# https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Bevoelkerungsstand/_inhalt.html,
 # accessed on 25/10/2023
 pop <- 84358845
 
@@ -108,7 +108,7 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
       stat = "identity",
       aes(y = proportion, fill = unter_bg),
       color = "black",
-      size = .2,
+      linewidth = .2,
       alpha = .8
     ) +
     theme_minimal() +
@@ -220,7 +220,8 @@ aggregation <- function(df = df_agg,
   # if weighting then use inhabitants as weights, else set weights to 1
   if (weighting)
     df <- df %>%
-      mutate(weighting_var = einwohner) else
+      mutate(weighting_var = einwohner)
+  else
     df <- df %>%
       mutate(weighting_var = 1)
   
@@ -231,23 +232,24 @@ aggregation <- function(df = df_agg,
     # limit of detection to introduce some noise for calculation of the variance
     # of the mean (otherwise, the mean for a week over all places might have zero
     # variance)
-    mutate(
-      viruslast = ifelse(
-        unter_bg == "ja" & normalisierung == "nein",
-        runif(n(), 0.00001, 2 * viruslast),
-        viruslast
-      ),
-      sim_log = log10(viruslast)
-    ) %>% 
+    mutate(!!sym(viruslast_untersucht) := if (!use_normalized_data) {
+      ifelse(unter_bg == "ja",
+             runif(n(), 0.00001, 2 * !!sym(viruslast_untersucht)),
+             !!sym(viruslast_untersucht))
+    } else {
+      !!sym(viruslast_untersucht)
+    }, sim_log = log10(!!sym(viruslast_untersucht))) %>%
     group_by(th_week) %>%
     # compute weights for loess curve, these are the inverse values of the variance
     # of the (weighted) mean of the observations
     mutate(weights = (1 / var_weighted(x = sim_log, wt = weighting_var))) %>%
     # count contributing sites per Wednesday
-    mutate(n_non_na = sum(!is.na(viruslast))) %>%
+    mutate(n_non_na = sum(!is.na(!!sym(
+      viruslast_untersucht
+    )))) %>%
     # compute weighted means
     mutate_at(vars(contains("viruslast")), # if at least a certain amount of sites provides data
-              ~ if (mean(n_non_na) < min_obs) {
+              ~ if (mean(n_non_na) < min_obs_agg) {
                 NA
               } else
               {
@@ -259,7 +261,6 @@ aggregation <- function(df = df_agg,
       log_viruslast = mean(log_viruslast, na.rm = TRUE),
       anteil_bev = sum(einwohner, na.rm = TRUE) / pop,
       weights = mean(weights, na.rm = TRUE),
-      normalisierung = normalisierung[1]
     ) %>%
     ungroup() %>%
     filter(Tag == 3) %>%
@@ -267,13 +268,7 @@ aggregation <- function(df = df_agg,
     # standardize means
     mutate(weights = weights / mean(weights, na.rm = TRUE)) %>%
     arrange(datum) %>%
-    dplyr::select(typ,
-                  datum,
-                  n_non_na,
-                  log_viruslast,
-                  anteil_bev,
-                  weights,
-                  normalisierung) %>%
+    dplyr::select(typ, datum, n_non_na, log_viruslast, anteil_bev, weights) %>%
     # expand for predictions
     pad(interval = "day") %>%
     fill(typ, .direction = "updown") %>%

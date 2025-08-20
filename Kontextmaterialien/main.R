@@ -7,6 +7,25 @@ rm(list = ls())
 if (!"pacman" %in% rownames(installed.packages()))
   install.packages("pacman")
 
+# should log data be shown in created graphics?
+# set TRUE or FALSE
+show_log_data = TRUE
+
+# should flow-normalized data be used?
+# set TRUE or FALSE
+use_normalized_data = FALSE
+
+# minimum of observations per treatment plant that are required to be analyzed
+min_obs = 10
+
+# minimum of number of treatment plants that are required to aggregate them
+min_obs_agg = 20
+
+# number of days without measurements that are needed to start a new loess period,
+# i.e. a new loess estimation is done after such a time frame without measurements
+# default: 4 weeks
+wo_meas_period = 28
+
 # set virus that should be analyzed and whether weights should be applied when
 # aggregating over sites
 pathogens <- c(
@@ -20,18 +39,6 @@ pathogens <- c(
   "RSV AB"
 )
 weight_pathogen <- rep(TRUE, length(pathogens))
-
-# should log data be shown in created graphics?
-# set TRUE or FALSE
-show_log_data = TRUE
-
-# set number of observations per date that have to be there to allow aggregation
-min_obs = 10
-
-# number of days without measurements that are needed to start a new loess period,
-# i.e. a new loess estimation is done after such a time frame without measurements
-# default: 4 weeks
-wo_meas_period = 28
 
 # (install and) load here package
 pacman::p_load(here)
@@ -73,6 +80,11 @@ for (i in seq_along(var_names)) {
   if (!dir.exists(here(paths[i], "Single_Sites")))
     dir.create(here(paths[i], "Single_Sites"))
 }
+
+# define variable of interest as determined above (normalized or not)
+if (use_normalized_data == TRUE)
+  viruslast_untersucht <- "viruslast_normalisiert" else
+    viruslast_untersucht <- "viruslast"
 
 # (install and) load packages, read in functions, directories and self-defined values
 source(here(scripts_here, "functions_packages.R"), encoding = "UTF-8")
