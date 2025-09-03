@@ -232,13 +232,14 @@ aggregation <- function(df = df_agg,
     # limit of detection to introduce some noise for calculation of the variance
     # of the mean (otherwise, the mean for a week over all places might have zero
     # variance)
-    mutate(!!sym(viruslast_untersucht) := if (!use_normalized_data) {
+    mutate(sim_log = if (!use_normalized_data) {
       ifelse(unter_bg == "ja",
-             runif(n(), 0.00001, 2 * !!sym(viruslast_untersucht)),
-             !!sym(viruslast_untersucht))
+             runif(n(), 0.9*!!sym(paste0("log_",viruslast_untersucht)),
+                   1.1 * !!sym(paste0("log_",viruslast_untersucht))),
+             !!sym(paste0("log_",viruslast_untersucht)))
     } else {
-      !!sym(viruslast_untersucht)
-    }, sim_log = log10(!!sym(viruslast_untersucht))) %>%
+      !!sym(paste0("log_",viruslast_untersucht))
+    }) %>%
     group_by(th_week) %>%
     # compute weights for loess curve, these are the inverse values of the variance
     # of the (weighted) mean of the observations
