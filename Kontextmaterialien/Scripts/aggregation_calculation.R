@@ -23,33 +23,14 @@ thursday_data <-
 # create aggregated data (aggregated over all sites)
 df_agg <- df %>%
   left_join(thursday_data) %>%
-  group_by(standort, typ) %>%
+  group_by(standort, typ, th_week) %>%
   # complete data
-  mutate(unter_bg = ifelse(is.na(!!sym(
-    viruslast_untersucht
-  )), "nein", unter_bg)) %>%
-  ungroup() %>%
+  fill(unter_bg, .direction = "updown") %>%
   # create log values
-  mutate(log_viruslast = log10(!!sym(viruslast_untersucht)))
-
-# add dates with NAs before measurements to avoid that 7-days-averages
-# drop values if no previous dates are available
-new_rows  <- df_agg %>%
-  # add dates with NAs before measurements to avoid that 7-days-averages
-  # drop values if no previous dates are available
-  group_by(standort, typ) %>%
-  summarise(min_date = min(datum, na.rm = TRUE), .groups = 'drop') %>%
-  # Create a sequence of dates for the 7 days before the minimum date
-  rowwise() %>%
-  do(data.frame(
-    standort = .$standort,
-    typ = .$typ,
-    datum = seq(.$min_date - days(7), .$min_date - days(1), by = "day")
-  )) %>%  # Set value to NA for new rows
+  mutate(log_viruslast = log10(!!sym(viruslast_untersucht))) %>% 
   ungroup()
 
-# combine data
-df_agg <- bind_rows(df_agg, new_rows) %>%
+df_agg <- df_agg %>% 
   arrange(standort, typ, datum) %>%
   # for each site, compute 7-day averages
   group_by(standort, typ, th_week) %>%
@@ -85,7 +66,7 @@ df_agg <- df_agg %>%
   mutate(log_viruslast = log_viruslast - log_viruslast_dev) %>%
   # drop variables no longer needed
   select(-mean_log_viruslast,-log_viruslast_dev,-labor,
-         -laborwechsel_numerisch,)
+         -laborwechsel_numerisch)
 
 # Create an empty list as placeholder
 agg_list <- list()
