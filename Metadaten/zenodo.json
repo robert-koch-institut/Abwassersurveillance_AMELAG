@@ -1,26 +1,34 @@
 {
   "title": "Abwassersurveillance AMELAG",
-  "description": "<p>Das Vorhaben „Abwassermonitoring für die epidemiologische Lagebewertung“ (AMELAG) läuft vom 22.11.2022 bis zum 31.12.2025. Behörden, Kläranlagen und Labore arbeiten zusammen, um Proben zu nehmen, zu analysieren und zu bewerten. Das Ziel dieses Vorhabens ist es, SARS-CoV-2-Nachweise aus dem Abwasser als zusätzlichen Indikator zur epidemiologischen Lagebewertung auf Länder- und Bundesebene zu etablieren. Ebenso ist es das Ziel, Strukturen und Prozesse für ein bundesweites Netzwerk für die Abwassersurveillance weiter auszubauen, Konzepte für eine Verstetigung zu erstellen und die Möglichkeiten für ein Monitoring von weiteren Krankheitserregern im Abwasser zu erforschen.<br />\nAbwassersurveillance ist eine Technik, um Erreger im Abwasser nachzuweisen, um Gesundheitsschutzmaßnahmen besser steuern zu können. Abwasserdaten erlauben keine genaue Einschätzung von Krankheitsschwere oder der Belastung des Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert werden.</p>\n",
+  "description": "<p>Im Datensatz &quot;Abwassersurveillance AMELAG&quot; des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt.</p>\n",
   "creators": [
     {
-      "name": "Robert Koch-Institut, Fachgebiet 32",
+      "name": "Robert Koch-Institut",
       "affiliation": "Robert Koch-Institut"
+    },
+    {
+      "name": "Umweltbundesamt",
+      "affiliation": "Umweltbundesamt"
     }
   ],
   "contributors": [],
   "keywords": [
     "COVID-19",
     "SARS-CoV-2",
+    "Human Respiratory Syncytial Virus",
+    "Influenza",
     "Abwasserbasierte epidemiologische Überwachung",
     "Wastewater-Based Epidemiological Monitoring",
+    "Umweltüberwachung",
+    "Environmental Monitoring",
     "Deutschland",
     "Germany",
     "Open Data",
     "Offene Daten",
     "RKI"
   ],
-  "publication_date": "2025-09-03",
-  "version": "2025-09-02",
+  "publication_date": "2025-09-10",
+  "version": "2025-09-09",
   "upload_type": "dataset",
   "access_right": "open",
   "license": "CC-BY-4.0",
@@ -50,8 +58,8 @@
   ],
   "dates": [
     {
-      "start": "2025-09-02T10:00:00+02:00",
-      "end": "2025-09-02T10:00:00+02:00",
+      "start": "2025-09-09T10:00:00+02:00",
+      "end": "2025-09-09T10:00:00+02:00",
       "type": "Created",
       "description": "Date when the published data was created"
     }

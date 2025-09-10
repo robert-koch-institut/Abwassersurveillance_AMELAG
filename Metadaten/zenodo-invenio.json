@@ -1,31 +1,40 @@
 {
   "title": "Abwassersurveillance AMELAG",
-  "description": "<p>Das Vorhaben „Abwassermonitoring für die epidemiologische Lagebewertung“ (AMELAG) läuft vom 22.11.2022 bis zum 31.12.2025. Behörden, Kläranlagen und Labore arbeiten zusammen, um Proben zu nehmen, zu analysieren und zu bewerten. Das Ziel dieses Vorhabens ist es, SARS-CoV-2-Nachweise aus dem Abwasser als zusätzlichen Indikator zur epidemiologischen Lagebewertung auf Länder- und Bundesebene zu etablieren. Ebenso ist es das Ziel, Strukturen und Prozesse für ein bundesweites Netzwerk für die Abwassersurveillance weiter auszubauen, Konzepte für eine Verstetigung zu erstellen und die Möglichkeiten für ein Monitoring von weiteren Krankheitserregern im Abwasser zu erforschen.<br />\nAbwassersurveillance ist eine Technik, um Erreger im Abwasser nachzuweisen, um Gesundheitsschutzmaßnahmen besser steuern zu können. Abwasserdaten erlauben keine genaue Einschätzung von Krankheitsschwere oder der Belastung des Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert werden.</p>\n",
+  "description": "<p>Im Datensatz &quot;Abwassersurveillance AMELAG&quot; des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt.</p>\n",
   "resource_type": {
     "id": "dataset"
   },
-  "publication_date": "2025-09-03",
+  "publication_date": "2025-09-10",
   "creators": [
     {
       "person_or_org": {
-        "type": "personal",
-        "family_name": "Robert Koch-Institut",
-        "given_name": "Fachgebiet 32"
-      },
-      "affiliations": [
-        {
-          "name": "Robert Koch-Institut",
-          "id": "01k5qnb77"
-        }
-      ]
+        "type": "organizational",
+        "name": "Robert Koch-Institut"
+      }
+    },
+    {
+      "person_or_org": {
+        "type": "organizational",
+        "name": "Umweltbundesamt"
+      }
     }
   ],
-  "contributors": [],
+  "contributors": [
+    {
+      "person_or_org": {
+        "type": "organizational",
+        "name": "Fachgebiet 32"
+      },
+      "role": {
+        "id": "projectmanager"
+      }
+    }
+  ],
   "publisher": "Zenodo",
-  "version": "2025-09-03",
+  "version": "2025-09-10",
   "dates": [
     {
-      "date": "2025-09-02T10:00:00+02:00",
+      "date": "2025-09-09T10:00:00+02:00",
       "type": {
         "id": "created"
       },
@@ -62,10 +71,22 @@
       "subject": "SARS-CoV-2"
     },
     {
+      "subject": "Human Respiratory Syncytial Virus"
+    },
+    {
+      "subject": "Influenza"
+    },
+    {
       "subject": "Abwasserbasierte epidemiologische Überwachung"
     },
     {
       "subject": "Wastewater-Based Epidemiological Monitoring"
+    },
+    {
+      "subject": "Umweltüberwachung"
+    },
+    {
+      "subject": "Environmental Monitoring"
     },
     {
       "subject": "Deutschland"
