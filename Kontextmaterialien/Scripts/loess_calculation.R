@@ -7,7 +7,7 @@ df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
 # store column names
 df_colnames <- names(df)
 
-# helping dataframe to get periods for loess estimation
+# helping dataframe to get periods for gam estimation
 temp <- df %>%
   filter(!is.na(!!sym(viruslast_untersucht))) %>%
   group_by(standort, typ) %>%
@@ -16,7 +16,7 @@ temp <- df %>%
     dif = as.numeric(datum - lag(datum)),
     # count how often there are 4 weeks (currently set in "functions_packages.R
     # for ww_meas_period) without measurements (as then a new
-    # loess curve is estimated)
+    # gam curve is estimated)
     four_weeks_nas = ifelse(dif > wo_meas_period &
                               !is.na(dif), 1, 0),
     loess_period = cumsum(four_weeks_nas)
@@ -26,7 +26,7 @@ temp <- df %>%
   select(standort, typ, datum, loess_period)
 
 df <- df %>%
-  # first drop loess estimates and derived quantities (to show how to calculate them)
+  # first drop loess (gam) estimates and derived quantities (to show how to calculate them)
   select(-contains("loess")) %>%
   # merge with loess period data set created above
   left_join(temp) %>%
@@ -54,60 +54,113 @@ df <- df %>%
   min_obs_exceeded = ifelse(n >= min_obs, 1, 0)) %>%
   ungroup()
 
-# save data set with too few observations to calculate loess curve,
+# save data set with too few observations to calculate gam curve,
 # this data set is combined with the remaining data further below again
 df_small <- df %>%
   filter(min_obs_exceeded < 1)
 
-# save data set with sufficient observations per site to calculate loess curves
+# save data set with sufficient observations per site to calculate gam curves
 df <- df %>%
   filter(min_obs_exceeded > 0) %>%
   arrange(standort, typ, datum)
 
-# calculate loess estimates for each virus, site, loess_period, lab combination
-# see help(loess.as) for details of the set options
-# loess sometimes does not work well for small samples with many
-# values below limit of quantification, in this case the span is set automatically
-# to 0.75
+# calculate GAM with adaptive smoothing for each virus, site, loess_period, lab combination
+# see help(gam) for details of the set options
+# gam sometimes does not work well for small samples with many
+# values below limit of quantification, in this case the number 
+# non-adaptive smoothing is applied
 pred <- df %>%
   group_by(standort, typ, loess_period, labor) %>%
   mutate(obs = row_number()) %>%
   nest() %>%
-  mutate(pred = map(data, ~ tryCatch({
-    predict(
-      loess.as(
-        .x$obs[!is.na(.x$log_viruslast)],
-        .x$log_viruslast[!is.na(.x$log_viruslast)],
-        criterion = "aicc",
-        family = "gaussian",
-        degree = 2,
-        control = loess.control(surface = "direct")
-      ),
-      newdata = data.frame(x = .x$obs),
-      se = TRUE
+  mutate(pred = pmap(list(data, standort, typ, loess_period, labor), function(d_grp, standort, typ, loess_period, labor) {
+    # clean data
+    d <- d_grp %>% filter(!is.na(log_viruslast), !is.na(obs))
+    
+    # helper to fit GAM with a given k (basis dimension) and bs (spline basis)
+    fit_gam <- function(k, bs, method = "GCV.Cp") {
+      mgcv::gam(log_viruslast ~ s(obs, k = k, bs = bs),
+                method = method,
+                data = d)
+    }
+    
+    # Choose a default k: default is given to mgcv default
+    k_main <- -1
+    
+    # try to fit model with adaptive smooth
+    fit <- tryCatch(
+      fit_gam(k_main, bs = "ad"),
+      warning = function(w) {
+        message(
+          "Warning in group ",
+          standort,
+          ", pathogen ",
+          typ,
+          ", Loess period ",
+          loess_period,
+          ", Labor ",
+          labor,
+          ": ",
+          conditionMessage(w),
+          " — retrying without adaptive smooth = "
+        )
+        # in case of error (mostly due to small observations) do not use adaptive smoothing
+        tryCatch(
+          fit_gam(k_main, bs = "bs"),
+          error = function(e)
+            NULL
+        )
+      },
+      error = function(e) {
+        message(
+          "Error in group ",
+          standort,
+          ", pathogen ",
+          typ,
+          ", Loess period ",
+          loess_period,
+          ", Labor ",
+          labor,
+          ": ",
+          conditionMessage(e)
+        )
+        list(
+          df = 1,
+          fit = d_grp$log_viruslast,
+          se.fit = rep(0, nrow(d_grp))
+        )
+      }
     )
-  }, warning = function(w) {
-    message(
-      "Warning in group ",
-      unique(standort),
-      ", pathogen ",
-      unique(typ),
-      ": ",
-      conditionMessage(w)
+    
+    # Predict (on the original group's obs; keep rows aligned)
+    p <- tryCatch(
+      predict(fit, newdata = d_grp[, "obs", drop = FALSE], se.fit = TRUE),
+      error = function(e) {
+        message(
+          "Predict error in group ",
+          standort,
+          ", pathogen ",
+          typ,
+          ", Loess period ",
+          loess_period,
+          ", Labor ",
+          labor,
+          ": ",
+          conditionMessage(e)
+        )
+        list(
+          df = 1,
+          fit = d_grp$log_viruslast,
+          se.fit = rep(0, nrow(d_grp))
+        )
+      }
     )
-    predict(
-      loess.as(
-        .x$obs[!is.na(.x$log_viruslast)],
-        .x$log_viruslast[!is.na(.x$log_viruslast)],
-        family = "gaussian",
-        degree = 2,
-        user.span = .75,
-        control = loess.control(surface = "direct")
-      ),
-      newdata = data.frame(x = .x$obs),
-      se = TRUE
+    list(
+      df = fit$df.residual,
+      fit = as.numeric(p$fit),
+      se.fit = as.numeric(p$se.fit)
     )
-  })))
+  }))
 
 # extract and unnest relevant list
 pred <- pred %>%

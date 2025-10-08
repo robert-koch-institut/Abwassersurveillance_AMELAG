@@ -13,6 +13,7 @@ df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
 thursday_data <-
   df %>%
   distinct(datum) %>%
+  arrange(datum) %>%
   mutate(
     Tag = lubridate::wday(datum, week_start = 1),
     is_thursday = ifelse(Tag == 4, 1, 0),
@@ -27,10 +28,10 @@ df_agg <- df %>%
   # complete data
   fill(unter_bg, .direction = "updown") %>%
   # create log values
-  mutate(log_viruslast = log10(!!sym(viruslast_untersucht))) %>% 
+  mutate(log_viruslast = log10(!!sym(viruslast_untersucht))) %>%
   ungroup()
 
-df_agg <- df_agg %>% 
+df_agg <- df_agg %>%
   arrange(standort, typ, datum) %>%
   # for each site, compute 7-day averages
   group_by(standort, typ, th_week) %>%
@@ -65,8 +66,9 @@ df_agg <- df_agg %>%
   # adjust for these deviations
   mutate(log_viruslast = log_viruslast - log_viruslast_dev) %>%
   # drop variables no longer needed
-  select(-mean_log_viruslast,-log_viruslast_dev,-labor,
-         -laborwechsel_numerisch)
+  select(-mean_log_viruslast,
+         -log_viruslast_dev,
+         -labor,-laborwechsel_numerisch)
 
 # Create an empty list as placeholder
 agg_list <- list()
@@ -92,49 +94,79 @@ df_agg <- map_dfr(agg_list, bind_rows) %>%
   # ensure that influenza and rsv gesamt are sums of the single viruses
   mutate(
     log_viruslast = ifelse(typ == "Influenza A+B", log10(sum(
-      10 ^ log_viruslast[typ %in% c("Influenza A", "Influenza B")], na.rm = TRUE
+      10^log_viruslast[typ %in% c("Influenza A", "Influenza B")], na.rm = TRUE
     )), log_viruslast),
     log_viruslast = ifelse(typ == "RSV A+B", log10(sum(
-      10 ^ log_viruslast[typ %in% c("RSV A", "RSV B")], na.rm = TRUE
+      10^log_viruslast[typ %in% c("RSV A", "RSV B")], na.rm = TRUE
     )), log_viruslast),
     # drop created zeros (if only NAs are summed up, a zero is created)
     log_viruslast = ifelse(log_viruslast < 0.0000001, NA, log_viruslast)
   ) %>%
   ungroup()
 
-# compute loess predictions
+# compute gam predictions
 pred <- df_agg %>%
   group_by(typ) %>%
   nest() %>%
-  mutate(pred = map(data, ~ tryCatch({
-    predict(
-      loess.as(
-        .x$obs[!is.na(.x$log_viruslast)],
-        .x$log_viruslast[!is.na(.x$log_viruslast)],
-        criterion = "aicc",
-        family = "gaussian",
-        degree = 2,
-        weights = sqrt(.x$weights[!is.na(.x$log_viruslast)]),
-        control = loess.control(surface = "direct")
-      ),
-      newdata = data.frame(x = .x$obs),
-      se = TRUE
+  mutate(pred = pmap(list(data, typ), function(d_grp, typ) {
+    # clean data
+    d <- d_grp %>% filter(!is.na(log_viruslast), !is.na(obs))
+    
+    # helper to fit GAM with a given k (basis dimension) and bs (spline basis)
+    fit_gam <- function(k, bs, method = "GCV.Cp") {
+      mgcv::gam(log_viruslast ~ s(obs, k = k, bs = bs),
+                method = method,
+                data = d)
+    }
+    
+    # Choose a default k: default is given to mgcv default
+    k_main <- -1
+    
+    # try to fit model with adaptive smooth
+    fit <- tryCatch(
+      fit_gam(k_main, bs = "ad"),
+      warning = function(w) {
+        message(
+          "Warning in pathogen ",
+          typ,
+          conditionMessage(w),
+          " — retrying without adaptive smooth = "
+        )
+        # in case of error (mostly due to small observations) do not use adaptive smoothing
+        tryCatch(
+          fit_gam(k_main, bs = "bs"),
+          error = function(e)
+            NULL
+        )
+      },
+      error = function(e) {
+        message("Error in pathogen ", ": ", conditionMessage(e))
+        list(
+          df = 1,
+          fit = d_grp$log_viruslast,
+          se.fit = rep(0, nrow(d_grp))
+        )
+      }
     )
-  }, warning = function(w) {
-    message("Warning in pathogen ", unique(typ), ": ", conditionMessage(w))
-    predict(
-      loess.as(
-        .x$obs[!is.na(.x$log_viruslast)],
-        .x$log_viruslast[!is.na(.x$log_viruslast)],
-        family = "gaussian",
-        degree = 2,
-        user.span = .75,
-        control = loess.control(surface = "direct")
-      ),
-      newdata = data.frame(x = .x$obs),
-      se = TRUE
+    
+    # Predict (on the original group's obs; keep rows aligned)
+    p <- tryCatch(
+      predict(fit, newdata = d_grp[, "obs", drop = FALSE], se.fit = TRUE),
+      error = function(e) {
+        message("Predict error in pathogen ", typ, ": ", conditionMessage(e))
+        list(
+          df = 1,
+          fit = d_grp$log_viruslast,
+          se.fit = rep(0, nrow(d_grp))
+        )
+      }
     )
-  }))) %>%
+    list(
+      df = fit$df.residual,
+      fit = as.numeric(p$fit),
+      se.fit = as.numeric(p$se.fit)
+    )
+  })) %>%
   select(pred) %>%
   unnest(cols = c(pred))
 
@@ -163,16 +195,20 @@ df_agg <- df_agg %>%
     loess_obere_schranke = loess_vorhersage + qt(0.975, loess_vorhersage_df) *
       loess_vorhersage_se,
     # transform to original scale
-    loess_untere_schranke = 10 ^ loess_untere_schranke,
-    loess_obere_schranke = 10 ^ loess_obere_schranke,
-    loess_vorhersage = 10 ^ (loess_vorhersage),!!sym(viruslast_untersucht) := 10 ^ (log_viruslast)
+    loess_untere_schranke = 10^loess_untere_schranke,
+    loess_obere_schranke = 10^loess_obere_schranke,
+    loess_vorhersage = 10^(loess_vorhersage),
+    !!sym(viruslast_untersucht) := 10^(log_viruslast)
   ) %>%
   # select and rename relevant variables
   select(
     datum,
     n = n_non_na,
-    anteil_bev, !!sym(viruslast_untersucht),
-    contains("loess"), -contains("vorhersage_df"), -contains("vorhersage_se"),
+    anteil_bev,
+    !!sym(viruslast_untersucht),
+    contains("loess"),
+    -contains("vorhersage_df"),
+    -contains("vorhersage_se"),
     typ
   ) %>%
   # drop na entries
