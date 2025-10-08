@@ -116,6 +116,7 @@ pred <- df_agg %>%
     fit_gam <- function(k, bs, method = "GCV.Cp") {
       mgcv::gam(log_viruslast ~ s(obs, k = k, bs = bs),
                 method = method,
+                weights = sqrt(weights),     
                 data = d)
     }
     
