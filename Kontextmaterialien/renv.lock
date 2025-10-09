@@ -1275,22 +1275,6 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
-    "fANCOVA": {
-      "Package": "fANCOVA",
-      "Version": "0.6-1",
-      "Source": "Repository",
-      "Title": "Nonparametric Analysis of Covariance",
-      "Authors@R": "c(  person(given = \"Xiaofeng\", family = \"Wang\", role = c(\"aut\", \"cre\"), email = \"wangx6@ccf.org\"), person(given = \"Xinge\", family = \"Ji\", role = c(\"ctb\"), email = \"jix@ccf.org\"))",
-      "Description": "A collection of R functions to perform nonparametric  analysis of covariance for regression curves or surfaces.  Testing the equality or parallelism of nonparametric curves  or surfaces is equivalent to analysis of variance (ANOVA) or  analysis of covariance (ANCOVA) for one-sample functional data.  Three different testing methods are available in the package,  including one based on L-2 distance, one based on an ANOVA  statistic, and one based on variance estimators.",
-      "License": "GPL-3",
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "RoxygenNote": "7.1.1",
-      "NeedsCompilation": "no",
-      "Author": "Xiaofeng Wang [aut, cre], Xinge Ji [ctb]",
-      "Maintainer": "Xiaofeng Wang <wangx6@ccf.org>",
-      "Repository": "CRAN"
-    },
     "fansi": {
       "Package": "fansi",
       "Version": "1.0.6",
