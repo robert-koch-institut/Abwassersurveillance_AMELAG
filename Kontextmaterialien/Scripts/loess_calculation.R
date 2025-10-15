@@ -191,13 +191,11 @@ df <- df %>%
     min_log_viruslast = min(log_viruslast, na.rm = T),
     # check it af least one value below loq
     at_least_one_loq = sum(unter_bg == "ja", na.rm = TRUE) > 0,
-    # if so, ensure that predictions are equal to at least the respective loq
-    # for influenza virus types (as they are not normalized and have a clear
-    # lower bound)
+    # if so, ensure that predictions are equal to at least the respective loq 
+    # (which is equal to the minimum of the observed values)
     loess_vorhersage  = ifelse(
       loess_vorhersage < min_log_viruslast  &
-        at_least_one_loq &
-        grepl("Influenza", typ),
+        at_least_one_loq,
       min_log_viruslast,
       loess_vorhersage
     )
