@@ -29,10 +29,18 @@ df_agg <- df %>%
   fill(unter_bg, .direction = "updown") %>%
   # create log values
   mutate(log_viruslast = log10(!!sym(viruslast_untersucht))) %>%
-  ungroup()
+  ungroup() %>% 
+  arrange(typ, standort, datum) %>% 
+  group_by(typ, standort) %>%
+  mutate(
+    # add lab number per site (first lab gets 0, second lab gets 1 etc.)
+    laborwechsel_numerisch = ifelse(laborwechsel == "ja", 1, 0),
+    labor = cumsum(laborwechsel_numerisch),
+  ) %>%
+  ungroup() %>% 
+  select(-laborwechsel_numerisch, -laborwechsel)
 
 df_agg <- df_agg %>%
-  arrange(standort, typ, datum) %>%
   # for each site, compute 7-day averages
   group_by(standort, typ, th_week) %>%
   mutate_at(vars(contains("viruslast")), ~ mean(., na.rm = TRUE)) %>%
@@ -52,13 +60,6 @@ df_agg <- df_agg %>%
   ungroup() %>%
   # calculate differences from these means
   mutate(log_viruslast_dev = log_viruslast - mean_log_viruslast) %>%
-  group_by(standort, typ) %>%
-  mutate(
-    # add lab number per site (first lab gets 0, second lab gets 1 etc.)
-    laborwechsel_numerisch = ifelse(laborwechsel == "ja", 1, 0),
-    labor = cumsum(laborwechsel_numerisch),
-  ) %>%
-  ungroup() %>%
   # average over these for each virus/site/lab combination
   group_by(typ, standort, labor) %>%
   mutate(log_viruslast_dev = mean(log_viruslast_dev)) %>%
@@ -67,8 +68,7 @@ df_agg <- df_agg %>%
   mutate(log_viruslast = log_viruslast - log_viruslast_dev) %>%
   # drop variables no longer needed
   select(-mean_log_viruslast,
-         -log_viruslast_dev,
-         -labor,-laborwechsel_numerisch)
+         -log_viruslast_dev)
 
 # Create an empty list as placeholder
 agg_list <- list()
@@ -168,7 +168,7 @@ pred <- df_agg %>%
       se.fit = as.numeric(p$se.fit)
     )
   })) %>%
-  select(pred) %>%
+  select(pred, typ) %>%
   unnest(cols = c(pred))
 
 # store list
@@ -183,22 +183,22 @@ reps <- df_agg %>%
 df_agg <- df_agg %>%
   # add columns relevant for predictions
   add_column(
-    loess_vorhersage = extract_prediction(lis = pred_list, extract = "fit"),
-    loess_vorhersage_se = extract_prediction(lis = pred_list, extract = "se.fit"),
-    loess_vorhersage_df = extract_prediction(pred_list, "df") %>%
+    vorhersage = extract_prediction(lis = pred_list, extract = "fit"),
+    vorhersage_se = extract_prediction(lis = pred_list, extract = "se.fit"),
+    vorhersage_df = extract_prediction(pred_list, "df") %>%
       map2(., reps, ~ rep(.x, .y)) %>%
       unlist()
   ) %>%
   # compute pointwise confidence bands
   mutate(
-    loess_untere_schranke = loess_vorhersage - qt(0.975, loess_vorhersage_df) *
-      loess_vorhersage_se,
-    loess_obere_schranke = loess_vorhersage + qt(0.975, loess_vorhersage_df) *
-      loess_vorhersage_se,
+    untere_schranke = vorhersage - qt(0.975, vorhersage_df) *
+      vorhersage_se,
+    obere_schranke = vorhersage + qt(0.975, vorhersage_df) *
+      vorhersage_se,
     # transform to original scale
-    loess_untere_schranke = 10^loess_untere_schranke,
-    loess_obere_schranke = 10^loess_obere_schranke,
-    loess_vorhersage = 10^(loess_vorhersage),
+    untere_schranke = 10^untere_schranke,
+    obere_schranke = 10^obere_schranke,
+    vorhersage = 10^(vorhersage),
     !!sym(viruslast_untersucht) := 10^(log_viruslast)
   ) %>%
   # select and rename relevant variables
@@ -207,9 +207,9 @@ df_agg <- df_agg %>%
     n = n_non_na,
     anteil_bev,
     !!sym(viruslast_untersucht),
-    contains("loess"),
-    -contains("vorhersage_df"),
-    -contains("vorhersage_se"),
+    vorhersage,
+    untere_schranke,
+    obere_schranke,
     typ
   ) %>%
   # drop na entries

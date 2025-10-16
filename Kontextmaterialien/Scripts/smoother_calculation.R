@@ -19,16 +19,16 @@ temp <- df %>%
     # gam curve is estimated)
     four_weeks_nas = ifelse(dif > wo_meas_period &
                               !is.na(dif), 1, 0),
-    loess_period = cumsum(four_weeks_nas)
+    estimation_period = cumsum(four_weeks_nas)
   ) %>%
   ungroup() %>%
   # select relevant variables
-  select(standort, typ, datum, loess_period)
+  select(standort, typ, datum, estimation_period)
 
 df <- df %>%
-  # first drop loess (gam) estimates and derived quantities (to show how to calculate them)
-  select(-contains("loess")) %>%
-  # merge with loess period data set created above
+  # first drop (gam) estimates and derived quantities (to show how to calculate them)
+  select(-contains("vorhersage"), -contains("schranke")) %>%
+  # merge with estimation period data set created above
   left_join(temp) %>%
   group_by(standort, typ) %>%
   mutate(
@@ -43,11 +43,11 @@ df <- df %>%
   # fill NAs
   arrange(standort, typ, datum) %>%
   group_by(standort, typ) %>%
-  fill(c("loess_period", "labor"), .direction = "down") %>%
+  fill(c("estimation_period", "labor"), .direction = "down") %>%
   ungroup() %>%
-  # indicate whether minimum of observations is met in loess period, also consider that
+  # indicate whether minimum of observations is met in estimation period, also consider that
   # laboratory changes also constitute a new time frame
-  group_by(typ, standort, loess_period, labor) %>%
+  group_by(typ, standort, estimation_period, labor) %>%
   mutate(n = sum(!is.na(!!sym(
     viruslast_untersucht
   ))),
@@ -64,16 +64,16 @@ df <- df %>%
   filter(min_obs_exceeded > 0) %>%
   arrange(standort, typ, datum)
 
-# calculate GAM with adaptive smoothing for each virus, site, loess_period, lab combination
+# calculate GAM with adaptive smoothing for each virus, site, estimation_period, lab combination
 # see help(gam) for details of the set options
 # gam sometimes does not work well for small samples with many
 # values below limit of quantification, in this case the number 
 # non-adaptive smoothing is applied
 pred <- df %>%
-  group_by(standort, typ, loess_period, labor) %>%
+  group_by(standort, typ, estimation_period, labor) %>%
   mutate(obs = row_number()) %>%
   nest() %>%
-  mutate(pred = pmap(list(data, standort, typ, loess_period, labor), function(d_grp, standort, typ, loess_period, labor) {
+  mutate(pred = pmap(list(data, standort, typ, estimation_period, labor), function(d_grp, standort, typ, estimation_period, labor) {
     # clean data
     d <- d_grp %>% filter(!is.na(log_viruslast), !is.na(obs))
     
@@ -96,8 +96,8 @@ pred <- df %>%
           standort,
           ", pathogen ",
           typ,
-          ", Loess period ",
-          loess_period,
+          ", estimation period ",
+          estimation_period,
           ", Labor ",
           labor,
           ": ",
@@ -117,8 +117,8 @@ pred <- df %>%
           standort,
           ", pathogen ",
           typ,
-          ", Loess period ",
-          loess_period,
+          ", estimation period ",
+          estimation_period,
           ", Labor ",
           labor,
           ": ",
@@ -141,8 +141,8 @@ pred <- df %>%
           standort,
           ", pathogen ",
           typ,
-          ", Loess period ",
-          loess_period,
+          ", estimation period ",
+          estimation_period,
           ", Labor ",
           labor,
           ": ",
@@ -172,20 +172,20 @@ pred_list <- pred[, "pred"]$pred
 
 # store number of observations per group
 reps <- df %>%
-  group_by(standort, typ, loess_period, labor) %>%
+  group_by(standort, typ, estimation_period, labor) %>%
   summarise(n = n()) %>%
   pull(n)
 
 df <- df %>%
   # add columns relevant for predictions
   add_column(
-    loess_vorhersage = extract_prediction(lis = pred_list, extract = "fit"),
-    loess_vorhersage_se = extract_prediction(lis = pred_list, extract = "se.fit"),
-    loess_vorhersage_df = extract_prediction(lis = pred_list, "df") %>%
+    vorhersage = extract_prediction(lis = pred_list, extract = "fit"),
+    vorhersage_se = extract_prediction(lis = pred_list, extract = "se.fit"),
+    vorhersage_df = extract_prediction(lis = pred_list, "df") %>%
       map2(., reps, ~ rep(.x, .y)) %>%
       unlist()
   ) %>%
-  group_by(standort, typ, loess_period, labor) %>%
+  group_by(standort, typ, estimation_period, labor) %>%
   mutate(
     # compute minimum value
     min_log_viruslast = min(log_viruslast, na.rm = T),
@@ -193,31 +193,31 @@ df <- df %>%
     at_least_one_loq = sum(unter_bg == "ja", na.rm = TRUE) > 0,
     # if so, ensure that predictions are equal to at least the respective loq 
     # (which is equal to the minimum of the observed values)
-    loess_vorhersage  = ifelse(
-      loess_vorhersage < min_log_viruslast  &
+    vorhersage  = ifelse(
+        vorhersage < min_log_viruslast  &
         at_least_one_loq,
       min_log_viruslast,
-      loess_vorhersage
+      vorhersage
     )
   ) %>%
   ungroup() %>%
   # compute pointwise confidence bands
   mutate(
-    loess_untere_schranke = loess_vorhersage - qt(0.975, loess_vorhersage_df) *
-      loess_vorhersage_se,
-    loess_obere_schranke = loess_vorhersage + qt(0.975, loess_vorhersage_df) *
-      loess_vorhersage_se,
+    untere_schranke = vorhersage - qt(0.975, vorhersage_df) *
+      vorhersage_se,
+    obere_schranke = vorhersage + qt(0.975, vorhersage_df) *
+      vorhersage_se,
     # transform to original scale
-    loess_untere_schranke = 10 ^ loess_untere_schranke,
-    loess_obere_schranke = 10 ^ loess_obere_schranke,
-    loess_vorhersage = 10 ^ (loess_vorhersage),!!sym(viruslast_untersucht) := 10 ^ (log_viruslast)
+    untere_schranke = 10 ^ untere_schranke,
+    obere_schranke = 10 ^ obere_schranke,
+    vorhersage = 10 ^ (vorhersage),!!sym(viruslast_untersucht) := 10 ^ (log_viruslast)
   ) %>%
   # drop variables
   select(-min_log_viruslast, -at_least_one_loq)
 
 # arrange data
 data_combined <-
-  df  %>% filter(!is.na(loess_vorhersage)) %>%
+  df  %>% filter(!is.na(vorhersage)) %>%
   arrange(standort, datum)
 
 # add data with few measurements
@@ -232,21 +232,21 @@ data_combined <- data_combined %>%
   group_by(standort, typ) %>%
   mutate(
     # combine changes in data for plots
-    loess_period = loess_period + labor,
-    loess_period = factor(loess_period)) %>%
+    estimation_period = estimation_period + labor,
+    estimation_period = factor(estimation_period)) %>%
   ungroup() %>%
   select(
     standort,
     bundesland,
     datum,
     !!sym(viruslast_untersucht),
-    loess_vorhersage,
-    loess_obere_schranke,
-    loess_untere_schranke,
+    vorhersage,
+    obere_schranke,
+    untere_schranke,
     einwohner,
     laborwechsel,
     typ,
     unter_bg,
-    loess_period,
+    estimation_period,
     labor
   )

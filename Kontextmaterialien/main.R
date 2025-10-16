@@ -91,7 +91,7 @@ source(here(scripts_here, "functions_packages.R"), encoding = "UTF-8")
 
 # this script is for understanding how gam curves, confidence intervals
 # and trends are calculated from single site data; no output is created
-source(here(scripts_here, "loess_calculation.R"), encoding = "UTF-8")
+source(here(scripts_here, "smoother_calculation.R"), encoding = "UTF-8")
 
 # this script is for understanding how aggregation of data takes place and how
 # gam curves and trends are calculated for aggregated data, i.e. it is also shown
