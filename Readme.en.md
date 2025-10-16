@@ -2,6 +2,7 @@
 
 
 Documentation  
+
 # Wastewater Surveillance AMELAG
 
 <br> 
@@ -30,14 +31,16 @@ The dataset "Wastewater Surveillance AMELAG" of the Robert Koch Institute and th
 
 <br>
 
-**Table of Content**
+**Table of Content**  
+
 <!-- TOC_START: {"heading_depth": 2} -->
-  - [Information on the dataset and context of origin](#information-on-the-dataset-and-context-of-origin)
-  - [Content and structure of the dataset](#content-and-structure-of-the-dataset)
-  - [Guidelines for reuse of the data](#guidelines-for-reuse-of-the-data)
+  - [Information on the dataset and context of origin](#information-on-the-dataset-and-context-of-origin)  
+  - [Content and structure of the dataset](#content-and-structure-of-the-dataset)  
+  - [Guidelines for reuse of the data](#guidelines-for-reuse-of-the-data)  
 <!-- TOC_END -->
 
 <br>
+
 <!-- HEADER_END -->
 
 <br>
@@ -158,20 +161,20 @@ The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Ab
 > [tableschema_amelag_einzelstandorte.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_einzelstandorte.en.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
-| Variable               | Type    | Characteristic                                                                                      | Description                                                                                                                           |
-|:-----------------------|:--------|:----------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
-| standort               | string  | Examples: `Aachen`, `Ratzeburg`, `Weil am Rhein`                                                    | Location of the wastewater treatment.                                                                                                 |
-| bundesland             | string  | Values: `BB`, `BE`, `BW`, `BY`, `HB`, `HE`, `HH`, …                                                 | Federal state (abbreviated) in which the wastewater treatment plant is located.                                                       |
-| datum                  | date    | Format: `YYYY-MM-DD`<br>Missing values: `NA`                                                        | Date on which the 24-hour composite sample started in the wastewater treatment plant.                                                 |
-| viruslast              | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Measured viral load in gene copies per liter.                                                                                         |
-| viruslast_normalisiert | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Flow-normalized viral load (as described in the variable "viruslast").                                                                |
-| vorhersage             | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Predicted viral load (predicted using a GAM regression with adaptive smoothing and the non-normalized viral loads, transformed back to the original scale). |
-| obere_schranke         | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Upper bound of the pointwise 95% confidence interval of the GAM predicted value.                                                    |
-| untere_schranke        | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Lower bound of the pointwise 95% confidence interval of the GAM predicted value.                                                    |
-| einwohner              | integer | Values: `≥0`<br>Missing values: `NA`                                                                | Number of inhabitants connected to the site's sewage treatment plant.                                                                 |
-| laborwechsel           | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                        | Indicates whether change in laboratory or change in laboratory mathods occurred.                                                      |
-| typ                    | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`, `RSV A`, `RSV B`, `RSV A+B`, … | Virus type.                                                                                                                           |
-| unter_bg               | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                        | Indicates if at least half of the measured genes are under the limit of quantification  (`ja`=yes, `nein`=no).                        |
+| Variable               | Type    | Characteristic                                                                                      | Description                                                                                                                                                                                                                   |
+|:-----------------------|:--------|:----------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| standort               | string  | Examples: `Aachen`, `Ratzeburg`, `Weil am Rhein`                                                    | Location of the wastewater treatment.                                                                                                                                                                                         |
+| bundesland             | string  | Values: `BB`, `BE`, `BW`, `BY`, `HB`, `HE`, `HH`, …                                                 | Federal state (abbreviated) in which the wastewater treatment plant is located.                                                                                                                                               |
+| datum                  | date    | Format: `YYYY-MM-DD`<br>Missing values: `NA`                                                        | Date on which the 24-hour composite sample started in the wastewater treatment plant.                                                                                                                                         |
+| viruslast              | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Measured viral load in gene copies per liter.                                                                                                                                                                                 |
+| viruslast_normalisiert | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Flow-normalized viral load (as described in the variable "viruslast").                                                                                                                                                        |
+| vorhersage             | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Predicted viral load (predicted using a GAM regression with adaptive smoothing and the non-normalized viral loads, optimized by a cross-validation for the log10-transformed values, transformed back to the original scale). |
+| obere_schranke         | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Upper bound of the pointwise 95% confidence interval of the GAM predicted value.                                                                                                                                              |
+| untere_schranke        | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Lower bound of the pointwise 95% confidence interval of the GAM predicted value.                                                                                                                                              |
+| einwohner              | integer | Values: `≥0`<br>Missing values: `NA`                                                                | Number of inhabitants connected to the site's sewage treatment plant.                                                                                                                                                         |
+| laborwechsel           | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                        | Indicates whether change in laboratory or change in laboratory mathods occurred.                                                                                                                                              |
+| typ                    | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`, `RSV A`, `RSV B`, `RSV A+B`, … | Virus type.                                                                                                                                                                                                                   |
+| unter_bg               | string  | Values: `ja`, `nein`<br>Missing values: `NA`                                                        | Indicates if at least half of the measured genes are under the limit of quantification  (`ja`=yes, `nein`=no).                                                                                                                |
 
 <!-- DATA_SCHEMA_TABLE_END -->
 
@@ -198,9 +201,9 @@ The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/
 | anteil_bev             | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Proportion of the total population in Germany that is connected to the transmitting sewage treatment plants.                                                                                                                                                                                                                                                                                                    |
 | viruslast              | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Measured viral load (in gene copies per liter averaged over all sites and weighted by connected inhabitants of the wastewater treatment plants). Before averaging across the sites, all measured values of the sites in the last 7 days were transformed using the logarithm of 10 and averaged across the individual sites. The indicated viral load is the mean value transformed back to the original scale. |
 | viruslast_normalisiert | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Flow-normalized viral load (as described in the variable "viruslast").                                                                                                                                                                                                                                                                                                                                          |
-| vorhersage             | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Predicted viral load (predicted using a GAM regression and the non-normalized viral loads, transformed back to the original scale).                                                                                                                                                                                                                                                                           |
-| obere_schranke         | number  | Values: `≥0`                                                                                        | Upper bound of the 95% confidence interval of the GAM predicted value.                                                                                                                                                                                                                                                                                                                                        |
-| untere_schranke        | number  | Values: `≥0`                                                                                        | Lower bound of the 95% confidence interval of the GAM predicted value.                                                                                                                                                                                                                                                                                                                                        |
+| vorhersage             | number  | Values: `≥0`<br>Missing values: `NA`                                                                | Predicted viral load (predicted using a GAM regression and the non-normalized viral loads, optimized by a cross-validation for the log-transformed values, transformed back to the original scale).                                                                                                                                                                                                             |
+| obere_schranke         | number  | Values: `≥0`                                                                                        | Upper bound of the 95% confidence interval of the GAM predicted value.                                                                                                                                                                                                                                                                                                                                          |
+| untere_schranke        | number  | Values: `≥0`                                                                                        | Lower bound of the 95% confidence interval of the GAM predicted value.                                                                                                                                                                                                                                                                                                                                          |
 | typ                    | string  | Values: `SARS-CoV-2`, `Influenza A`, `Influenza B`, `Influenza A+B`, `RSV A`, `RSV B`, `RSV A+B`, … | Virus type.                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 <!-- DATA_SCHEMA_TABLE_END -->
@@ -233,8 +236,8 @@ The zenodo.json includes the publication date and the date of the data status in
     {
       "start": "2023-09-11T15:00:21+02:00",
       "end": "2023-09-11T15:00:21+02:00",
-      "type": "Collected",
-      "description": "Date when the dataset was created"
+      "type": "Created",
+      "description": "Date when the published data was created"
     }
   ],
 ```
