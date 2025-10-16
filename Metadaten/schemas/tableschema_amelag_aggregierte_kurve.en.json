@@ -51,9 +51,9 @@
       }
     },
     {
-      "name": "loess_vorhersage",
+      "name": "vorhersage",
       "type": "number",
-      "description": "Predicted viral load (predicted using a LOESS regression and the non-normalized viral loads, transformed back to the original scale).",
+      "description": "Predicted viral load (predicted using a GAM regression and the non-normalized viral loads, optimized by a cross-validation for the log-transformed values, transformed back to the original scale).",
       "missingValues": [
         "NA"
       ],
@@ -62,17 +62,17 @@
       }
     },
     {
-      "name": "loess_obere_schranke",
+      "name": "obere_schranke",
       "type": "number",
-      "description": "Upper bound of the 95% confidence interval of the LOESS predicted value.",
+      "description": "Upper bound of the 95% confidence interval of the GAM predicted value.   ",
       "constraints": {
         "minimum": 0
       }
     },
     {
-      "name": "loess_untere_schranke",
+      "name": "untere_schranke",
       "type": "number",
-      "description": "Lower bound of the 95% confidence interval of the LOESS predicted value.",
+      "description": "Lower bound of the 95% confidence interval of the GAM predicted value.       ",
       "constraints": {
         "minimum": 0
       }

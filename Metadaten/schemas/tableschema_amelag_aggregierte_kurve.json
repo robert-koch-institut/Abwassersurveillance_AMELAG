@@ -51,9 +51,9 @@
       }
     },
     {
-      "name": "loess_vorhersage",
+      "name": "vorhersage",
       "type": "number",
-      "description": "Vorhergesagte Viruslast (mittels einer LOESS-Regression auf Basis der nicht-normalisierten Viruslasten, zurücktransformiert auf die Originalskala).",
+      "description": "Vorhergesagte Viruslast (mittels einer GAM-Regression auf Basis der nicht-normalisierten Viruslasten, optimiert mittels Kreuzvalidierung-Kriterium für die logarithmierten Werte, angegeben ist der auf die Originalskala zurücktransformierte Wert).",
       "missingValues": [
         "NA"
       ],
@@ -62,17 +62,17 @@
       }
     },
     {
-      "name": "loess_obere_schranke",
+      "name": "obere_schranke",
       "type": "number",
-      "description": "Obere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "description": "Obere Grenze des punktweisen 95%-Konfidenzintervalls des GAM-Vorhersagewerts. ",
       "constraints": {
         "minimum": 0
       }
     },
     {
-      "name": "loess_untere_schranke",
+      "name": "untere_schranke",
       "type": "number",
-      "description": "Untere Grenze des punktweisen 95%-Konfidenzintervalls des LOESS-Vorhersagewerts.",
+      "description": "Untere Grenze des punktweisen 95%-Konfidenzintervalls des GAM-Vorhersagewerts. ",
       "constraints": {
         "minimum": 0
       }

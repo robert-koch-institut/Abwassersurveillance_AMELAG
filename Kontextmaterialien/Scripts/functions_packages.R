@@ -4,7 +4,7 @@ pacman::p_load(here,
                tidyverse,
                reshape,
                padr,
-               fANCOVA,
+               mgcv,
                writexl,
                scales,
                lubridate)
@@ -241,7 +241,7 @@ aggregation <- function(df = df_agg,
       !!sym(paste0("log_",viruslast_untersucht))
     }) %>%
     group_by(th_week) %>%
-    # compute weights for loess curve, these are the inverse values of the variance
+    # compute weights for gam curve, these are the inverse values of the variance
     # of the (weighted) mean of the observations
     mutate(weights = (1 / var_weighted(x = sim_log, wt = weighting_var))) %>%
     # count contributing sites per Wednesday

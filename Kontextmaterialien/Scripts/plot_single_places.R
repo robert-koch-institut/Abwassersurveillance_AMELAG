@@ -8,9 +8,9 @@ if (show_log_data)
     data_plots %>%
     mutate_at(
       vars(
-        loess_vorhersage,
-        loess_obere_schranke,
-        loess_untere_schranke,!!sym(viruslast_untersucht)
+        vorhersage,
+        obere_schranke,
+        untere_schranke,!!sym(viruslast_untersucht)
       ),
       ~ log10(.)
     )
@@ -37,7 +37,7 @@ data_plots <- data_plots %>%
 
 # export data for single places
 data_plots %>%
-  select(-Lab_change_date, -labor, -loess_period) %>%
+  select(-Lab_change_date, -labor, -estimation_period) %>%
   mutate(wochentag = lubridate::wday(datum, label = TRUE, week_start = 1)) %>%
   arrange(label, datum) %>%
   group_by(typ, label) %>%
@@ -60,21 +60,21 @@ data_plots %>%
           results_here,
           .y$typ,
           "Single_Sites",
-          paste0(.y$label, filename_add, "_Loess_Kurve.pdf")
+          paste0(.y$label, filename_add, "_Kurve.pdf")
         ),
         ggplot(data = .x) +
           geom_ribbon(
             aes(
-              ymin = loess_untere_schranke,
-              ymax = loess_obere_schranke,
-              group = interaction(loess_period, labor)
+              ymin = untere_schranke,
+              ymax = obere_schranke,
+              group = interaction(estimation_period, labor)
             ),
             fill = "lightblue"
           ) +
           aes(x = datum, y = !!sym(viruslast_untersucht)) +
           geom_point(aes(color = unter_bg)) +
           geom_line(
-            aes(datum, y = loess_vorhersage, group = interaction(loess_period, labor)),
+            aes(datum, y = vorhersage, group = interaction(estimation_period, labor)),
             linewidth = 1
           ) +
           scale_color_manual(

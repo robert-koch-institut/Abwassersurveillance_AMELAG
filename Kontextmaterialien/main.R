@@ -21,8 +21,8 @@ min_obs = 10
 # minimum of number of treatment plants that are required to aggregate them
 min_obs_agg = 20
 
-# number of days without measurements that are needed to start a new loess period,
-# i.e. a new loess estimation is done after such a time frame without measurements
+# number of days without measurements that are needed to start a new estimation period,
+# i.e. a new gam estimation is done after such a time frame without measurements
 # default: 4 weeks
 wo_meas_period = 28
 
@@ -84,17 +84,17 @@ for (i in seq_along(var_names)) {
 # define variable of interest as determined above (normalized or not)
 if (use_normalized_data == TRUE)
   viruslast_untersucht <- "viruslast_normalisiert" else
-    viruslast_untersucht <- "viruslast"
+  viruslast_untersucht <- "viruslast"
 
 # (install and) load packages, read in functions, directories and self-defined values
 source(here(scripts_here, "functions_packages.R"), encoding = "UTF-8")
 
-# this script is for understanding how loess curve, confidence intervals
+# this script is for understanding how gam curves, confidence intervals
 # and trends are calculated from single site data; no output is created
-source(here(scripts_here, "loess_calculation.R"), encoding = "UTF-8")
+source(here(scripts_here, "smoother_calculation.R"), encoding = "UTF-8")
 
 # this script is for understanding how aggregation of data takes place and how
-# loess curve and trends are calculated for aggregated data, i.e. it is also shown
+# gam curves and trends are calculated for aggregated data, i.e. it is also shown
 # how the aggregated data set is derived from single site data; no output is created
 source(here(scripts_here, "aggregation_calculation.R"), encoding = "UTF-8")
 
