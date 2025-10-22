@@ -8,7 +8,7 @@ if (show_log_data)
 {
   df_agg  <-
     df_agg  %>%
-    mutate_at(vars(contains("loess"), !!sym(viruslast_untersucht)), ~ log10(.))
+    mutate_at(vars(contains("vorhersage"), contains("schranke"), !!sym(viruslast_untersucht)), ~ log10(.))
   ytit <-
     expression(atop("Viruslast im Abwasser", atop(paste(
       "in ", log[10], " Genkopien / Liter"
@@ -36,13 +36,13 @@ df_agg %>%
       ),
       ggplot(data = .x) +
         geom_ribbon(
-          aes(ymin = loess_untere_schranke, ymax = loess_obere_schranke),
+          aes(ymin = untere_schranke, ymax = obere_schranke),
           # shadowing cnf intervals
           fill = "lightblue"
         ) +
         aes(x = datum, y = !!sym(viruslast_untersucht)) +
         geom_point(colour = "grey") +
-        geom_line(aes(datum, y = loess_vorhersage), linewidth = 1) +
+        geom_line(aes(datum, y = vorhersage), linewidth = 1) +
         theme_minimal() +
         theme(axis.text.x = element_text(angle = 45)) +
         scale_x_date(date_breaks = "month", date_labels = "%b %y") +
