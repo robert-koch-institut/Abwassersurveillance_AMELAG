@@ -8,7 +8,7 @@ if (show_log_data)
 {
   df_agg  <-
     df_agg  %>%
-    mutate_at(vars(contains("vorhersage"), !!sym(viruslast_untersucht)), ~ log10(.))
+    mutate_at(vars(contains("vorhersage"), contains("schranke"), !!sym(viruslast_untersucht)), ~ log10(.))
   ytit <-
     expression(atop("Viruslast im Abwasser", atop(paste(
       "in ", log[10], " Genkopien / Liter"
