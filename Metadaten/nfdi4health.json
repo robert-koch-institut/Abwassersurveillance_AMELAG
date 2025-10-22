@@ -9,7 +9,7 @@
     "descriptions": [
       {
         "language": "DE (German)",
-        "text": "Das Vorhaben „Abwassermonitoring für die epidemiologische Lagebewertung“ (AMELAG) läuft vom 22.11.2022 bis zum 31.12.2025. Behörden, Kläranlagen und Labore arbeiten zusammen, um Proben zu nehmen, zu analysieren und zu bewerten. Das Ziel dieses Vorhabens ist es, SARS-CoV-2-Nachweise aus dem Abwasser als zusätzlichen Indikator zur epidemiologischen Lagebewertung auf Länder- und Bundesebene zu etablieren. Ebenso ist es das Ziel, Strukturen und Prozesse für ein bundesweites Netzwerk für die Abwassersurveillance weiter auszubauen, Konzepte für eine Verstetigung zu erstellen und die Möglichkeiten für ein Monitoring von weiteren Krankheitserregern im Abwasser zu erforschen.\nAbwassersurveillance ist eine Technik, um Erreger im Abwasser nachzuweisen, um Gesundheitsschutzmaßnahmen besser steuern zu können. Abwasserdaten erlauben keine genaue Einschätzung von Krankheitsschwere oder der Belastung des Gesundheitssystems. Bei der epidemiologischen Bewertung sollten die Daten mit anderen Indikatoren, z.B. aus der syndromischen Surveillance, kombiniert werden."
+        "text": "Im Datensatz \"Abwassersurveillance AMELAG\" des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt."
       }
     ],
     "titles": [
@@ -20,7 +20,7 @@
     ],
     "ids": [
       {
-        "identifier": "10.5281/zenodo.17045957",
+        "identifier": "10.5281/zenodo.17358706",
         "typeGeneral": "Dataset",
         "relationType": "A references B",
         "scheme": "DOI"
@@ -45,12 +45,28 @@
         "code": "http://id.nlm.nih.gov/mesh/D000086402"
       },
       {
+        "label": "Human Respiratory Syncytial Virus",
+        "code": "http://id.nlm.nih.gov/mesh/D018113"
+      },
+      {
+        "label": "Influenza",
+        "code": "http://id.nlm.nih.gov/mesh/D007251"
+      },
+      {
         "label": "Abwasserbasierte epidemiologische Überwachung",
         "code": "http://id.nlm.nih.gov/mesh/D000079686"
       },
       {
         "label": "Wastewater-Based Epidemiological Monitoring",
         "code": "http://id.nlm.nih.gov/mesh/D000079686"
+      },
+      {
+        "label": "Umweltüberwachung",
+        "code": "http://id.nlm.nih.gov/mesh/D004784"
+      },
+      {
+        "label": "Environmental Monitoring",
+        "code": "http://id.nlm.nih.gov/mesh/D004784"
       },
       {
         "label": "Epidemiologie",
@@ -97,7 +113,7 @@
         },
         "label": "CC BY 4.0 (Creative Commons Attribution 4.0 International)"
       },
-      "version": "2025-09-02"
+      "version": "2025-10-14"
     },
     "webpage": "https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG",
     "contributors": [
@@ -113,11 +129,34 @@
             ]
           }
         ],
-        "nameType": "Personal",
-        "personal": {
-          "type": "Creator/Author",
-          "givenName": "Fachgebiet 32",
-          "familyName": "Robert Koch-Institut"
+        "nameType": "Organisational",
+        "organisational": {
+          "name": "Robert Koch-Institut",
+          "type": "Creator/Author"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Umweltbundesamt"
+          }
+        ],
+        "nameType": "Organisational",
+        "organisational": {
+          "name": "Umweltbundesamt",
+          "type": "Creator/Author"
+        }
+      },
+      {
+        "affiliations": [
+          {
+            "name": "Fachgebiet 32"
+          }
+        ],
+        "nameType": "Organisational",
+        "organisational": {
+          "name": "Fachgebiet 32",
+          "type": "Project manager"
         }
       }
     ],
