@@ -1,0 +1,15 @@
+T.L2                    Test the equality of nonparametric curves or
+                        surfaces based on L2 distance
+T.aov                   Test the equality of nonparametric curves or
+                        surfaces based on an ANOVA-type statistic
+T.var                   Test the equality of nonparametric curves or
+                        surfaces based on variance estimators
+USpopu                  US national population
+loess.ancova            Fit a semiparametric ANCOVA model with a local
+                        polynomial smoother
+loess.as                Fit a local polynomial regression with
+                        automatic smoothing parameter selection
+plot.fANCOVA            Plot a fANCOVA Object
+wild.boot               Generate one or multiple bootstrap samples of
+                        regression residuals using the wild bootstrap
+                        method

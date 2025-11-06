@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Vignettes and other documentation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="/doc/html/R.css" />
+</head><body><div class="container">
+<h1> Vignettes and other documentation
+<img class="toplogo" src="/doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="/doc/html/index.html"><img class="arrow" src="/doc/html/up.jpg" alt="[Top]" /></a>
+</div>
+<h2>Vignettes from package 'renv'</h2>
+<table style="width: 100%;">
+<col style="width: 22%;" />
+<col style="width:  2%;" />
+<col style="width: 50%;" />
+<col style="width:  8%;" />
+<col style="width:  8%;" />
+<col style="width:  8%;" />
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/ci.html">renv::ci</a></td>
+<td></td><td style="vertical-align: top;">Using renv with continuous integration</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/ci.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/ci.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/ci.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/docker.html">renv::docker</a></td>
+<td></td><td style="vertical-align: top;">Using renv with Docker</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/docker.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/docker.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/docker.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/faq.html">renv::faq</a></td>
+<td></td><td style="vertical-align: top;">Frequently asked questions</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/faq.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/faq.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/faq.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/package-install.html">renv::package-install</a></td>
+<td></td><td style="vertical-align: top;">Installing packages</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/package-install.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/package-install.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/package-install.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/package-sources.html">renv::package-sources</a></td>
+<td></td><td style="vertical-align: top;">Package sources</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/package-sources.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/package-sources.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/package-sources.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/packages.html">renv::packages</a></td>
+<td></td><td style="vertical-align: top;">Package development</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/packages.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/packages.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/packages.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/packrat.html">renv::packrat</a></td>
+<td></td><td style="vertical-align: top;">packrat vs. renv</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/packrat.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/packrat.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/packrat.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/profiles.html">renv::profiles</a></td>
+<td></td><td style="vertical-align: top;">Project profiles</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/profiles.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/profiles.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/profiles.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/python.html">renv::python</a></td>
+<td></td><td style="vertical-align: top;">Using Python with renv</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/python.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/python.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/python.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/renv.html">renv::renv</a></td>
+<td></td><td style="vertical-align: top;">Introduction to renv</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/renv.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/renv.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/renv.R">R code</a></td></tr>
+<tr><td style="text-align: right; vertical-align: top;"><a href="../../../library/renv/doc/rsconnect.html">renv::rsconnect</a></td>
+<td></td><td style="vertical-align: top;">Using renv with Posit Connect</td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/rsconnect.html">HTML</a></td>
+<td style="vertical-align: top;"><a href="../../../library/renv/doc/rsconnect.Rmd">source</a></td>
+<td style="vertical-align: top; white-space: nowrap"><a href="../../../library/renv/doc/rsconnect.R">R code</a></td></tr>
+</table>
+</div></body></html>

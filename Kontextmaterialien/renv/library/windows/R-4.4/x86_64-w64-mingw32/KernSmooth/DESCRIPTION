@@ -1,0 +1,28 @@
+Package: KernSmooth
+Priority: recommended
+Version: 2.23-26
+Date: 2024-12-10
+Title: Functions for Kernel Smoothing Supporting Wand & Jones (1995)
+Authors@R: c(person("Matt", "Wand", role = "aut", email = "Matt.Wand@uts.edu.au"), person("Cleve", "Moler", role = "ctb", comment = "LINPACK routines in src/d*"), person("Brian", "Ripley", role = c("trl", "cre", "ctb"), email = "Brian.Ripley@R-project.org", comment = "R port and updates"))
+Note: Maintainers are not available to give advice on using a package they did
+    not author.
+Depends: R (>= 2.5.0), stats
+Suggests: MASS, carData
+Description: Functions for kernel smoothing (and density estimation) corresponding to the book:  Wand, M.P. and Jones, M.C. (1995) "Kernel Smoothing".
+License: Unlimited
+ByteCompile: yes
+NeedsCompilation: yes
+Packaged: 2024-12-10 15:33:25 UTC; ripley
+Author: Matt Wand [aut], Cleve Moler [ctb] (LINPACK routines in src/d*), Brian Ripley [trl, cre, ctb] (R port and updates)
+Maintainer: Brian Ripley <Brian.Ripley@R-project.org>
+Repository: CRAN
+Date/Publication: 2025-01-01 10:25:36 UTC
+Built: R 4.4.3; x86_64-w64-mingw32; 2025-03-11 01:34:23 UTC; windows
+Archs: x64
+RemoteType: standard
+RemotePkgRef: KernSmooth
+RemoteRef: KernSmooth
+RemoteRepos: http://ftp.gwdg.de/pub/misc/cran
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 2.23-26

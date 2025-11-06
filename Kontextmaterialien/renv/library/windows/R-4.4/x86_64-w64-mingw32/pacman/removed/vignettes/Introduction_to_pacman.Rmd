@@ -1,0 +1,528 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Introduction to pacman}
+-->
+
+```{r setup, include=FALSE}
+# set global chunk options
+library(knitr); library(pacman); library(methods)
+opts_chunk$set(cache=FALSE, comment=NA)
+
+## Function for embedding high qual text images:
+uri_embed <- function(path, add="") {
+    uri <- knitr::image_uri(path)
+    cat(paste0("<img ", add, " src=\"", uri, "\" />"))
+}
+opts_knit$set(upload.fun = image_uri, self.contained=TRUE)
+
+## set mirror
+options(repos="https://cran.rstudio.com/")
+```
+
+<h1 class="title">Introduction to pacman</h1>
+<h1 class="auth">Tyler W. Rinker & Dason Kurkiewicz</h1>
+
+The **pacman** package is an R package management tool that combines the functionality of base `library` related functions into intuitively named functions.  This package is ideally added to [.Rprofile](http://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html) to increase workflow by reducing time recalling obscurely named functions, reducing code, and integrating functionality of base functions to simultaneously perform multiple actions.  The function `p_load` is particularly well suited for help forums and blog posts, as it will load and, if necessary, install missing packages.
+
+
+```{r, echo=FALSE, results='asis', warning=FALSE}
+uri_embed("r_pacman.png", 
+    "width=\"350\", height=\"150\" style=\"display:block; margin-left:auto; margin-right:auto;\"")
+```
+
+
+Function names in the pacman package follow the format of `p_xxx` where 'xxx' is the task the function performs.  For instance the `p_load` function allows the user to load one or more packages as a more generic substitute for the `library` or `require` functions and if the package isn't available locally it will install it for you.  In keeping with the `library` function, the user need not use quotes around package names for most **pacman* functions.
+
+<h2 id="loading"> Installing, Loading, Unloading, Updating, & Deleting </h2>
+
+**Quick Reference Table** 
+
+```{r, echo=FALSE, results='asis', warning=FALSE}
+installing_tab <- readLines("tables/01_installing_loading_deleting.R")
+cat(paste(installing_tab, collapse="\n"))
+```
+
+The heart of **pacman** is it's ability to reduce typing in package management actions.  The functions in this section ***act*** on packages.  
+
+### Installing and Loading    
+
+`p_load` is a general use tool that can install, load, and update packages.  The form for the function is:
+
+```{r, eval = FALSE}
+p_load(..., char, install = TRUE, update = getOption("pac_update"), character.only = FALSE)
+```
+
+where the `...` argument allows the user to pass in quoted (or unquoted) package names.  For example, many blog posts begin coding with this sort of package call:
+
+```{r eval=FALSE}
+packs <- c("XML", "devtools", "RCurl", "fakePackage", "SPSSemulate")
+success <- suppressWarnings(sapply(packs, require, character.only = TRUE))
+install.packages(names(success)[!success])
+sapply(names(success)[!success], require, character.only = TRUE)
+```
+
+With pacman this call can be reduced to:
+
+```{r eval=FALSE}
+pacman::p_load(XML, devtools, RCurl, fakePackage, SPSSemulate)
+```
+
+#### Just Installing 
+
+The user may wish to only install packages.  The `p_install` (aliased as `p_get`) will allow the user to install with the same ease of format as `p_load`.  For example: 
+
+```{r eval=FALSE}
+p_install(dbConnect, qdap, reports)
+```
+
+This will install packages available on CRAN, or, if the user has previously
+installed [Bioconductor](https://www.bioconductor.org/), from the Bioconductor
+repos.
+
+#### Installing & Loading from GitHub
+
+**pacman** provides a wrapper to the **devtools** package's `install_github` function for installing and loading [GitHub](https://github.com) packages.  `p_load_gh` and `p_install_gh` are wrapper functions that are named and operate similarly to **pacman**'s `p_load` and `p_install`. 
+
+<div class="notebox", style="background-color: #FFFFCC;"> 
+<b>Note:</b>  Packages are passed as character vector repository addresses in the form of <code>username/repo[/subdir][@ref|#pull]</code>.
+</div>
+
+```{r eval=FALSE}
+p_install_gh(c("Dasonk/githubSearch", "trinker/regexr", "hadley/httr@v0.4"))
+```
+
+```{r eval=FALSE}
+p_load_gh("Dasonk/githubSearch", "trinker/regexr", "hadley/httr@v0.4")
+```
+
+
+### Installing a Minimal Package Version 
+
+The user may need a minimal version of a particular package installed.  The `p_install_version` ensures that a package is at least some version cut off.  If the package does not exist or the minimum version is not met, `p_install` attempts to install the package from CRAN.  This may be helpful in blog posts where a new function is being demonstrated, requiring a particular version of a package.  For example: 
+
+```{r}
+p_install_version(
+    c("pacman", "testthat"),
+    c("0.2.0", "0.9.1")
+)
+```
+
+### Installing Temporarily
+
+Lastly, `p_temp` enables the user to temporarily install a package.  This allows a session-only install for testing out a single package without muddying the user's library.  
+
+```{r eval=FALSE}
+p_temp(aprof)
+
+p_isinstalled(aprof)
+p_isloaded(aprof)
+```
+
+<pre><code>> p_temp(aprof)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.1/aprof_0.2.zip'
+Content type 'application/zip' length 34037 bytes (33 Kb)
+opened URL
+downloaded 33 Kb
+
+package 'aprof' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\you\AppData\Local\Temp\RtmpYh6bSr\downloaded_packages
+
+aprof installed
+Loading required package: aprof
+> 
+> p_isinstalled(aprof)
+[1] FALSE
+> p_isloaded(aprof)
+aprof 
+ TRUE 
+</code></pre>
+
+<div class="notebox", style="background-color: #FFFFCC;"> 
+<b>Note:</b>  When using <code>p_load</code> and friends inside of functions, the user may want to explicitly supply the package name(s) as character strings and set <code>character.only = FALSE</code> or supply a character vector of package names directly to the <code>char</code> argument if it is available.
+</div>
+
+       
+###  Unloading
+
+To unload package(s) from the search path use `p_unload`.  `p_unload` will not unload the base install packages that load when R boots up. The form for the function is:
+
+```{r, eval = FALSE}
+p_unload(..., negate = FALSE, char, character.only = FALSE)
+```
+
+where the `...` argument allows the user to pass in quoted package names.  Users may also supply `"all"` to `...`  to remove all add on packages.  The `negate` argument negates, unloading all packages except those supplied to `...`.
+
+```{r, eval = FALSE}
+p_load(lattice)
+p_isloaded(lattice)
+p_unload(lattice)
+p_isloaded(lattice)
+```
+
+<pre><code>> p_load(lattice)
+> p_isloaded(lattice)
+lattice 
+   TRUE 
+> p_unload(lattice)
+The following packages have been unloaded:
+lattice
+
+> p_isloaded(lattice)
+lattice 
+  FALSE 
+</code></pre>
+
+### Updating    
+  
+The `p_update` (aliased as `p_up`) is a wrapper for `update.packages` (defaults to `ask = FALSE`) and `old.packages`. To update packages use:
+
+```{r, eval = FALSE}
+p_update() 
+```
+
+The user may just query (not actually update) for out-of-date packages using:
+
+```{r, eval = FALSE}
+p_update(FALSE) 
+```
+
+### Deleting   
+  
+The task of recalling the name `remove.packages` for permanently deleting a package from your library has been replaced by the more consistently named `p_delete` (aliased as `p_del`).  Additionally, the user may delete multiple packages in a single call.  The function protects the user from accidental attempted base package deletion as it will not delete base installed packages (see `installed.packages(priority = "base")`).  Try it out:
+
+```{r, eval = FALSE}
+p_delete(fakePackage, stats)
+```
+
+<pre><code>> p_delete(fakePackage, stats)
+The following packages are a base install and will not be deleted:
+stats
+
+The following packages not found in library:
+fakePackage
+</code></pre>
+
+<h2 id="session_info"> Session Information  </h2>  
+
+**Quick Reference Table** 
+
+```{r, echo=FALSE, results='asis', warning=FALSE}
+installing_tab <- readLines("tables/02_session_information.R")
+cat(paste(installing_tab, collapse="\n"))
+```
+
+The `p_loaded` function allows the user to quickly determine what packages are attached.  
+
+```{r, eval = FALSE}
+p_loaded()
+```
+
+This returns non-base packages that are attached.  Adding `all = TRUE` will return the base packages as well.
+
+```{r, eval = FALSE}
+p_loaded(all = TRUE)
+```
+
+Supplying a package name to `p_loaded` (or alternatively `p_isloaded()`) provides a logical check of whether package(s) are attached:
+
+```{r}
+p_loaded(base, MASS)
+p_isloaded(methods, stats)
+```
+
+<h2 id="local_package_info"> Local Package Information </h2>   
+
+**Quick Reference Table** 
+
+```{r, echo=FALSE, results='asis', warning=FALSE}
+installing_tab <- readLines("tables/03_local_package_information.R")
+cat(paste(installing_tab, collapse="\n"))
+```
+
+The functions in this section provide information about a user's local packages.
+
+### Package Existence (CRAN & Locally)
+
+The `p_exists` function checks if a package exists either on CRAN (default) or locally.  `p_isinstalled` is a convenience wrapper for `p_exists` that is defaulted to check local existence.
+
+```{r}
+p_exists(pacman)  
+p_exists(pacman, local = TRUE)
+p_exists(I_dont_exist)
+## wrapper for `p_exists(local = TRUE)`
+p_isinstalled(pacman)
+```
+
+### Package Dependencies & Reverse Dependencies
+
+The `p_depends` function checks the dependencies of package either on CRAN (default) or locally.  The `p_depends_reverse` function accomplishes the same task for a package's reverse dependencies.
+
+```{r}
+p_depends(lattice)  
+p_depends(lattice, local = TRUE)
+p_depends(MASS)  
+p_depends(MASS, local = TRUE)
+```
+
+### Package Attributes
+
+The following subsections discuss **pacman** functions that are used to grab package information.
+
+#### Package Information 
+
+```{r, echo=FALSE, results='hide'}
+.pinfo <- names(p_info())
+.right_paren <- c(rep("(", length(.pinfo) - 1 ), "and (")
+.fields <- paste(.right_paren, letters[1:length(.pinfo)], ") ", .pinfo, sep = "", collapse = ", ")
+.fields <- gsub("(c)", "&#40;c)", .fields, fixed = TRUE)
+```
+
+`p_information` (aliased as `p_info`) is a more general use function to grab information about a package from its 'DESCRIPTION' file; for example, the following *fields* come from the **base** package: `r .fields`.  
+
+The form for the function is:
+
+```{r, eval = FALSE}
+p_info(package, ..., fields = NULL)
+```
+
+where `package` is a package name and `...` argument allows the user to request specific fields (the `fields` argument is a character only ['escape hatch'](http://adv-r.had.co.nz/Computing-on-the-language.html#calling-from-another-function) for use of `p_info` inside of functions). If both `...` and `fields` are blank, `p_info` returns a list of all package fields from the package 'DESCRIPTION' file.  `p_info` returns a `list`.
+
+
+```{r}
+## Defaults to supply a list of fields with information about R's base package
+p_info()
+names(p_info())
+```
+
+```{r}
+p_info(pacman, Author)
+p_info(pacman, BugReports, URL)
+p_info(pacman, fields = "Version")
+```
+
+##### Extracting Package Names
+
+<div class="notebox", style="background-color: #FFFFCC;"> 
+<b>Note:</b> The <code>p_extract</code> function is particularly useful for converting the "Depends", "Imports", and "Suggests" fields from a single string into a vector of package names.
+</div>
+
+```{r}
+## without `p_extract`
+p_info(MASS, "Depends")  
+p_extract(p_info(MASS, "Depends"))
+p_extract(p_info(methods, "Imports"))
+```
+
+
+#### Package Author   
+
+`p_author` provides author information for a package as a string.
+
+```{r}
+p_author(pacman)
+p_author()
+```
+
+
+#### Package Citation
+
+`p_citation` (aliased as `p_cite`) provides citation information for a package to the console and in interactive sessions, attempts to copy to the users clipboard (OS dependent).
+
+```{r}
+p_cite(pacman)
+p_citation()
+```
+
+#### Package Data 
+
+`p_data` provides a `data.frame` of a package's data sets and a description.
+
+```{r}
+p_data(lattice)
+```
+
+#### Package Functions
+
+`p_functions` (aliased as `p_funs`) provides a list of the functions utilized by a package.  Setting `all = TRUE` will yield the non-exported functions as well.
+
+
+```{r}
+p_functions(pacman)
+p_funs(pacman, all=TRUE)
+```
+
+#### Package Version
+
+`p_version` (aliased as `p_ver`) gives the version of a package.
+
+```{r}
+p_version()
+p_ver(pacman)
+p_ver(pacman) >= "0.2.0"
+```
+
+### Documentation
+
+The following subsections discuss **pacman** functions that are used to view help manuals, news, and vignettes for a package.
+
+#### Package Help Manual
+
+The `p_help` function accesses a package's help documentation in HTML or PDF form.  If no Internet connection is available the pdf can be built from the package's internal files.
+
+```{r, eval=FALSE}
+p_help(pacman)
+p_help(pacman, web = FALSE)
+p_help(pacman, build.pdf = TRUE)
+```
+
+#### Package News
+
+`p_news` provides the NEWS file for for R or an add-on package.
+
+```{r, eval=FALSE}
+p_news()
+p_news(pacman)
+## Grab specfic version subsets
+subset(p_news(lattice), Version == 0.7)  
+```
+
+
+<div class="notebox", style="background-color: #FFFFCC;"> 
+<b>Note:</b>  <code>p_news</code> yields an object of class: "news_db_from_Rd", "news_db", and "data.frame" and can be coerced to an ordinary data.frame via: <code>as.data.frame</code>.
+</div>
+
+#### Package Vignette
+
+`p_vignette` (aliased as `p_vign`) enables an interactive HTML exploration of packages' vignettes.  The default (i.e., no package supplied) is to interact with all of the package vignettes available from a user's local library. 
+
+```{r, eval=FALSE}
+p_vignette()
+p_vign(pacman)
+```
+
+### Interactive Package Exploration 
+
+Lastly, the user may explore packages and package functions more interactively with `p_interactive` (aliased as `p_inter`).  This function is an interactive mix of `p_library` and `p_functions`.  `p_interactive` provides the user's local packages (their library) to choose to explore and then displays available functions for the chosen package.  The user may optionally view the documentation for the chosen function from the chosen package.  This function has no arguments as this information is passed interactively.
+
+
+```{r, eval=FALSE}
+p_interactive()
+```
+
+
+
+<h2 id="internet_package_info"> Internet Based Package Information  </h2> 
+
+**Quick Reference Table** 
+
+```{r, echo=FALSE, results='asis', warning=FALSE}
+installing_tab <- readLines("tables/04_internet_based_info.R")
+cat(paste(installing_tab, collapse="\n"))
+```
+
+The functions in this section are Internet based and provide information about available CRAN packages.
+
+### CRAN Packages
+
+`p_cran` provides a list of available [CRAN](https://cran.r-project.org/) packages.  Its counterpart, p_iscran` provides a logical check whether a package is available on CRAN.
+
+```{r, eval=FALSE}
+p_cran()
+```
+
+```{r}
+length(p_cran())
+p_iscran("qdap")
+```
+
+### Search CRAN 
+
+`p_search_any` (aliased as `p_sa`) enables approximate matching by package or author/maintainer names containing the search term.  The first argument to `p_search_any`, `term`, is the word or name to search for.  The second argument `search.by` tells the function what fields to search through: `1`-`"Maintainer"`, `1`-`"Author"`, `2`-`"Package"`, `3`-`"Version"`.
+
+For example, we may choose to search for packages with the word **"color"** in the package name or packages with authors/maintainers named **"hadley"**.  We could accomplish these tasks as follows:
+
+```{r, eval=FALSE}
+p_sa("color", "package")
+p_sa("hadley", "author")
+```
+
+<h2 id="library_info"> Library Information  </h2>   
+
+**Quick Reference Table** 
+
+```{r, echo=FALSE, results='asis', warning=FALSE}
+installing_tab <- readLines("tables/05_library_information.R")
+cat(paste(installing_tab, collapse="\n"))
+```
+
+The functions in this section interact with the user's local library.
+
+### Library Location
+
+`p_path`, a wrapper for `.libPaths`, provides the location to the user's library of add-on packages.  
+
+```{r}
+p_path()
+```
+
+### Available Packages
+
+`p_library` (aliased as `p_lib`) yields a vector of a user's packages and optionally opens the library location.  `p_base`, similarly, provides the user's packages, but, marks base install packages with a marker (defaults to `**`).
+
+```{r, eval=FALSE}
+p_lib()
+p_base()
+```
+
+### Search Library
+
+`p_search_library` (aliased `p_sl`) is a handy function to search the library for a package that's on the tip of your tongue but you can't remember the full name or how to spell it.  `p_search_library` takes then form:
+
+```{r, eval=FALSE}
+p_search_library(begins.with = NULL, contains = NULL)
+```
+
+The first argument, `begins.with` allows the user to search for a package by initial characters.  The `contains` argument allows the user to search for character strings within the package name.  This will yield a list of matching packages that the user can then choose one to load.
+
+
+```{r, eval=FALSE}
+p_sl("pa")
+p_sl(contains = "man")
+p_sl(begins.with ="pa", contains = "man")
+```
+
+### Unlock Library
+
+`p_unlock` deletes the **00LOCK** directory that is accidentally left behind by a fail in `install.packages`.  The documentation for `install.packages` states that sometimes `install.packages` can: 
+
+>fail so badly that the lock directory is not removed: this inhibits any further installs to the library directory (or for --pkglock, of the package) until the lock directory is removed manually.
+
+When this occurs simply enter `p_unlock()` and the **00LOCK** directory is removed.
+
+<h2 id="pacman_tools"> pacman Tools  </h2>  
+
+**Quick Reference Table** 
+
+```{r, echo=FALSE, results='asis', warning=FALSE}
+installing_tab <- readLines("tables/06_pacman_tools.R")
+cat(paste(installing_tab, collapse="\n"))
+```
+
+The functions in this section are general tools used within the **pacman** package.  They are not *package* specific functions.  Discussion of their functionality is beyond the scope of this vignette.
+
+
+```{r css, echo = FALSE}
+options(markdown.HTML.stylesheet = "css/style.css")
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+#write.bibtex(file="references.bib")
+```
+
+```{r clean-up, include=FALSE}
+# R compiles all vignettes in the same session, which can be bad
+rm(list = ls(all = TRUE))
+```

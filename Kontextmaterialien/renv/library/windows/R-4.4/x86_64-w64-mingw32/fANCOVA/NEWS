@@ -1,0 +1,6 @@
+What's new?
+
+This package contains a collection of functions to perform nonparametric
+analysis of covariance for regression curves or surfaces. By using the
+package, one can test the equality of multiple functional curves or
+surfaces. Wild-bootstrap algorithm is applied in the package.

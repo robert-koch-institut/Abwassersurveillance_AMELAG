@@ -1,0 +1,23 @@
+Package: labeling
+Type: Package
+Title: Axis Labeling
+Version: 0.4.3
+Date: 2023-08-29
+Author: Justin Talbot,
+Maintainer: Nuno Sempere <nuno.semperelh@gmail.com>
+Description: Functions which provide a range of axis labeling algorithms.
+License: MIT + file LICENSE | Unlimited
+Collate: 'labeling.R'
+NeedsCompilation: no
+Imports: stats, graphics
+Packaged: 2023-08-29 21:01:57 UTC; loki
+Repository: CRAN
+Date/Publication: 2023-08-29 22:20:02 UTC
+Built: R 4.4.0; ; 2024-04-23 00:24:00 UTC; windows
+RemoteType: standard
+RemotePkgRef: labeling
+RemoteRef: labeling
+RemoteRepos: http://ftp.gwdg.de/pub/misc/cran
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 0.4.3

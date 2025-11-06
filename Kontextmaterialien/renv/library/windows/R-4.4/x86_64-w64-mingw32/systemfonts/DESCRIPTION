@@ -1,0 +1,34 @@
+Type: Package
+Package: systemfonts
+Title: System Native Font Finding
+Version: 1.2.1
+Authors@R: c( person("Thomas Lin", "Pedersen", , "thomas.pedersen@posit.co", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-5147-4711")), person("Jeroen", "Ooms", , "jeroen@berkeley.edu", role = "aut", comment = c(ORCID = "0000-0002-4035-0289")), person("Devon", "Govett", role = "aut", comment = "Author of font-manager"), person("Posit, PBC", role = c("cph", "fnd")) )
+Description: Provides system native access to the font catalogue. As font handling varies between systems it is difficult to correctly locate installed fonts across different operating systems. The 'systemfonts' package provides bindings to the native libraries on Windows, macOS and Linux for finding font files that can then be used further by e.g. graphic devices. The main use is intended to be from compiled code but 'systemfonts' also provides access from R.
+License: MIT + file LICENSE
+URL: https://github.com/r-lib/systemfonts, https://systemfonts.r-lib.org
+BugReports: https://github.com/r-lib/systemfonts/issues
+Depends: R (>= 3.2.0)
+Suggests: covr, farver, graphics, knitr, rmarkdown, testthat (>= 2.1.0)
+LinkingTo: cpp11 (>= 0.2.1)
+VignetteBuilder: knitr
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+SystemRequirements: fontconfig, freetype2
+Config/Needs/website: tidyverse/tidytemplate
+Imports: grid, jsonlite, lifecycle, tools, utils
+Config/build/compilation-database: true
+NeedsCompilation: yes
+Packaged: 2025-01-20 08:28:46 UTC; thomas
+Author: Thomas Lin Pedersen [aut, cre] (<https://orcid.org/0000-0002-5147-4711>), Jeroen Ooms [aut] (<https://orcid.org/0000-0002-4035-0289>), Devon Govett [aut] (Author of font-manager), Posit, PBC [cph, fnd]
+Maintainer: Thomas Lin Pedersen <thomas.pedersen@posit.co>
+Repository: CRAN
+Date/Publication: 2025-01-20 10:30:02 UTC
+Built: R 4.4.3; x86_64-w64-mingw32; 2025-03-11 02:14:22 UTC; windows
+Archs: x64
+RemoteType: standard
+RemotePkgRef: systemfonts
+RemoteRef: systemfonts
+RemoteRepos: http://ftp.gwdg.de/pub/misc/cran
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 1.2.1

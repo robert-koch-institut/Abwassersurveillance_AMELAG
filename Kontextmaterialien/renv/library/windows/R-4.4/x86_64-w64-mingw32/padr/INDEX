@@ -1,0 +1,22 @@
+center_interval         Shift to the middle of each interval
+closest_weekday         Retrieve the closest given weekday
+coffee                  Coffee Data Set
+emergency               Emergency Calls for Montgomery County, PA
+fill_by_function        Fill missing values by a function of the
+                        nonmissings
+fill_by_prevalent       Fill missing values by the most prevalent
+                        nonmissing value
+fill_by_value           Fill missing values by a single value
+format_interval         Make a period character vector
+get_interval            Get the interval of a datetime variable
+pad                     Pad the datetime column of a data frame
+pad_cust                Pad with a custom spanning
+pad_int                 Pad the integer column of a data frame
+span_around             Span an equally spaced vector around a datetime
+                        variable
+span_date               Wrapper around 'seq.Date'.
+span_time               Wrapper around 'seq.POSIXct'.
+subset_span             Subset a spanned datetime vector
+thicken                 Add a variable of a higher interval to a data
+                        frame
+thicken_cust            Thicken with a custom spanning

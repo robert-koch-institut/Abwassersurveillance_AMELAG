@@ -1,0 +1,45 @@
+p_author                Package Author
+p_base                  Base Install Packages
+p_boot                  Script Header: Ensure 'pacman' is Installed
+p_citation              Package Citation
+p_cran                  CRAN Packages
+p_data                  Package Data Sets
+p_delete                Permanently Remove Package Removal(s) From
+                        Library
+p_depends               Package Dependencies
+p_detectOS              Detects Operating System
+p_exists                Checks if Package is On CRAN/In Local Library
+p_extract               Convert String With Commas Into Elements
+p_functions             Package Functions
+p_help                  Package Help Manual
+p_information           Package Information
+p_install               Installs & Loads Packages
+p_install_gh            Installs & Loads GitHub Packages
+p_install_version       Install Minimal Package Version
+p_install_version_gh    Install Minimal GitHub Package Version
+p_interactive           Interactive Package Exploration
+p_isinstalled           Checks if Package is Installed
+p_library               Display Library Packages
+p_load                  Load One or More Packages
+p_load_current_gh       Force Install and Load One or More GitHub
+                        Packages
+p_load_gh               Load One or More GitHub Packages
+p_loaded                Check for Loaded Packages
+p_news                  Package/R News
+p_old                   Compare Installed Packages with CRAN-like
+                        Repositories
+p_opendir               Attempts to open a directory in a file browser
+p_path                  Path to Library of Add-On Packages
+p_search_any            Search CRAN Packages by Maintainer, Author,
+                        Version or Package
+p_search_library        Partial Matching Package Search
+p_set_cranrepo          Check if Repo is Set
+p_temp                  Install a Package Temporarily
+p_unload                Unloads package(s)
+p_unlock                Delete 00LOCK Directory
+p_update                Update Out-of-Date Packages
+p_version               Package Version
+p_vignette              View Package Vignette(s)
+print.p_version_diff    Prints a p_version_diff Object
+print.search_any        Prints a search_any Object
+print.wide_table        Prints a wide_table Object

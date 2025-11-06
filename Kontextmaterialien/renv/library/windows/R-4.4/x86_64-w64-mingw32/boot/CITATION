@@ -1,0 +1,33 @@
+citHeader("To cite the 'boot' package in publications use:")
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+vers <- paste("R package version", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title = "boot: Bootstrap R (S-Plus) Functions",
+         author = c(person("Angelo Canty"),
+                    person("B. D. Ripley")),
+         year = year,
+         note = vers,
+
+         textVersion =
+         paste("Angelo Canty and Brian Ripley (",
+               year,
+               "). boot: Bootstrap R (S-Plus) Functions. ",
+               vers, ".", sep=""))
+
+bibentry(bibtype = "Book",
+         title = "Bootstrap Methods and Their Applications",
+         author = c(person("A. C. Davison"),
+                    person("D. V. Hinkley")),
+	 publisher = "Cambridge University Press",
+         address   = "Cambridge",
+         year     = "1997",
+         note     = "ISBN 0-521-57391-2",
+         url      = "doi:10.1017/CBO9780511802843",
+
+         textVersion =
+         paste("Davison, A. C. & Hinkley, D. V. (1997)",
+  	       "Bootstrap Methods and Their Applications.",
+               "Cambridge University Press, Cambridge. ISBN 0-521-57391-2")
+)

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Cell and Column Types</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Cell and Column Types</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
+<p><code>readxl::read_excel()</code> will guess column types, by
+default, or you can provide them explicitly via the
+<code>col_types</code> argument. The <code>col_types</code> argument is
+more flexible than you might think; you can mix actual types in with
+<code>&quot;skip&quot;</code> and <code>&quot;guess&quot;</code> and a single type will be
+recycled to the necessary length.</p>
+<p>Here are different ways this might look:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&quot;yo.xlsx&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&quot;yo.xlsx&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;numeric&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&quot;yo.xlsx&quot;</span>, <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;date&quot;</span>, <span class="st">&quot;skip&quot;</span>, <span class="st">&quot;guess&quot;</span>, <span class="st">&quot;numeric&quot;</span>))</span></code></pre></div>
+<div id="type-guessing" class="section level2">
+<h2>Type guessing</h2>
+<p>If you use other packages in the <a href="https://www.tidyverse.org/">tidyverse</a>, you are probably
+familiar with <a href="https://readr.tidyverse.org/">readr</a>, which
+reads data from flat files. Like readxl, readr also provides column type
+guessing, but readr and readxl are very different under the hood.</p>
+<ul>
+<li>readr guesses column type <em>based on the data</em>.</li>
+<li>readxl guesses column type <em>based on Excel cell types</em>.</li>
+</ul>
+<p>Each cell in an Excel spreadsheet has its own type. For all intents
+and purposes, they are:</p>
+<p>       empty &lt; boolean &lt; numeric &lt; text</p>
+<p>with the wrinkle that datetimes are a very special flavor of numeric.
+A cell of any particular type can always be represented as one of any
+higher type and, possibly, as one of lower type. When guessing,
+<code>read_excel()</code> keeps a running “maximum” on the cell types it
+has seen in any given column. Once it has visited <code>guess_max</code>
+rows or run out of data, this is the guessed type for that column. There
+is a strong current towards “text”, the column type of last resort.</p>
+<p>Here’s an example of column guessing with <code>deaths.xlsx</code>
+which ships with readxl.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>), <span class="at">range =</span> <span class="fu">cell_rows</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">15</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 6</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;   Name       Profession   Age `Has kids` `Date of birth`     `Date of death`    </span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dttm&gt;              &lt;dttm&gt;             </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; 1 David Bow… musician      69 TRUE       1947-01-08 00:00:00 2016-01-10 00:00:00</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; 2 Carrie Fi… actor         60 TRUE       1956-10-21 00:00:00 2016-12-27 00:00:00</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; 3 Chuck Ber… musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; 4 Bill Paxt… actor         61 TRUE       1955-05-17 00:00:00 2017-02-25 00:00:00</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; # ℹ 6 more rows</span></span></code></pre></div>
+</div>
+<div id="excel-types-r-types-col_types" class="section level2">
+<h2>Excel types, R types, <code>col_types</code></h2>
+<p>Here’s how the Excel cell/column types are translated into R types
+and how to force the type explicitly in <code>col_types</code>:</p>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="32%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>How it is in Excel</th>
+<th>How it will be in R</th>
+<th>How to request in <code>col_types</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>anything</em></td>
+<td><em>non-existent</em></td>
+<td><code>&quot;skip&quot;</code></td>
+</tr>
+<tr class="even">
+<td>empty</td>
+<td><code>logical</code>, but all <code>NA</code></td>
+<td><em>you cannot request this</em></td>
+</tr>
+<tr class="odd">
+<td>boolean</td>
+<td><code>logical</code></td>
+<td><code>&quot;logical&quot;</code></td>
+</tr>
+<tr class="even">
+<td>numeric</td>
+<td><code>numeric</code></td>
+<td><code>&quot;numeric&quot;</code></td>
+</tr>
+<tr class="odd">
+<td>datetime</td>
+<td><code>POSIXct</code></td>
+<td><code>&quot;date&quot;</code></td>
+</tr>
+<tr class="even">
+<td>text</td>
+<td><code>character</code></td>
+<td><code>&quot;text&quot;</code></td>
+</tr>
+<tr class="odd">
+<td><em>anything</em></td>
+<td><code>list</code></td>
+<td><code>&quot;list&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Some explanation about the weird cases in the first two rows:</p>
+<ul>
+<li>If a column falls in your data rectangle, but you do not want an
+associated variable in the output, specify the column type
+<code>&quot;skip&quot;</code>. Internally, these cells may be visited in order to
+learn their location, but they are not loaded and their data is never
+read.</li>
+<li>You cannot request that a column be included but filled with
+<code>NA</code>s. Such a column can arise naturally, if all the cells
+are empty, or you can skip a column (see previous point).</li>
+</ul>
+<p>Example of skipping and guessing:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">read_excel</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">range =</span> <span class="fu">cell_rows</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">15</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;guess&quot;</span>, <span class="st">&quot;skip&quot;</span>, <span class="st">&quot;guess&quot;</span>, <span class="st">&quot;skip&quot;</span>, <span class="st">&quot;skip&quot;</span>, <span class="st">&quot;skip&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt;   Name            Age</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 1 David Bowie      69</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; 2 Carrie Fisher    60</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 3 Chuck Berry      90</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 4 Bill Paxton      61</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; # ℹ 6 more rows</span></span></code></pre></div>
+<p>More about the <code>&quot;list&quot;</code> column type in the last row:</p>
+<ul>
+<li>This will create a list-column in the output, each component of
+which is a length one atomic vector. The type of these vectors is
+determined using the logic described above. This can be useful if data
+of truly disparate type is arranged in a column.</li>
+</ul>
+<p>We demonstrate the <code>&quot;list&quot;</code> column type using the
+<code>clippy.xlsx</code> sheet that ship with Excel. Its second column
+holds information about Clippy that would be really hard to store with
+just one type.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>(clippy <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>   <span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;clippy.xlsx&quot;</span>), <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;list&quot;</span>)))</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 2</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;   name                 value     </span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                &lt;list&gt;    </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 1 Name                 &lt;chr [1]&gt; </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; 2 Species              &lt;chr [1]&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 3 Approx date of death &lt;dttm [1]&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 4 Weight in grams      &lt;dbl [1]&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">deframe</span>(clippy)</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; $Name</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Clippy&quot;</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; $Species</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; [1] &quot;paperclip&quot;</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; $`Approx date of death`</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2007-01-01 UTC&quot;</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; $`Weight in grams`</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; [1] 0.9</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="fu">sapply</span>(clippy<span class="sc">$</span>value, class)</span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt; [1] &quot;POSIXct&quot; &quot;POSIXt&quot; </span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; [[4]]</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; [1] &quot;numeric&quot;</span></span></code></pre></div>
+<p>Final note: all datetimes are imported as having the UTC timezone,
+because, mercifully, Excel has no notion of timezones.</p>
+</div>
+<div id="when-column-guessing-goes-wrong" class="section level2">
+<h2>When column guessing goes wrong</h2>
+<p>It’s pretty common to expect a column to import as, say, numeric or
+datetime. And to then be sad when it imports as character instead. Two
+main causes:</p>
+<p><strong>Contamination by embedded missing or bad data of incompatible
+type.</strong> Example: missing data entered as <code>??</code> in a
+numeric column.</p>
+<ul>
+<li>Fix: use the <code>na</code> argument of <code>read_excel()</code>
+to describe all possible forms for missing data. This should prevent
+such cells from influencing type guessing and cause them to import as
+<code>NA</code> of the appropriate type.</li>
+</ul>
+<p><strong>Contamination of the data rectangle by leading or trailing
+non-data rows.</strong> Example: the sheet contains a few lines of
+explanatory prose before the data table begins.</p>
+<ul>
+<li>Fix: specify the target rectangle. Use <code>skip</code> and
+<code>n_max</code> to provide a minimum number of rows to skip and a
+maximum number of data rows to read, respectively. Or use the more
+powerful <code>range</code> argument to describe the cell rectangle in
+various ways. See the examples for <code>read_excel()</code> help or
+<code>vignette(&quot;sheet-geometry&quot;)</code> for more detail.</li>
+</ul>
+<p>The <code>deaths.xlsx</code> sheet demonstrates this perfectly.
+Here’s how it imports if we don’t specify <code>range</code> as we did
+above:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>deaths <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; New names:</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; • `` -&gt; `...2`</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; • `` -&gt; `...3`</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; • `` -&gt; `...4`</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; • `` -&gt; `...5`</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; • `` -&gt; `...6`</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="fu">print</span>(deaths, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; # A tibble: 18 × 6</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;    `Lots of people`             ...2                     ...3  ...4  ...5  ...6 </span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                        &lt;chr&gt;                    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;  1 simply cannot resist writing &lt;NA&gt;                     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  some…</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt;  2 at                           the                      top   &lt;NA&gt;  of    thei…</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt;  3 or                           merging                  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  cells</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt;  4 Name                         Profession               Age   Has … Date… Date…</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt;  5 David Bowie                  musician                 69    TRUE  17175 42379</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt;  6 Carrie Fisher                actor                    60    TRUE  20749 42731</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt;  7 Chuck Berry                  musician                 90    TRUE  9788  42812</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt;  8 Bill Paxton                  actor                    61    TRUE  20226 42791</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt;  9 Prince                       musician                 57    TRUE  21343 42481</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 10 Alan Rickman                 actor                    69    FALSE 16854 42383</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; 11 Florence Henderson           actor                    82    TRUE  12464 42698</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt; 12 Harper Lee                   author                   89    FALSE 9615  42419</span></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt; 13 Zsa Zsa Gábor                actor                    99    TRUE  6247  42722</span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt; 14 George Michael               musician                 53    FALSE 23187 42729</span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="co">#&gt; 15 Some                         &lt;NA&gt;                     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="co">#&gt; 16 &lt;NA&gt;                         also like to write stuff &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="co">#&gt; 17 &lt;NA&gt;                         &lt;NA&gt;                     at t… bott… &lt;NA&gt;  &lt;NA&gt; </span></span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="co">#&gt; 18 &lt;NA&gt;                         &lt;NA&gt;                     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  too!</span></span></code></pre></div>
+<p>Non-data rows above and below the main data rectangle are causing all
+the columns to import as character.</p>
+<p>If your column typing problem can’t be solved by specifying
+<code>na</code> or the data rectangle, request the <code>&quot;list&quot;</code>
+column type and handle missing data and coercion after import.</p>
+<div id="peek-at-column-names" class="section level3">
+<h3>Peek at column names</h3>
+<p>Sometimes you aren’t completely sure of column count or order, and
+yet you need to provide <em>some</em> information via
+<code>col_types</code>. For example, you might know that the column
+named “foofy” should be text, but you’re not sure where it appears. Or
+maybe you want to ensure that lots of empty cells at the top of “foofy”
+don’t cause it to be guessed as logical.</p>
+<p>Here’s an efficient trick to get the column names, so you can
+programmatically build the <code>col_types</code> vector you need for
+your main reading of the Excel file. Let’s imagine I want to force the
+columns whose names include “Petal” to be text, but leave everything
+else to be guessed.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>(nms <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>), <span class="at">n_max =</span> <span class="dv">0</span>)))</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; [11] &quot;carb&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>(ct <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">&quot;^Petal&quot;</span>, nms), <span class="st">&quot;text&quot;</span>, <span class="st">&quot;guess&quot;</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;guess&quot; &quot;guess&quot; &quot;guess&quot; &quot;guess&quot; &quot;guess&quot; &quot;guess&quot; &quot;guess&quot; &quot;guess&quot; &quot;guess&quot;</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; [10] &quot;guess&quot; &quot;guess&quot;</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>), <span class="at">col_types =</span> ct)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 11</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 28 more rows</span></span></code></pre></div>
+</div>
+</div>
+<div id="square-pegs-in-round-holes" class="section level2">
+<h2>Square pegs in round holes</h2>
+<p>You can force a column to have a specific type via
+<code>col_types</code>. So what happens to cells of another type? They
+will either be coerced to the requested type or to an <code>NA</code> of
+appropriate type.</p>
+<p>For each column type, below we present a screen shot of a sheet from
+the built-in example <code>type-me.xlsx</code>. We force the first
+column to have a specific type and the second column explains what is in
+the first. You’ll see how mismatches between cell type and column type
+are resolved.</p>
+<div id="logical-column" class="section level3">
+<h3>Logical column</h3>
+<p>A numeric cell is coerced to <code>FALSE</code> if it is zero and
+<code>TRUE</code> otherwise. A date cell becomes <code>NA</code>. Just
+like in R, the strings “T”, “TRUE”, “True”, and “true” are regarded as
+<code>TRUE</code> and “F”, “FALSE”, “False”, “false” as
+<code>FALSE</code>. Other strings import as <code>NA</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;type-me.xlsx&quot;</span>), <span class="at">sheet =</span> <span class="st">&quot;logical_coercion&quot;</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;logical&quot;</span>, <span class="st">&quot;text&quot;</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; Warning: Expecting logical in A5 / R5C1: got a date</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; Warning: Expecting logical in A8 / R8C1: got &#39;cabbage&#39;</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">print</span>(df, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt;    `maybe boolean?` description                         </span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt;    &lt;lgl&gt;            &lt;chr&gt;                               </span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt;  1 NA               &quot;empty&quot;                             </span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt;  2 FALSE            &quot;0 (numeric)&quot;                       </span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt;  3 TRUE             &quot;1 (numeric)&quot;                       </span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt;  4 NA               &quot;datetime&quot;                          </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt;  5 TRUE             &quot;boolean true&quot;                      </span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt;  6 FALSE            &quot;boolean false&quot;                     </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt;  7 NA               &quot;\&quot;cabbage\&quot;&quot;                       </span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt;  8 TRUE             &quot;the string \&quot;true\&quot;&quot;               </span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt;  9 FALSE            &quot;the letter \&quot;F\&quot;&quot;                  </span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; 10 FALSE            &quot;\&quot;False\&quot; preceded by single quote&quot;</span></span></code></pre></div>
+<p>&lt;img src=“img/type-me-logical.png” alt=“Screenshot of the
+worksheet named”logical_coercion” inside the “type-me.xlsx” example
+spreadsheet. The cells in the first column (column A) have very mixed
+contents, such as empty, datetime, or string. The cells in the second
+column (column B) describe the contents of the first column in precise
+language.” width=“70%” /&gt;</p>
+</div>
+<div id="numeric-column" class="section level3">
+<h3>Numeric column</h3>
+<p>A boolean cell is coerced to zero if <code>FALSE</code> and one if
+<code>TRUE</code>. A datetime comes in as the underlying serial date,
+which is the number of days, possibly fractional, since the <a href="https://learn.microsoft.com/en-US/office/troubleshoot/excel/1900-and-1904-date-system">date
+origin</a>. For text, numeric conversion is attempted, to handle the
+“number as text” phenomenon. If unsuccessful, text cells import as
+<code>NA</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;type-me.xlsx&quot;</span>), <span class="at">sheet =</span> <span class="st">&quot;numeric_coercion&quot;</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;numeric&quot;</span>, <span class="st">&quot;text&quot;</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; Warning: Coercing boolean to numeric in A3 / R3C1</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; Warning: Coercing boolean to numeric in A4 / R4C1</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; Warning: Expecting numeric in A5 / R5C1: got a date</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; Warning: Coercing text to numeric in A6 / R6C1: &#39;123456&#39;</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; Warning: Expecting numeric in A8 / R8C1: got &#39;cabbage&#39;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="fu">print</span>(df, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7 × 2</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt;   `maybe numeric?` explanation            </span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;              &lt;dbl&gt; &lt;chr&gt;                  </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; 1               NA &quot;empty&quot;                </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; 2                1 &quot;boolean true&quot;         </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; 3                0 &quot;boolean false&quot;        </span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; 4            40534 &quot;datetime&quot;             </span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; 5           123456 &quot;the string \&quot;123456\&quot;&quot;</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; 6           123456 &quot;the number 123456&quot;    </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; 7               NA &quot;\&quot;cabbage\&quot;&quot;</span></span></code></pre></div>
+<p>&lt;img src=“img/type-me-numeric.png” alt=“Screenshot of the
+worksheet named”numeric_coercion” inside the “type-me.xlsx” example
+spreadsheet. The cells in the first column (column A) have very mixed
+contents, such as empty, datetime, or string. The cells in the second
+column (column B) describe the contents of the first column in precise
+language.” width=“70%” /&gt;</p>
+</div>
+<div id="date-column" class="section level3">
+<h3>Date column</h3>
+<p>A numeric cell is interpreted as a serial date (<em>I’m questioning
+whether this is wise, but <a href="https://github.com/tidyverse/readxl/issues/266" class="uri">https://github.com/tidyverse/readxl/issues/266</a></em>).
+Boolean or text cells become <code>NA</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;type-me.xlsx&quot;</span>), <span class="at">sheet =</span> <span class="st">&quot;date_coercion&quot;</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;date&quot;</span>, <span class="st">&quot;text&quot;</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; Warning: Expecting date in A5 / R5C1: got boolean</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; Warning: Expecting date in A6 / R6C1: got &#39;cabbage&#39;</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; Warning: Coercing numeric to date in A7 / R7C1</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; Warning: Coercing numeric to date in A8 / R8C1</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="fu">print</span>(df, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; # A tibble: 7 × 2</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt;   `maybe a datetime?` explanation           </span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt;   &lt;dttm&gt;              &lt;chr&gt;                 </span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; 1 NA                  &quot;empty&quot;               </span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; 2 2016-05-23 00:00:00 &quot;date only format&quot;    </span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; 3 2016-04-28 11:30:00 &quot;date and time format&quot;</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; 4 NA                  &quot;boolean true&quot;        </span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; 5 NA                  &quot;\&quot;cabbage\&quot;&quot;         </span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; 6 1904-01-05 07:12:00 &quot;4.3 (numeric)&quot;       </span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; 7 2012-01-02 00:00:00 &quot;another numeric&quot;</span></span></code></pre></div>
+<p>&lt;img src=“img/type-me-date.png” alt=“Screenshot of the worksheet
+named”date_coercion” inside the “type-me.xlsx” example spreadsheet. The
+cells in the first column (column A) have very mixed contents, such as
+empty, datetime, or string. The cells in the second column (column B)
+describe the contents of the first column in precise language.”
+width=“70%” /&gt;</p>
+</div>
+<div id="text-or-character-column" class="section level3">
+<h3>Text or character column</h3>
+<p>A boolean cell becomes either <code>&quot;TRUE&quot;</code> or
+<code>&quot;FALSE&quot;</code>. A numeric cell is converted to character, much
+like <code>as.character()</code> in R. A date cell is handled like
+numeric, using the underlying serial value.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">readxl_example</span>(<span class="st">&quot;type-me.xlsx&quot;</span>), <span class="at">sheet =</span> <span class="st">&quot;text_coercion&quot;</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                 <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;text&quot;</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">print</span>(df, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;   text     explanation      </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;            </span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; 1 &lt;NA&gt;     &quot;empty&quot;          </span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; 2 cabbage  &quot;\&quot;cabbage\&quot;&quot;    </span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; 3 TRUE     &quot;boolean true&quot;   </span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; 4 1.3      &quot;numeric&quot;        </span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; 5 41175    &quot;datetime&quot;       </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; 6 36436153 &quot;another numeric&quot;</span></span></code></pre></div>
+<p>&lt;img src=“img/type-me-text.png” alt=“Screenshot of the worksheet
+named”text_coercion” inside the “type-me.xlsx” example spreadsheet. The
+cells in the first column (column A) have very mixed contents, such as
+empty, datetime, or string. The cells in the second column (column B)
+describe the contents of the first column in precise language.”
+width=“70%” /&gt;</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

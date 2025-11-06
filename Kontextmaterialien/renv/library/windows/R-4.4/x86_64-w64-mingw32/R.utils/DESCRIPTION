@@ -1,0 +1,27 @@
+Package: R.utils
+Version: 2.13.0
+Depends: R (>= 2.14.0), R.oo
+Imports: methods, utils, tools, R.methodsS3
+Suggests: datasets, digest (>= 0.6.10)
+Title: Various Programming Utilities
+Authors@R: c(person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"), email = "henrikb@braju.com"))
+Author: Henrik Bengtsson [aut, cre, cph]
+Maintainer: Henrik Bengtsson <henrikb@braju.com>
+Description: Utility functions useful when programming and developing R packages.
+License: LGPL (>= 2.1)
+LazyLoad: TRUE
+URL: https://henrikbengtsson.github.io/R.utils/,
+    https://github.com/HenrikBengtsson/R.utils
+BugReports: https://github.com/HenrikBengtsson/R.utils/issues
+NeedsCompilation: no
+Packaged: 2025-02-24 19:44:20 UTC; henrik
+Repository: CRAN
+Date/Publication: 2025-02-24 21:20:02 UTC
+Built: R 4.4.3; ; 2025-03-11 01:35:26 UTC; windows
+RemoteType: standard
+RemotePkgRef: R.utils
+RemoteRef: R.utils
+RemoteRepos: http://ftp.gwdg.de/pub/misc/cran
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 2.13.0

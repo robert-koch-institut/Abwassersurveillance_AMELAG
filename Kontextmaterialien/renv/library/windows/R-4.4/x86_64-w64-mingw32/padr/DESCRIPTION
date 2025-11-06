@@ -1,0 +1,33 @@
+Package: padr
+Type: Package
+Title: Quickly Get Datetime Data Ready for Analysis
+Version: 0.6.3
+Authors@R: person(given = "Edwin", family = "Thoen", role = c("aut", "cre"), email = "edwinthoen@gmail.com")
+Description: Transforms datetime data into a format ready for analysis. It offers two core functionalities; aggregating data to a higher level interval (thicken) and imputing records where observations were absent (pad).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.0.0)
+Imports: Rcpp, dplyr (>= 1.0.0), lubridate, rlang
+Suggests: ggplot2, testthat, knitr, rmarkdown, lazyeval, tidyr, data.table
+RoxygenNote: 7.2.1
+LinkingTo: Rcpp
+VignetteBuilder: knitr
+URL: https://edwinth.github.io/padr/, https://github.com/EdwinTh/padr
+BugReports: https://github.com/EdwinTh/padr/issues
+ByteCompile: true
+NeedsCompilation: yes
+Packaged: 2024-11-21 15:48:04 UTC; edwinthoen
+Author: Edwin Thoen [aut, cre]
+Maintainer: Edwin Thoen <edwinthoen@gmail.com>
+Repository: CRAN
+Date/Publication: 2024-11-21 18:10:02 UTC
+Built: R 4.4.2; x86_64-w64-mingw32; 2024-12-08 03:02:53 UTC; windows
+Archs: x64
+RemoteType: standard
+RemotePkgRef: padr
+RemoteRef: padr
+RemoteRepos: https://cloud.r-project.org
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 0.6.3

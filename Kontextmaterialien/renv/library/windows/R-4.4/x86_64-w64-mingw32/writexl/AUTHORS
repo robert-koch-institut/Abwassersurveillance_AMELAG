@@ -1,0 +1,5 @@
+Authors of bundled libxlsxwriter code (including 3rd party components):
+ - libxlsxwriter: John McNamara
+ - minizip: Gilles Vollant, Mathias Svensson
+ - tmpfileplus: David Ireland, Mozilla Inc
+ - tree.h: Niels Provos

@@ -1,0 +1,29 @@
+Package: writexl
+Type: Package
+Title: Export Data Frames to Excel 'xlsx' Format
+Version: 1.5.1
+Authors@R: c( person("Jeroen", "Ooms", ,"jeroenooms@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4035-0289")), person("John McNamara", role = "cph", comment = "Author of libxlsxwriter (see AUTHORS and COPYRIGHT files for details)"))
+Description: Zero-dependency data frame to xlsx exporter based on 'libxlsxwriter' <https://libxlsxwriter.github.io>. Fast and no Java or Excel required.
+License: BSD_2_clause + file LICENSE
+Encoding: UTF-8
+URL: https://ropensci.r-universe.dev/writexl https://docs.ropensci.org/writexl/
+BugReports: https://github.com/ropensci/writexl/issues
+RoxygenNote: 7.0.2
+Suggests: spelling, readxl, nycflights13, testthat, bit64
+Language: en-US
+SystemRequirements: zlib
+NeedsCompilation: yes
+Packaged: 2024-10-03 14:13:23 UTC; jeroen
+Author: Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), John McNamara [cph] (Author of libxlsxwriter (see AUTHORS and COPYRIGHT files for details))
+Maintainer: Jeroen Ooms <jeroenooms@gmail.com>
+Repository: CRAN
+Date/Publication: 2024-10-04 09:00:02 UTC
+Built: R 4.4.1; x86_64-w64-mingw32; 2024-10-10 00:47:54 UTC; windows
+Archs: x64
+RemoteType: standard
+RemotePkgRef: writexl
+RemoteRef: writexl
+RemoteRepos: http://ftp.gwdg.de/pub/misc/cran
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 1.5.1

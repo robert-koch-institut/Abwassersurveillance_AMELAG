@@ -1,0 +1,25 @@
+Package: reshape
+Version: 0.8.9
+Title: Flexibly Reshape Data
+Description: Flexibly restructure and aggregate data using  just two functions: melt and cast.
+Authors@R: person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre"))
+URL: http://had.co.nz/reshape
+Depends: R (>= 2.6.1)
+Imports: plyr
+License: MIT + file LICENSE
+LazyData: true
+NeedsCompilation: yes
+Packaged: 2022-04-12 14:33:18 UTC; hadleywickham
+Author: Hadley Wickham [aut, cre]
+Maintainer: Hadley Wickham <hadley@rstudio.com>
+Repository: RSPM
+Date/Publication: 2022-04-12 15:00:02 UTC
+Encoding: UTF-8
+Built: R 4.4.0; ; 2024-04-25 19:15:51 UTC; windows
+RemoteType: standard
+RemotePkgRef: reshape
+RemoteRef: reshape
+RemoteRepos: https://packagemanager.posit.co/cran/latest
+RemoteReposName: CRAN
+RemotePkgPlatform: x86_64-w64-mingw32
+RemoteSha: 0.8.9

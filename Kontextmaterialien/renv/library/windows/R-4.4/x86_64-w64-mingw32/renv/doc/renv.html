@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Introduction to renv</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to renv</h1>
+
+
+
+<p>The renv package helps you create reproducible environments for your
+R projects. This vignette introduces you to the basic nouns and verbs of
+renv, like the user and project libraries, and key functions like
+<code>renv::init()</code>, <code>renv::snapshot()</code> and
+<code>renv::restore()</code>. You’ll also learn about some of the
+infrastructure that makes renv tick, some problems that renv doesn’t
+help with, and how to uninstall it if you no longer want to use it.</p>
+<div class="figure" style="text-align: center">
+<img role="img" aria-label="A diagram showing the most important verbs and nouns of renv. Projects start with init(), which creates a project library using packages from the system library. snapshot() updates the lockfile using the packages installed in the project library, where restore() installs packages into the project library using the metadata from the lockfile, and status() compares the lockfile to the project library. You install and update packages from CRAN and GitHub using install() and update(), but because you&#39;ll need to do this for multiple projects, renv uses cache to make this fast.
+" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmQAAAGCCAIAAADBhkjpAAAAAXNSR0IArs4c6QAAAJBlWElmTU0AKgAAAAgABgEGAAMAAAABAAIAAAESAAMAAAABAAEAAAEaAAUAAAABAAAAVgEbAAUAAAABAAAAXgEoAAMAAAABAAIAAIdpAAQAAAABAAAAZgAAAAAAAACQAAAAAQAAAJAAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAmSgAwAEAAAAAQAAAYIAAAAAHP8IqQAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAgtpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpSZXNvbHV0aW9uVW5pdD4yPC90aWZmOlJlc29sdXRpb25Vbml0PgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICAgICA8dGlmZjpDb21wcmVzc2lvbj41PC90aWZmOkNvbXByZXNzaW9uPgogICAgICAgICA8dGlmZjpQaG90b21ldHJpY0ludGVycHJldGF0aW9uPjI8L3RpZmY6UGhvdG9tZXRyaWNJbnRlcnByZXRhdGlvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CtQK6igAAEAASURBVHgB7J13oBRF8sfPrJgjKgiKAUEUFDxRMSCYs5wZcxYQ9Yxn+HF6RsSEYkTFeAYwYEQUkKAeihEERRATopgVs/4+UmddO7M7u/vevt3Z3e/8sa+nu7q7+jvzprqqq6vn+e233/6iSwgIASEgBISAEMiOwLzZi1QiBISAEBACQkAI/I6AhKXeAyEgBISAEBACORCQsMwBkIqFgBAQAkJACEhY6h0QAkJACAgBIZADAQnLHACpWAgIASEgBISAhKXeASEgBISAEBACORCQsMwBkIqFgBAQAkJACEhY6h0QAkJACAgBIZADAQnLHACpWAgIASEgBISAhKXeASEgBISAEBACORCQsMwBkIqFgBAQAkJACEhY6h0QAkJACAgBIZADAQnLHACpWAgIASEgBISAhKXeASEgBISAEBACORCQsMwBkIqFgBAQAkJACEhY6h0QAkJACAgBIZADAQnLHACpWAgIASEgBISAhKXeASEgBISAEBACORCQsMwBkIpDBL777rvw1tIZM+NkyhECQqBQBDL+c2XMLLRl0ReKgIRloYg1OP0LL7zw/PPP17+bYrVjnPzyyy9HHHHE9ttvTyLk7aefftpqq6169uz566+/hvlKC4EqQGD48OFbz71KPxb9x5Ue8xw9/qYrTQjccsst9sCuvfba+vBVrHaMB2ayu+66qzE2ZsyYkLEHHnjA8vfee+8ffvghLFJaCFQ6Apdffjmvd+vWrUs8EP3HlRjwfLqTZmmf+rT8jh492ljxRN048+qeiLczZcqUvfbaa6ONNooXRXLQKR988MF55pmnf//+m266aViKED3llFPIufvuu3v06BEWKS0EhECIgP7jQjQqL52PRBVNyRAYOXLkEksssdhiiz322GP16TSfdp544gne14UWWii5o/vvv99e66uvvjob5d///nejqSfb2dpXvhAoCwLF1Sz1H1eWh1isTv9SrIbUTrEQwALDVf/WcraTz7/ul19+ucIKKyAId9lllwSWfv75544dO0LWpEmTb7/9NoFSRUKgghAovbDUf1xqX4/5TSHQb9kRuOuuuz7//HNno1WrVp07d/ZbS3zxxRf4/rz88ssffvghxOiga621FouFjRs3dsp82nnuuecmTJjwxhtvUAs/ggEDBnj11Vdffdttt/Xbe+655+OPP1588cWvv/56z4wn5ptvvkGDBrVt2/aDDz4YMmRI9+7d4zTKEQIg8Oabb/JSvfvuu7zMSy21FK9u+/btd9ttNwMnnzccyokTJ7JYzsv29ddf8wLzz7LHHnuss846jjAiZ9SoUa+99tonn3zy6aefModr167djjvuyJvsNJZI5sdoaOGf//znO++8w3tOO0wcmzVrFmln1qxZDz30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hIAQEAIpR0DCMuUPSOwJASEgBIRA+RGQsCz/MxAHQkAICAEhkHIEJCxT/oDEnhAQAkJACJQfAQnL8j8DcSAEhIAQSAMCDz74YM+ePSdMmFA3Zr744ou3337766+/rlv1lNeSsEz5AxJ7QkAICIESIfD9998j6up8zPDw4cPPOeecl19+uUTslrYbCcvS4q3ehIAQEAKpQWDIkCHHH3/8W2+9VRSOlllmmdVXX33xxRdPbu3bb7894YQT+vfvn0xWxNKi9Dh/ERlSU0JACAgBIVBBCHz11Veff/55nVXJyEi3mntFMuO3dPfZZ58tv/zy8aIGyilKjxKWDfR01KwQEAJCINUIjBgxYvr06bA4duxYlMv111/f2P3111+fffbZadOmcbvBBhu0bNly3nn/a4OcMWMGK5qzZ89u3LjxxhtvHBF4kydPnjJlyoYbbrjyyitPnDhx6tSpG220EV1w0SZNrb322rNmzRo1ahQt0whLpIssssg222zD7c8//zxmzJh33nln/vnnX2ONNTp27EjmL7/88vDDDy+77LKrrrrqc889t9RSS6200koZm03gcObMmRl7pP2Crnl+++23giqIWAjUAgILLrggw/zxxx9rYbAaY20icNZZZ7377rs+9sMPP/zDDz989NFHF1hggVDX7NWrV4cOHSBDXF1//fUIsHnm+V1wNGrU6LTTTmvevLm3cP/99z/wwAO0s9lmm9199900tfDCC7MO6gR4D80333xXXHGF5yAIL7300h9++OGiiy7COchaprRTp05HHHEE/4D8LrrooiRgqV27dojhjM0ioamVkcNPP/003qMzkH9ivj59+uRPLUohUCMIrLDCCjvssIN9I2pkyBpmrSGA2ocN9r333uvRo0f37t1XW201VENUTPKPOeaYvfbaC3GIgojShihCXF1yySUoiAjIgw8+GGH5+uuvf/PNN3/9618dN6pzoUEiQalIU1SMNLXTTjvxb4VSy+om0qdz584LLbQQnkHPPPMM/f7f//0fgvaFF1548803qYuYHDp0KH3xz7j33nujyyJQMzabwOHOO+8c79F5zj8hB5/8sRJlDSFw1NyrhgasodYeAogiBBXjXmyxxbBwmjWFW+yxTZs2xUCKesftJ598wi/CjwVO5Nlaa62FdojMw146adIkihKueFOI3iWWWIIqVKdTS48bN44c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DGFRWghUHAISlhX3yMRwFIFzzz3Xz1JngZBNk61bt2aXJBFi+WVVMlph7j2HqntQgksvvZQ8F5Y77LAD+0b82m233awFHIjGjRuXsbUDDzyQuK+Rom+//dbsunghcVBJpFS3QkAIVBACEpYV9LDEamYEMIH27dsXZdGK0S+J/opOOWvWrMwV5uZytCTHiRgBXqy33347KqbdEj/WEvbr/jvcukANCUgvssgiRx99dCQTHkwTJRiQC+YIjW6FgBCoCAQkLCviMYnJHAjgYvOf//wHUydWWSdF3URHNMdXVz29lITv+iDtwdCRauijIRknX7rWSGR2ijK21qNHD48la9Vlgw1hVFoIVDQC81hskYoeg5gXAo4A7/O7777LkVjYYHHhKa8+h4Zq8hLXIQ8G5KwqIQSEQAUhIGFZQQ9LrFYSAj/88AMHnnz//ffYh9ltiZ22krgXr0JACPwZgf+G8vpzpu6EgBCoLwJTpkxp2rQprbRt21aSsr5oqr4QKDcC0izL/QTUvxAQAkJACKQeATn4pP4RiUEhIASEgBAoNwISluV+AupfCAgBISAEUo+AhGXqH5EYFAJCQAgIgXIjIGFZ7ieg/oWAEBACQiD1CEhYpv4RiUEhIASEgBAoNwISluV+AupfCAgBISAEUo+AhGXqH5EY/AOBOXPmTJ8+/ccff/wj4/e/hHW9be716KOPhvkNl+bYy5VWWonQslzPPvtszo7uuusuIz7mmGNyEotACAiBdCIgYZnO5yKu/ocAB31st912HNq82GKLtWjRgg3+nGHJSSCvvfYaRNdddx0nfnD16dPnf3ViqXvuuafxH1co4QiejuSzkiuuuCJWL0MGQXk++uij2XOvjCd2ReoMHz7ciC1KbaRUt0JACFQEAorgUxGPqUaZRBT17NnzhhtuCCMYc6jIjLkXh4Gsu+66cWjQM6lCPvrc4MGDjeCrr776+OOPLR3qppyiheSzfNKWKO6vzn8uLp5qTQiUBQEJy7LArk7zQqB///7XX399SNqkSRMk6CeffOLik5OZMc9Cg9JplARSHz16NGmIw7plSRPSferUqXTNuSXrrLNOWXhQp0JACNQfAQnL+mOoFhoEASTiOeecY03PM888Z599NudwLbnkkuR899132DZXW2010ofPvRqEg7wbRXL//PPPfqBmWM/Vys0224xRhEVKCwEh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" alt="A diagram showing the most important verbs and nouns of renv. Projects start with init(), which creates a project library using packages from the system library. snapshot() updates the lockfile using the packages installed in the project library, where restore() installs packages into the project library using the metadata from the lockfile, and status() compares the lockfile to the project library. You install and update packages from CRAN and GitHub using install() and update(), but because you&#39;ll need to do this for multiple projects, renv uses cache to make this fast.
+" width="408" />
+<p class="caption">
+The most important verbs and nouns of renv, which you’ll learn more
+about below.
+</p>
+</div>
+<p>We assume you’re already living a project-centric lifestyle and are
+familiar with a version control system, like Git and GitHub: we believe
+these are table stakes for reproducible data science. If you’re not
+already using projects, we recommend <a href="https://r4ds.had.co.nz/workflow-projects.html">Workflow:
+Projects</a> from <em>R for Data Science</em>; if you’re unfamiliar with
+<a href="https://git-scm.com/">Git</a> and <a href="https://github.com/">GitHub</a>, we recommend <a href="https://happygitwithr.com">Happy Git and GitHub for the
+useR</a>.</p>
+<div id="libraries-and-repositories" class="section level2">
+<h2>Libraries and repositories</h2>
+<p>Before we get into how renv works, you’ll learn to fully understand
+two important pieces of R jargon: libraries and repositories.</p>
+<p>A <strong>library</strong> is a directory containing installed
+packages. This term is confusing because you write (e.g.)
+<code>library(dplyr)</code>, making it easy to think that you’re loading
+the dplyr library, not the dplyr package. That confusion doesn’t usually
+matter because you don’t have to think about libraries, simply
+installing all packages into a <strong>system library</strong><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> that’s
+shared across all projects. With renv, you’ll start using
+<strong>project libraries,</strong> giving each project its own
+independent collection of packages.</p>
+<p>You can see your current libraries with <code>.libPaths()</code> and
+see which packages are available in each library with
+<code>lapply(.libPaths(), list.files)</code>.</p>
+<p>A <strong>repository</strong> is a source of packages;
+<code>install.packages()</code> gets a package from a repository
+(usually somewhere on the Internet) and puts it in a library (a
+directory on your computer). The most important repository is CRAN; you
+can install packages from CRAN in just about every R session. Other
+freely available repositories include <a href="https://bioconductor.org">Bioconductor</a>, the <a href="https://packagemanager.posit.co">Posit Public Package Manager</a>,
+and <a href="https://r-universe.dev/">R Universe</a> (which turns GitHub
+organisations into repositories).</p>
+<p>You can see which repositories are currently set up in your session
+with <code>getOption(&quot;repos&quot;)</code>; when you call
+<code>install.packages(&quot;{pkgname}&quot;)</code>, R will look for
+<code>pkgname</code> in each repository in turn.</p>
+</div>
+<div id="getting-started" class="section level2">
+<h2>Getting started</h2>
+<p>To convert a project to use renv, call <code>renv::init()</code>. It
+adds three new files and directories to your project:</p>
+<ul>
+<li>The project library, <code>renv/library</code>, is a library that
+contains all packages currently used by your project<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. This is the key magic
+that makes renv work: instead of having one library containing the
+packages used in every project, renv gives you a separate library for
+each project. This gives you the benefits of <strong>isolation</strong>:
+different projects can use different versions of packages, and
+installing, updating, or removing packages in one project doesn’t affect
+any other project.</li>
+<li>The <strong>lockfile</strong>, <code>renv.lock</code>, records
+enough metadata about every package that it can be re-installed on a new
+machine. We’ll come back to the lockfile shortly when we talk about
+<code>renv::snapshot()</code> and <code>renv::restore()</code>.</li>
+<li>A project R profile, <code>.Rprofile</code>. This file is run
+automatically every time you start R (in that project), and renv uses it
+to configure your R session to use the project library. This ensures
+that once you turn on renv for a project, it stays on, until you
+deliberately turn it off.</li>
+</ul>
+<p>The next important pair of tools is <code>renv::snapshot()</code> and
+<code>renv::restore()</code>. <code>snapshot()</code> updates the
+lockfile with metadata about the currently-used packages in the project
+library. This is useful because you can then share the lockfile and
+other people or other computers can easily reproduce your current
+environment by running <code>restore()</code>, which uses the metadata
+from the lockfile to install exactly the same version of every package.
+This pair of functions gives you the benefits of
+<strong>reproducibility</strong> and <strong>portability</strong>: you
+are now tracking exactly which package versions you have installed so
+you can recreate them on other machines.</p>
+<p>Now that you’ve got the high-level lay of the land, we’ll show a
+couple of specific workflows before discussing some of the
+reproducibility challenges that renv doesn’t currently help with.</p>
+<div id="collaboration" class="section level3">
+<h3>Collaboration</h3>
+<p>One of the reasons to use renv is to make it easier to share your
+code in such a way that everyone gets exactly the same package versions
+as you. As above, you’ll start by calling <code>renv::init()</code>.
+You’ll then need to commit <code>renv.lock</code>,
+<code>.Rprofile</code>, <code>renv/settings.json</code> and
+<code>renv/activate.R</code> to version control, ensuring that others
+can recreate your project environment. If you’re using git, this is
+particularly simple because renv will create a <code>.gitignore</code>
+for you, and you can just commit all suggested files<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<p>Now when one of your collaborators opens this project, renv will
+automatically bootstrap itself, downloading and installing the
+appropriate version of renv. It will also ask them if they want to
+download and install all the packages it needs by running
+<code>renv::restore()</code>.</p>
+</div>
+<div id="installing-packages" class="section level3">
+<h3>Installing packages</h3>
+<p>Over time, your project will need more packages. One of the
+philosophies of renv is that your existing package management workflows
+should continue to work, so you can continue to use familiar tools like
+<code>install.packages()</code><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. But you can also use
+<code>renv::install()</code>: it’s a little less typing and can install
+packages from GitHub, Bioconductor, and more, not just CRAN.</p>
+<p>If you use renv for multiple projects, you’ll have multiple
+libraries, meaning that you’ll often need to install the same package in
+multiple places. It would be annoying if you had to download (or worse,
+compile) the package repeatedly, so renv uses a package cache. That
+means you only ever have to download and install a package once, and for
+each subsequent install, renv will just add a link from the project
+library to the global cache. You can learn more about the cache in
+<code>vignette(&quot;package-install&quot;)</code>.</p>
+<p>After installing the package and checking that your code works, you
+should call <code>renv::snapshot()</code> to record the latest package
+versions in your lockfile. If you’re collaborating with others, you’ll
+need to commit those changes to git, and let them know that you’ve
+updated the lockfile and they should call <code>renv::restore()</code>
+when they’re next working on a project.</p>
+</div>
+<div id="updating-packages" class="section level3">
+<h3>Updating packages</h3>
+<p>It’s worth noting that there’s a small risk associated with
+isolation: while your code will never break due to a change in another
+package, it will also never benefit from bug fixes. So for packages
+under active development, we recommend that you regularly (at least once
+a year) use <code>renv::update()</code><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> to get the latest
+versions of all dependencies. Similarly, if you’re making major changes
+to a project that you haven’t worked on for a while, it’s often a good
+idea to start with an <code>renv::update()</code> before making any
+changes to the code.</p>
+<p>After calling <code>renv::update()</code>, you should run the code in
+your project and verify that it still works (or make any changes needed
+to get it working). Then call <code>renv::snapshot()</code> to record
+the new versions in the lockfile. If you get stuck, and can’t get the
+project to work with the new versions, you can call
+<code>renv::restore()</code> to roll back changes to the project library
+and revert to the known good state recorded in your lockfile. If you
+need to roll back to an even older version, take a look at
+<code>renv::history()</code> and <code>renv::revert()</code>.</p>
+<p><code>renv::update()</code> will also update renv itself, ensuring
+that you get all the latest features. See <code>renv::upgrade()</code>
+if you ever want to upgrade just renv, or you need to install a
+development version from GitHub.</p>
+</div>
+</div>
+<div id="infrastructure" class="section level2">
+<h2>Infrastructure</h2>
+<p>Now that you’ve got the basic usage of renv under your belt, it’s
+time to learn a bit more about how the lockfile works. You won’t
+typically edit this file directly, but you’ll see it changing in your
+git commits, so it’s good to have a sense for what it looks like.</p>
+<p>The lockfile is always called <code>renv.lock</code> and is a json
+file that records all the information needed to recreate your project in
+the future. Here’s an example lockfile, with the markdown package
+installed from CRAN and the mime package installed from GitHub:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="dt">&quot;R&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">&quot;Version&quot;</span><span class="fu">:</span> <span class="st">&quot;4.4.2&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    <span class="dt">&quot;Repositories&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;CRAN&quot;</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>        <span class="dt">&quot;URL&quot;</span><span class="fu">:</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="dt">&quot;Packages&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="dt">&quot;markdown&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>      <span class="dt">&quot;Package&quot;</span><span class="fu">:</span> <span class="st">&quot;markdown&quot;</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>      <span class="dt">&quot;Version&quot;</span><span class="fu">:</span> <span class="st">&quot;1.0&quot;</span><span class="fu">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>      <span class="dt">&quot;Source&quot;</span><span class="fu">:</span> <span class="st">&quot;Repository&quot;</span><span class="fu">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>      <span class="dt">&quot;Repository&quot;</span><span class="fu">:</span> <span class="st">&quot;CRAN&quot;</span><span class="fu">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>      <span class="dt">&quot;Hash&quot;</span><span class="fu">:</span> <span class="st">&quot;4584a57f565dd7987d59dda3a02cfb41&quot;</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    <span class="dt">&quot;mime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>      <span class="dt">&quot;Package&quot;</span><span class="fu">:</span> <span class="st">&quot;mime&quot;</span><span class="fu">,</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>      <span class="dt">&quot;Version&quot;</span><span class="fu">:</span> <span class="st">&quot;0.12.1&quot;</span><span class="fu">,</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>      <span class="dt">&quot;Source&quot;</span><span class="fu">:</span> <span class="st">&quot;GitHub&quot;</span><span class="fu">,</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>      <span class="dt">&quot;RemoteType&quot;</span><span class="fu">:</span> <span class="st">&quot;github&quot;</span><span class="fu">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>      <span class="dt">&quot;RemoteHost&quot;</span><span class="fu">:</span> <span class="st">&quot;api.github.com&quot;</span><span class="fu">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>      <span class="dt">&quot;RemoteUsername&quot;</span><span class="fu">:</span> <span class="st">&quot;yihui&quot;</span><span class="fu">,</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>      <span class="dt">&quot;RemoteRepo&quot;</span><span class="fu">:</span> <span class="st">&quot;mime&quot;</span><span class="fu">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>      <span class="dt">&quot;RemoteRef&quot;</span><span class="fu">:</span> <span class="st">&quot;main&quot;</span><span class="fu">,</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>      <span class="dt">&quot;RemoteSha&quot;</span><span class="fu">:</span> <span class="st">&quot;1763e0dcb72fb58d97bab97bb834fc71f1e012bc&quot;</span><span class="fu">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>      <span class="dt">&quot;Requirements&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>        <span class="st">&quot;tools&quot;</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>      <span class="dt">&quot;Hash&quot;</span><span class="fu">:</span> <span class="st">&quot;c2772b6269924dad6784aaa1d99dbb86&quot;</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>As you can see the json file has two main components: <code>R</code>
+and <code>Packages</code>. The <code>R</code> component contains the
+version of R used, and a list of repositories where packages were
+installed from. The <code>Packages</code> contains one record for each
+package used by the project, including all the details needed to
+re-install that exact version. The fields written into each package
+record are derived from the installed package’s <code>DESCRIPTION</code>
+file, and include the data required to recreate installation, regardless
+of whether the package was installed from <a href="https://cran.r-project.org/">CRAN</a>, <a href="https://www.bioconductor.org/">Bioconductor</a>, <a href="https://github.com/">GitHub</a>, <a href="https://about.gitlab.com/">Gitlab</a>, <a href="https://bitbucket.org/">Bitbucket</a>, or elsewhere. You can learn
+more about the sources renv supports in
+<code>vignette(&quot;package-sources&quot;)</code>.</p>
+</div>
+<div id="caveats" class="section level2">
+<h2>Caveats</h2>
+<p>It is important to emphasize that renv is not a panacea for
+reproducibility. Rather, it is a tool that can help make projects
+reproducible by helping with one part of the overall problem: R
+packages. There are a number of other pieces that renv doesn’t currently
+provide much help with:</p>
+<ul>
+<li><strong>R version</strong>: renv tracks, but doesn’t help with, the
+version of R used with the project. renv can’t easily help with this
+because it’s run inside of R, but you might find tools like <a href="https://github.com/r-lib/rig">rig</a> helpful, as they make it
+easier to switch between multiple version of R on one computer.</li>
+<li><strong>Pandoc</strong>: The rmarkdown package relies heavily on <a href="https://pandoc.org/">pandoc</a>, but pandoc is not bundled with
+the rmarkdown package. That means restoring rmarkdown from the lockfile
+is insufficient to guarantee exactly the same rendering of RMarkdown
+documents. If this causes problems for you, you might find the tools
+provided by the <a href="https://cderv.github.io/pandoc/">pandoc
+package</a> to be useful.</li>
+<li><strong>Operating system, versions of system libraries, compiler
+versions</strong>: Keeping a ‘stable’ machine image is a separate
+challenge, but <a href="https://www.docker.com/">Docker</a> is one
+popular solution. See <code>vignette(&quot;docker&quot;, package = &quot;renv&quot;)</code>
+for recommendations on how Docker can be used together with renv.</li>
+</ul>
+<p>You also need to be aware that package installation may fail if a
+package was originally installed through a binary, but that binary is no
+longer available. renv will attempt to install the package from source,
+but this can (and often will) fail due to missing system
+prerequisites.</p>
+<p>Ultimately, making a project reproducible will always require
+thought, not just mechanical usage of a tool: what does it mean for a
+particular project to be reproducible, and how can you use tools to meet
+that particular goal of reproducibility?</p>
+</div>
+<div id="uninstalling-renv" class="section level2">
+<h2>Uninstalling renv</h2>
+<p>If you find renv isn’t the right fit for your project, deactivating
+and uninstalling it is easy.</p>
+<ul>
+<li><p>To deactivate renv in a project, use
+<code>renv::deactivate()</code>. This removes the renv auto-loader from
+the project <code>.Rprofile</code>, but doesn’t touch any other renv
+files used in the project. If you’d like to later re-activate renv, you
+can do so with <code>renv::activate()</code>.</p></li>
+<li><p>To completely remove renv from a project, call
+<code>renv::deactivate(clean = TRUE)</code>. If you later want to use
+renv for this project, you’ll need to start from scratch with
+<code>renv::init().</code></p></li>
+</ul>
+<p>If you want to stop using renv for all your projects, you’ll also
+want to remove <code>renv&#39;</code>s global infrastructure with the
+following R code<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>root <span class="ot">&lt;-</span> renv<span class="sc">::</span>paths<span class="sc">$</span><span class="fu">root</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">unlink</span>(root, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>You can then uninstall the renv package with
+<code>utils::remove.packages(&quot;renv&quot;)</code>.</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>More precisely, there can be up to three system
+libraries: an (optional) <strong>user</strong> library, an (optional)
+<strong>site</strong> library, and a <strong>default</strong> library
+(where base R packages are installed).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>If you’d like to skip dependency discovery, you can call
+<code>renv::init(bare = TRUE)</code> to initialize a project with an
+empty project library.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>If you’re using another version control system, you’ll
+need to manually ignore <code>renv/library</code> and any other
+directories in <code>renv/</code>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Behind the scene, renv shims
+<code>install.packages()</code>, <code>update.packages(),</code> and
+<code>remove.packages()</code> to call the renv equivalents. Learn more
+in <code>?renv::load.</code><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>You can also use <code>update.packages()</code>, but
+<code>renv::update()</code> works with the same sources that
+<code>renv::install()</code> supports.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>If you’ve customized any of renv’s infrastructure paths
+as described in <code>?renv::paths</code>, then you’ll need to find and
+remove those customized folders as well.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
