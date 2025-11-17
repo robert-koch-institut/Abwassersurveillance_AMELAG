@@ -2,7 +2,7 @@
 
 [**--- see English version below ---**](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien#context-materials)
 
-Diese Dokumentation gibt einen Überblick über die R-Skripte, die erforderlich sind, um die im [Abwasser-Wochenbericht des Robert-Koch-Instituts](https://edoc.rki.de/handle/176904/11665) dargestellten Ergebnisse zu replizieren. Die dortigen Ergebnisse wurden unter Verwendung von R 4.4.1 (64 bit, Windows) generiert. Sie können die Projektumgebung mithilfe des `renv`-Pakets (https://rstudio.github.io/renv/articles/renv) nachbauen.
+Diese Dokumentation gibt einen Überblick über die R-Skripte, die erforderlich sind, um die im [Abwasser-Wochenbericht des Robert-Koch-Instituts](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht) dargestellten Ergebnisse zu replizieren. Die dortigen Ergebnisse wurden unter Verwendung von R 4.4.1 (64 bit, Windows) generiert. Sie können die Projektumgebung mithilfe des `renv`-Pakets (https://rstudio.github.io/renv/articles/renv) nachbauen.
 
 Beachten Sie, dass die Ergebnisse in Unterordnern mit den Namen `Results/'Pathogen'` gespeichert werden. Die Daten werden aus dem Hauptverzeichnis bezogen. Die Ergebnisordner werden automatisch erstellt, wenn Sie `main.R` ausführen.
 Wenn Sie RStudio verwenden, starten Sie RStudio durch Ausführen des R-Projekts `amelag_open_code.Rproj` und führen Sie die Skripte dort aus, andernfalls müssen Sie die Pfade am Anfang des Skripts `main.R` anpassen. Wenn Sie die anderen Skripte öffnen, stellen Sie sicher, dass die deutschen Umlaute korrekt angezeigt werden, dies kann in RStudio sichergestellt werden, indem Sie Ihr Skript im richtigen Format neu laden ("File -> Reopen with Encoding -> UTF-8"). 

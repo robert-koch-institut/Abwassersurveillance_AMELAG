@@ -212,7 +212,7 @@ Die Datei [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut
 <!-- DATA_SCHEMA_SPECIFICATION_END -->
 ### Kontextmaterialien
 
-Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://edoc.rki.de/handle/176904/11665) werden die zur Erstellung der Analyse verwendeten R-Skripte bereitgestellt. Die Skripte befinden sich im Ordner "[Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" des Datensatzes.
+Zur Reproduktion der Ergebnisse des [AMELAG Wochenberichts](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht/) werden die zur Erstellung der Analyse verwendeten R-Skripte bereitgestellt. Die Skripte befinden sich im Ordner "[Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" des Datensatzes.
 
 > [Kontextmaterialien](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
 

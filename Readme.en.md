@@ -212,7 +212,7 @@ The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/
 
 ### Context materials
 
-To reproduce the results of the [AMELAG weekly report](https://edoc.rki.de/handle/176904/11665), the R scripts used to create the analysis are provided. The scripts can be found in the "[Contextual materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" folder of the dataset.
+To reproduce the results of the [AMELAG weekly report](https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG_-_Wochenbericht/), the R scripts used to create the analysis are provided. The scripts can be found in the "[Contextual materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)" folder of the dataset.
 
 > [Context Materials](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Kontextmaterialien)
 
