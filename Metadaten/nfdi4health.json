@@ -20,7 +20,7 @@
     ],
     "ids": [
       {
-        "identifier": "10.5281/zenodo.17590804",
+        "identifier": "10.5281/zenodo.17649326",
         "typeGeneral": "Dataset",
         "relationType": "A references B",
         "scheme": "DOI"
@@ -113,7 +113,7 @@
         },
         "label": "CC BY 4.0 (Creative Commons Attribution 4.0 International)"
       },
-      "version": "2025-11-11"
+      "version": "2025-11-18"
     },
     "webpage": "https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG",
     "contributors": [
