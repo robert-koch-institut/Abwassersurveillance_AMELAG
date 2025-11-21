@@ -1,0 +1,5 @@
+# Ignore everything
+*
+
+# But allow these folders (negation pattern)
+!Scripts/
