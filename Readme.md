@@ -141,6 +141,7 @@ Von der Probenahme bis zur Datenübermittlung und Veröffentlichung vom RKI kann
 Im AMELAG-Datensatz werden Daten und Kontextmaterialien zu SARS-CoV-2-Nachweisen im Abwasser bereitgestellt. Die im Projekt erhobenen Daten liegen für [einzelne Standorte](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Normalisierten-Daten-zur-SARS-CoV-2-Viruslast) und als [aggregierte Zeitreihe](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Zeitreihe-der-SARS-CoV-2-Viruslast) vor.
 
 Im Datensatz zusätzlich enthalten sind:
+
 - Lizenz-Datei mit der Nutzungslizenz des Datensatzes in Deutsch und Englisch
 - Datensatzdokumentation in deutscher Sprache
 - Metadaten zur automatisierten Weiterverarbeitung

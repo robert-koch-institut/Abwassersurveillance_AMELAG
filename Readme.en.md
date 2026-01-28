@@ -64,6 +64,7 @@ The participating WWTPs are responsible for taking samples, which are analyzed b
 
 Some of the WWTPs and laboratories are also involved in wastewater surveillance projects in the federal states (Baden-Württemberg, Bavaria, Berlin, Brandenburg, Hamburg, Hesse, Rhineland-Palatinate, Saxony-Anhalt). 
 Other WWTPs and laboratories are part of the following research projects:
+
 - [WBEready](https://www.fiw.rwth-aachen.de/aktuelles-veranstaltungen/aktuelles/wbeready) - A research consortium consisting of Emschergenossenschaft and LippeverbandEGLV, Research Institute for Water Management and Climate Future at RWTH Aachen FiW, University Hospital Frankfurt, Goethe University Frankfurt am Main, University Medicine Essen (Institute for Artificial Intelligence, Institute for Urban Public Health), RWTH Aachen, Institute for Urban Water Management.
 - Establishment of methods for the detection of viruses in wastewater to assess the infection situation in the population (University of Dresden)
 - Development of a state-wide wastewater surveillance system in Thuringia using mobility data and artificial intelligence (research consortium of the University of Weimar, University of Jena, University of Hamburg, Hamm-Lippstadt University of Applied Sciences, SMA Development GmbH, KOWUG Kommunale Wasser- und Umwelttechnik GmbH, Analytik Jena GmbH) 
@@ -141,6 +142,7 @@ The time delay from sampling to transmission and further publication by the RKI 
 The AMELAG dataset provides data and contextual material on SARS-CoV-2 detections in wastewater. The data collected in the project are available for [individual sites](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Normalisierten-Daten-zur-SARS-CoV-2-Viruslast) and as [aggregated time series](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main?tab=readme-ov-file#Zeitreihe-der-SARS-CoV-2-Viruslast).
 
 The dataset also contains:
+
 - License file with the license to use the dataset in German and English
 - Dataset documentation in German
 - Metadata for automated further processing
