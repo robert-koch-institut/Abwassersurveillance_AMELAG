@@ -15,6 +15,11 @@ pacman::p_load(here,
 # accessed on 25/10/2023
 pop <- 84358845
 
+# remove unreliable / variable Influenza data from Dresden from aggregation
+discard_places_for_aggregation_influenza <- c(
+  "Dresden"
+)
+
 # define function that computes variance of a weighted mean
 var_weighted <- function(x = NULL, wt = NULL) {
   xm = weighted.mean(x, wt)
