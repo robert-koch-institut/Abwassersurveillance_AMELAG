@@ -3,9 +3,9 @@ df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
                show_col_types = FALSE) %>%
   # rename RSV A/B to avoid problems when saving data
   mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ)) %>%
-  # remove unreliable / variable Influenza data from Dresden from aggregation
+  # remove unreliable / variable Influenza data from aggregation
   filter(!(
-    standort == "Dresden" &
+    standort %in% discard_places_for_aggregation_influenza &
       typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
   ))
 
@@ -51,12 +51,12 @@ df_agg <- df_agg %>%
   filter(!is.na(einwohner), !is.na(log_viruslast))
 
 df_agg <- df_agg %>%
-  # calculate unweighted means over the weeks as these unweighted means can be
-  # used to calculate differnces between site/lab combination from these means.
+  # calculate weighted means over the weeks as these weighted means can be
+  # used to calculate differences between site/lab combination from these means.
   # in this way, average differences in the viral loads that are site/lab
   # specific can be adjusted for.
   group_by(typ, th_week) %>%
-  mutate(mean_log_viruslast = mean(log_viruslast)) %>%
+  mutate(mean_log_viruslast = weighted.mean(log_viruslast, einwohner)) %>%
   ungroup() %>%
   # calculate differences from these means
   mutate(log_viruslast_dev = log_viruslast - mean_log_viruslast) %>%

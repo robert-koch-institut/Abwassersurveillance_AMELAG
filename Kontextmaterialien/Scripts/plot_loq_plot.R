@@ -1,5 +1,10 @@
 # read in data for single treatment plants
 plot_data <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv")) %>%
+  # remove unreliable / variable Influenza data for aggregated plot
+  filter(!(
+    standort %in% discard_places_for_aggregation_influenza &
+      typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
+  )) %>% 
   # rename RSV A/B to avoid problems when saving data
   mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ)) %>%
   filter(!is.na(!!sym(viruslast_untersucht))) %>%
