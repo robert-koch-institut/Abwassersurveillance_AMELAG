@@ -1,15 +1,21 @@
 {
   "title": "Abwassersurveillance AMELAG",
-  "description": "<p>Im Datensatz &quot;Abwassersurveillance AMELAG&quot; des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt.</p>\n",
+  "description": "<p>Im Datensatz \"Abwassersurveillance AMELAG\" des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt.</p>",
   "resource_type": {
     "id": "dataset"
   },
-  "publication_date": "2026-04-01",
+  "publication_date": "2026-04-08",
   "creators": [
     {
       "person_or_org": {
         "type": "organizational",
-        "name": "Robert Koch-Institut"
+        "name": "Robert Koch-Institut",
+        "identifiers": [
+          {
+            "scheme": "ror",
+            "identifier": "01k5qnb77"
+          }
+        ]
       }
     },
     {
@@ -25,16 +31,22 @@
         "type": "organizational",
         "name": "Fachgebiet 32"
       },
+      "affiliations": [
+        {
+          "name": "Robert Koch-Institut",
+          "id": "01k5qnb77"
+        }
+      ],
       "role": {
         "id": "projectmanager"
       }
     }
   ],
   "publisher": "Zenodo",
-  "version": "2026-04-01",
+  "version": "2026-04-08",
   "dates": [
     {
-      "date": "2026-03-31T10:00:00+02:00",
+      "date": "2026-04-07T10:00:00+02:00",
       "type": {
         "id": "created"
       },
@@ -89,6 +101,18 @@
       "subject": "Environmental Monitoring"
     },
     {
+      "subject": "Epidemiologie"
+    },
+    {
+      "subject": "Gesundheitsberichterstattung"
+    },
+    {
+      "subject": "Public health surveillance"
+    },
+    {
+      "subject": "Epidemiology"
+    },
+    {
       "subject": "Deutschland"
     },
     {
@@ -107,24 +131,6 @@
   "custom_fields": {
     "legacy:communities": [
       "robertkochinstitut"
-    ],
-    "legacy:subjects": [
-      {
-        "term": "Epidemiologie",
-        "identifier": "info:ddc/22/de//614.4"
-      },
-      {
-        "term": "Gesundheitsberichterstattung",
-        "identifier": "info:ddc/22/de//614.42"
-      },
-      {
-        "term": "Public health surveillance",
-        "identifier": "info:ddc/22/eng//614.42"
-      },
-      {
-        "term": "Epidemiology",
-        "identifier": "info:ddc/22/eng//614.4"
-      }
     ]
   }
 }

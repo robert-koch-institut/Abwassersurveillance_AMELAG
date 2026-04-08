@@ -10,25 +10,33 @@
       {
         "language": "DE (German)",
         "text": "Im Datensatz \"Abwassersurveillance AMELAG\" des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt."
+      },
+      {
+        "language": "EN (English)",
+        "text": "The dataset \"Wastewater Surveillance AMELAG\" of the Robert Koch Institute and the Federal Environment Agency provides data from the monitoring of infectious pathogens in wastewater. Data on SARS-CoV-2 viral load has been collected since February 2022 in a nationwide network of wastewater treatment plants, laboratories and local authorities. Since then, the data has been supplemented by the viral load of other respiratory viruses (Influenza A/B, RSV). In addition to individual values from the wastewater treatment plants, the data set also contains population-weighted, aggregated time series. In addition, analysis scripts are provided as context materials. "
       }
     ],
     "titles": [
       {
         "language": "DE (German)",
         "text": "Abwassersurveillance AMELAG"
+      },
+      {
+        "language": "EN (English)",
+        "text": "Wastewater Surveillance AMELAG"
       }
     ],
     "ids": [
       {
-        "identifier": "10.5281/zenodo.19368045",
+        "identifier": "10.5281/zenodo.19469697",
         "typeGeneral": "Dataset",
         "relationType": "A references B",
         "scheme": "DOI"
       },
       {
         "identifier": "https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG",
-        "relationType": "A references B",
         "typeGeneral": "Dataset",
+        "relationType": "A references B",
         "scheme": "URL"
       }
     ],
@@ -70,25 +78,27 @@
       },
       {
         "label": "Epidemiologie",
-        "code": "info:ddc/22/de//614.4"
+        "code": "http://id.nlm.nih.gov/mesh/D004813"
       },
       {
         "label": "Gesundheitsberichterstattung",
-        "code": "info:ddc/22/de//614.42"
+        "code": "http://id.nlm.nih.gov/mesh/D062486"
       },
       {
         "label": "Public health surveillance",
-        "code": "info:ddc/22/eng//614.42"
+        "code": "http://id.nlm.nih.gov/mesh/D062486"
       },
       {
         "label": "Epidemiology",
-        "code": "info:ddc/22/eng//614.4"
+        "code": "http://id.nlm.nih.gov/mesh/D004813"
       },
       {
-        "label": "Deutschland"
+        "label": "Deutschland",
+        "code": "http://id.nlm.nih.gov/mesh/D005858"
       },
       {
-        "label": "Germany"
+        "label": "Germany",
+        "code": "http://id.nlm.nih.gov/mesh/D005858"
       },
       {
         "label": "Open Data"
@@ -113,11 +123,12 @@
         },
         "label": "CC BY 4.0 (Creative Commons Attribution 4.0 International)"
       },
-      "version": "2026-03-31"
+      "version": "2026-04-08"
     },
     "webpage": "https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG",
     "contributors": [
       {
+        "nameType": "Organisational",
         "affiliations": [
           {
             "name": "Robert Koch-Institut",
@@ -129,31 +140,36 @@
             ]
           }
         ],
-        "nameType": "Organisational",
         "organisational": {
           "name": "Robert Koch-Institut",
           "type": "Creator/Author"
         }
       },
       {
+        "nameType": "Organisational",
         "affiliations": [
           {
             "name": "Umweltbundesamt"
           }
         ],
-        "nameType": "Organisational",
         "organisational": {
           "name": "Umweltbundesamt",
           "type": "Creator/Author"
         }
       },
       {
+        "nameType": "Organisational",
         "affiliations": [
           {
-            "name": "Fachgebiet 32"
+            "name": "Robert Koch-Institut",
+            "identifiers": [
+              {
+                "identifier": "01k5qnb77",
+                "scheme": "ROR"
+              }
+            ]
           }
         ],
-        "nameType": "Organisational",
         "organisational": {
           "name": "Fachgebiet 32",
           "type": "Project manager"

@@ -21,8 +21,8 @@ Documentation
 <br> 
 
 **Cite**  
-<!-- CITATION_START: {"citation_style": "apa"} -->
-Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.19368045](https://doi.org/10.5281/zenodo.19368045)
+<!-- CITATION_START: {"citation_style": "apa", "markdown_style": "plain"} -->
+Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.19469697](https://doi.org/10.5281/zenodo.19469697)
 <!-- CITATION_END -->
 
 
@@ -229,7 +229,7 @@ To increase findability, the provided data are described with metadata. The Meta
 
 > [Metadaten/](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/tree/main/Metadaten/)
 
-Versioning and DOI assignment are performed via [Zenodo.org](https://zenodo.org). The metadata prepared for import into Zenodo are stored in the [zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json). Documentation of the individual metadata variables can be found at [https://developers.zenodo.org/representation](https://developers.zenodo.org/#representation).
+Versioning and DOI assignment are performed via [Zenodo.org](https://zenodo.org). The metadata prepared for import into Zenodo are stored in the [zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json). Documentation of the individual metadata variables can be found at [https://developers.zenodo.org/#representation](https://developers.zenodo.org/#representation).
 
 > [Metadaten/zenodo.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/zenodo.json)
 
