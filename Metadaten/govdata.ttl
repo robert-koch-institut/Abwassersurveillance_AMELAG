@@ -5,11 +5,11 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-<https://zenodo.org/record/19473617>
+<https://zenodo.org/record/19592829>
     a dcat:Dataset ;
     dcatde:contributor
-        <https://zenodo.org/record/19473617#author-1> ,
-        <https://zenodo.org/record/19473617#author-2> ;
+        <https://zenodo.org/record/19592829#author-1> ,
+        <https://zenodo.org/record/19592829#author-2> ;
     dcatde:contributorID <http://dcat-ap.de/def/contributors/robertKochInstitut> ;
     dcatde:maintainer
         [
@@ -18,9 +18,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
             foaf:name "Robert Koch-Institut | Open Data Team" ;
         ] ;
     dct:description "<p>Im Datensatz \"Abwassersurveillance AMELAG\" des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt.</p>" ;
-    dct:issued "2026-04-08T18:20:11+02:00"^^xsd:dateTime ;
+    dct:issued "2026-04-15T12:58:18+02:00"^^xsd:dateTime ;
     dct:license <https://dcat-ap.de/def/licenses/cc-by/4.0> ;
-    dct:modified "2026-04-07T10:00:00+02:00"^^xsd:dateTime ;
+    dct:modified "2026-04-14T10:00:00+02:00"^^xsd:dateTime ;
     dct:publisher
         [
             a foaf:Organization ;
@@ -39,9 +39,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
             vcard:hasStreetAddress "Nordufer 20" ;
         ] ;
     dcat:distribution
-        <https://zenodo.org/record/19473617#dist-01-github> ,
-        <https://zenodo.org/record/19473617#dist-02-zenodo> ,
-        <https://zenodo.org/record/19473617#dist-03-zenodo-documentation> ;
+        <https://zenodo.org/record/19592829#dist-01-github> ,
+        <https://zenodo.org/record/19592829#dist-02-zenodo> ,
+        <https://zenodo.org/record/19592829#dist-03-zenodo-documentation> ;
     dcat:keyword
         "Abwasserbasierte epidemiologische Überwachung" ,
         "COVID-19" ,
@@ -67,49 +67,49 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         <http://publications.europa.eu/resource/authority/data-theme/TECH> ;
 .
 
-<https://zenodo.org/record/19473617#author-1>
+<https://zenodo.org/record/19592829#author-1>
     a foaf:Organization ;
     foaf:name "Robert Koch-Institut" ;
 .
 
-<https://zenodo.org/record/19473617#author-2>
+<https://zenodo.org/record/19592829#author-2>
     a foaf:Organization ;
     foaf:name "Umweltbundesamt" ;
 .
 
-<https://zenodo.org/record/19473617#dist-01-github>
+<https://zenodo.org/record/19592829#dist-01-github>
     a dcat:Distribution ;
-    dcatde:licenseAttributionByText "Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19473617" ;
+    dcatde:licenseAttributionByText "Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19592829" ;
     dcatde:plannedAvailability <http://dcat-ap.de/def/plannedAvailability/stable> ;
     dct:description "GitHub ist eine soziales Netzwerk und Plattform, die es ermöglicht, Code-Repositories und Datensätze zu hosten, zu verwalten und zu teilen. Es bietet eine Vielzahl von Funktionen wie Versionskontrolle, Fehlerverfolgung, Zusammenarbeit und Teammanagement. GitHub ist eine der bekanntesten und am häufigsten verwendeten Plattformen für die gemeinsame Entwicklung von Software und Code, insbesondere für Open-Source-Projekte." ;
     dct:language <http://publications.europa.eu/resource/authority/language/DEU> ;
     dct:license <https://dcat-ap.de/def/licenses/cc-by/4.0> ;
-    dct:modified "2026-04-08T18:20:11+02:00"^^xsd:dateTime ;
+    dct:modified "2026-04-15T12:58:18+02:00"^^xsd:dateTime ;
     dct:title "Github - Abwassersurveillance AMELAG" ;
     dcat:accessURL <https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG> ;
 .
 
-<https://zenodo.org/record/19473617#dist-02-zenodo>
+<https://zenodo.org/record/19592829#dist-02-zenodo>
     a dcat:Distribution ;
-    dcatde:licenseAttributionByText "Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19473617" ;
+    dcatde:licenseAttributionByText "Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19592829" ;
     dcatde:plannedAvailability <http://dcat-ap.de/def/plannedAvailability/stable> ;
     dct:description "Zenodo ist eine europäische Plattform, die es Forschern, Wissenschaftlern und anderen Personen ermöglicht, Forschungsdaten, Publikationen, Präsentationen und andere wissenschaftliche Inhalte kostenlos zu teilen und zu veröffentlichen. Eine der Hauptstärken von Zenodo ist die Bereitstellung der Daten nach den FAIR Prinzipien, Daten sind langzeitarchiviert und wissenschaftlich zitierbar, um den Datenaustausch und die Zusammenarbeit zwischen Forschern zu erleichtern." ;
     dct:language <http://publications.europa.eu/resource/authority/language/DEU> ;
     dct:license <https://dcat-ap.de/def/licenses/cc-by/4.0> ;
-    dct:modified "2026-04-08T18:20:11+02:00"^^xsd:dateTime ;
+    dct:modified "2026-04-15T12:58:18+02:00"^^xsd:dateTime ;
     dct:title "Zenodo - Abwassersurveillance AMELAG" ;
-    dcat:accessURL <https://zenodo.org/record/19473617> ;
+    dcat:accessURL <https://zenodo.org/record/19592829> ;
 .
 
-<https://zenodo.org/record/19473617#dist-03-zenodo-documentation>
+<https://zenodo.org/record/19592829#dist-03-zenodo-documentation>
     a dcat:Distribution ;
-    dcatde:licenseAttributionByText "Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19473617" ;
+    dcatde:licenseAttributionByText "Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19592829" ;
     dcatde:plannedAvailability <http://dcat-ap.de/def/plannedAvailability/stable> ;
     dct:description "Die Datensatzdokumentation enthält Informationen und Hinweise zum Entstehungskontext, dem Aufbau und der Nachnutzung der im Datensatz 'Abwassersurveillance AMELAG' bereitgestellten Daten" ;
     dct:format <http://publications.europa.eu/resource/authority/file-type/PDF> ;
     dct:language <http://publications.europa.eu/resource/authority/language/DEU> ;
     dct:license <https://dcat-ap.de/def/licenses/cc-by/4.0> ;
-    dct:modified "2026-04-08T18:20:11+02:00"^^xsd:dateTime ;
+    dct:modified "2026-04-15T12:58:18+02:00"^^xsd:dateTime ;
     dct:title "[Dokumentation]_Abwassersurveillance_AMELAG.pdf" ;
-    dcat:accessURL <https://zenodo.org/record/19473617/files/[Dokumentation]_Abwassersurveillance_AMELAG.pdf> ;
+    dcat:accessURL <https://zenodo.org/record/19592829/files/[Dokumentation]_Abwassersurveillance_AMELAG.pdf> ;
 .
