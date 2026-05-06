@@ -9,7 +9,7 @@ abstract: Im Datensatz "Abwassersurveillance AMELAG" des Robert Koch-Instituts u
   ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete,
   aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien
   bereitgestellt.
-date-released: '2026-04-29'
+date-released: '2026-05-06'
 keywords:
   - COVID-19
   - SARS-CoV-2
@@ -31,8 +31,8 @@ keywords:
 message: Cite me!
 url: https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG
 license: CC-BY-4.0
-doi: 10.5281/zenodo.19884162
-version: '2026-04-28T10:00:00+02:00'
+doi: 10.5281/zenodo.20051917
+version: '2026-05-05T10:00:00+02:00'
 authors:
   - name: Robert Koch-Institut
     email: info@rki.de
