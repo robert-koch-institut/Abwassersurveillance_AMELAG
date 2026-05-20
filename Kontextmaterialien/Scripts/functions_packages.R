@@ -107,6 +107,10 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
   # store maximum number of observations per week
   n_max <- max(plot_data_w %>% pull(n))
   
+  # set dates for x axis
+  x_breaks <- sort(unique(plot_data_y$woche))
+  x_breaks <- x_breaks[seq(1, length(x_breaks), by = 4)]
+  
   # basic plot
   p <- ggplot(data = plot_data_y, aes(x = woche)) +
     geom_bar(
@@ -119,12 +123,8 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
     theme_minimal() +
     theme(legend.position = "bottom") +
     scale_x_date(
-      date_breaks = "4 week",
-      labels = function(x) {
-        week_labels <- lubridate::isoweek(x)
-        year_labels <- lubridate::isoyear(x)
-        paste0(week_labels, "\n", year_labels)
-      },
+        breaks = x_breaks,
+        labels = function(x) lubridate::isoweek(x),
       expand = c(0, 0)
     ) +
     scale_y_continuous(
@@ -269,8 +269,10 @@ aggregation <- function(df = df_agg,
       weights = mean(weights, na.rm = TRUE),
     ) %>%
     ungroup() %>%
-    filter(Tag == 3) %>%
-    distinct(datum, .keep_all = T) %>%
+    # keep only one week per week (week defined as thursday to wednesday)
+    distinct(th_week, .keep_all = T) %>%
+    # recode date by setting date to the respective wednesday
+    mutate(datum = th_week) %>%
     # standardize means
     mutate(weights = weights / mean(weights, na.rm = TRUE)) %>%
     arrange(datum) %>%
