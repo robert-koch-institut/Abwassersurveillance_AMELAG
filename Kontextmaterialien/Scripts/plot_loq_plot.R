@@ -4,12 +4,13 @@ plot_data <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv")) %>%
   filter(!(
     standort %in% discard_places_for_aggregation_influenza &
       typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
-  )) %>% 
+  )) %>%
   # rename RSV A/B to avoid problems when saving data
   mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ)) %>%
   filter(!is.na(!!sym(viruslast_untersucht))) %>%
-  # create week variable
-  mutate(woche = as.Date(cut(datum, "week"))) %>%
+  # create week variable with weeks starting on Thursday
+  mutate(woche = as.Date(datum) + 
+           ((3 - lubridate::wday(datum, week_start = 1)) %% 7)) %>%
   group_by(typ, woche) %>%
   # count number of observations and share of observations
   # below limit of quantification per virus and week
