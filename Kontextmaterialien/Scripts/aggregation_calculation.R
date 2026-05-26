@@ -9,21 +9,11 @@ df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
       typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
   ))
 
-# generate weeks starting on Thursday
-thursday_data <-
-  df %>%
-  distinct(datum) %>%
-  arrange(datum) %>%
-  mutate(
-    Tag = lubridate::wday(datum, week_start = 1),
-    is_thursday = ifelse(Tag == 4, 1, 0),
-    th_week = cumsum(is_thursday)
-  ) %>%
-  dplyr::select(datum, th_week, Tag)
-
 # create aggregated data (aggregated over all sites)
 df_agg <- df %>%
-  left_join(thursday_data) %>%
+  mutate(Tag = lubridate::wday(datum, week_start = 1),
+         # generate weeks starting on Thursday
+         th_week = as.Date(datum) + ((3 - lubridate::wday(datum, week_start = 1)) %% 7)) %>%
   group_by(standort, typ, th_week) %>%
   # complete data
   fill(unter_bg, .direction = "updown") %>%
