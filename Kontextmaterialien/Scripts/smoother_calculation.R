@@ -77,19 +77,35 @@ pred <- df %>%
     # clean data
     d <- d_grp %>% filter(!is.na(log_viruslast), !is.na(obs))
     
-    # helper to fit GAM with a given k (basis dimension) and bs (spline basis)
-    fit_gam <- function(k, bs, method = "GCV.Cp") {
-      mgcv::gam(log_viruslast ~ s(obs, k = k, bs = bs),
-                method = method,
-                data = d)
+    # Helper to fit GAM with a given k (basis dimension), maybe m and bs (spline basis) 
+    fit_gam <- function(k, bs, m = NULL, method = "GCV.Cp") {
+      if (is.null(m)) {
+        mgcv::gam(
+          log_viruslast ~ s(obs, k = k, bs = bs),
+          method = method,
+          data = d
+        )
+      } else {
+        mgcv::gam(
+          log_viruslast ~ s(obs, k = k, bs = bs, m = m),
+          method = method,
+          data = d
+        )
+      }
     }
     
-    # Choose a default k: default is given to mgcv default
+    # Choose k for adaptive smooth: should grow with sample size
+    k_adapt <- max(40, floor(nrow(d) / 2.5))
+    
+    # Choose m for adaptive smooth: should grow with sample size
+    m_adapt <- max(1, floor(k_adapt / 10))
+    
+    # Choose a default k for non-adaptive smooth: default is given to mgcv default
     k_main <- -1
     
     # try to fit model with adaptive smooth
     fit <- tryCatch(
-      fit_gam(k_main, bs = "ad"),
+      fit_gam(k_adapt, m = m_adapt, bs = "ad"),
       warning = function(w) {
         message(
           "Warning in group ",
