@@ -78,17 +78,15 @@ pred <- df %>%
     d <- d_grp %>% filter(!is.na(log_viruslast), !is.na(obs))
     
     # Helper to fit GAM with a given k (basis dimension), maybe m and bs (spline basis) 
-    fit_gam <- function(k, bs, m = NULL, method = "GCV.Cp") {
+    fit_gam <- function(k, bs, m = NULL) {
       if (is.null(m)) {
         mgcv::gam(
           log_viruslast ~ s(obs, k = k, bs = bs),
-          method = method,
           data = d
         )
       } else {
         mgcv::gam(
           log_viruslast ~ s(obs, k = k, bs = bs, m = m),
-          method = method,
           data = d
         )
       }

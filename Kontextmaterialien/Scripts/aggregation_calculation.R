@@ -107,11 +107,13 @@ pred <- df_agg %>%
       if (is.null(m)) {
         mgcv::gam(
           log_viruslast ~ s(obs, k = k, bs = bs),
+          weights = sqrt(weights),   
           data = d
         )
       } else {
         mgcv::gam(
           log_viruslast ~ s(obs, k = k, bs = bs, m = m),
+          weights = sqrt(weights),   
           data = d
         )
       }
