@@ -15,9 +15,62 @@ pacman::p_load(here,
 # accessed on 25/10/2023
 pop <- 84358845
 
-# remove unreliable / variable Influenza data from Dresden from aggregation
-discard_places_for_aggregation_influenza <- c(
-  "Dresden"
+# remove unreliable / variable data from aggregation
+discard_nw_sites <- c("Aachen",
+"Bottrop",
+"Dinslaken",
+"Dortmund-Deusen",
+"Dortmund-Scharnhorst",
+"Duisburg",
+"Emscherm\u00fcndung", 
+ "Hagen")
+discard_bw_sites <- c("G\u00f6ppingen",
+                      "Offenburg",
+                      "Pforzheim",
+                      "Stuttgart",
+                      "T\u00fcbingen")
+
+sars_viruses <- c("SARS-CoV-2")
+
+influenza_viruses <- c("Influenza A", "Influenza B" , "Influenza A+B")
+
+rsv_viruses <- c("RSV A", "RSV B" , "RSV A+B", "RSV AB") 
+
+discard_rules <- bind_rows(
+  expand_grid(
+    standort = c(
+      discard_nw_sites,
+      discard_bw_sites
+    ),
+    typ = sars_viruses,
+    discard_from = as.Date("2025-01-01"),
+    discard_until = Sys.Date()
+  ),
+  
+  expand_grid(
+    standort = discard_bw_sites,
+    typ = influenza_viruses,
+    discard_from = as.Date("2025-01-01"),
+    discard_until = Sys.Date()
+  ),
+  expand_grid(
+    standort = discard_nw_sites,
+    typ = influenza_viruses,
+    discard_from = as.Date("2025-10-01"),
+    discard_until = Sys.Date()
+  ),
+  expand_grid(
+    standort = "Dresden",
+    typ = influenza_viruses,
+    discard_from = as.Date("2022-10-01"),
+    discard_until = Sys.Date()
+  ),
+  expand_grid(
+    standort =  c(discard_bw_sites, discard_nw_sites, "Hamburg 01", "Hamburg 02"),
+    typ = rsv_viruses,
+    discard_from = as.Date("2023-10-01"),
+    discard_until = Sys.Date()
+  )
 )
 
 # define function that computes variance of a weighted mean
