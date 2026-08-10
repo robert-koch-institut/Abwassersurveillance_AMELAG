@@ -13,14 +13,14 @@ df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
   group_by(.row_id) %>%
   filter(
     !any(
-      datum >= discard_from &
-        datum <= discard_until,
+      datum >= entfernt_vom &
+        datum <= coalesce(entfernt_bis, Sys.Date()),
       na.rm = TRUE
     )
   ) %>%
   slice(1) %>%
   ungroup() %>%
-  select(-.row_id, -discard_from, -discard_until) %>%
+  select(-.row_id, -entfernt_vom, -entfernt_bis) %>%
   arrange(datum)
 
 # create aggregated data (aggregated over all sites)

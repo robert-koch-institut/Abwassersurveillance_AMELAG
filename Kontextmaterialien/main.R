@@ -48,6 +48,8 @@ scripts_here <-
   here(here(), "Scripts")
 read_data_here <-
   normalizePath(file.path(here(), ".."))
+read_helper_data_here <-
+  here(here(), "Data")
 results_here <-
   here(here(), "Results")
 var_names <- paste0(
