@@ -22,7 +22,7 @@ Documentation
 
 **Cite**  
 <!-- CITATION_START: {"citation_style": "apa", "markdown_style": "plain"} -->
-Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.20307643](https://doi.org/10.5281/zenodo.20307643)
+Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5072/zenodo.493872](https://doi.org/10.5072/zenodo.493872)
 <!-- CITATION_END -->
 
 
@@ -116,7 +116,7 @@ For each WWTP, the measured values for SARS-CoV-2 (normalized), Influenza A and 
 #### Aggregation of the WWTP values
 
 The individual time series of the WWTPs are aggregated in order to depict a nationwide course for each pathogen. To do this, the mean value is first calculated over the logarithmized measured values of the individual WWTPs averaged over one week. Then, for each location and for each week, the deviation from the weekly mean value over all locations is calculated. For each WWTP-laboratory combination, the mean of these differences over all weeks is determined and then subtracted from the originally measured values. This procedure adjusts for mean differences in viral loads between different WWTP-laboratory combinations. Finally, the weighted mean (weighted according to the number of inhabitants connected to the respective WWTP) of these adjusted values is calculated for each week in which measured values are available for at least 10 locations.
-As different WWTPs and laboratories are involved in the data collection, inconsistencies in the data from individual sites may arise, potentially having a significant impact on the values aggregated across all sites. As soon as such inconsistencies are detected, these values are excluded from the aggregated curves (`amelag_aggregierte_kurve.tsv`) until the underlying causes have been fully clarified. The values remain in the data for the individual sites (`amelag_aggregierte_kurve.tsv`).
+As different WWTPs and laboratories are involved in the data collection, inconsistencies in the data from individual sites may arise, potentially having a distorting effect on the values aggregated across all sites. As soon as such inconsistencies are detected, these values are excluded from the aggregated data and analyses ([`amelag_aggregierte_kurve.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv)) until the underlying causes have been fully clarified- and resolved. The time period and site of the excluded values are documented in [`Kontextmaterialien/Data/amelag_entfernte_standortdaten.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Data/amelag_entfernte_standortdaten.tsv). The values remain in the data for the individual sites ([`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv)).
 
 ### Notes on data evaluation
 
