@@ -1,0 +1,116 @@
+standort	typ	entfernt_vom	entfernt_bis
+Aachen	SARS-CoV-2	2025-01-01	
+Bottrop	SARS-CoV-2	2025-01-01	
+Dinslaken	SARS-CoV-2	2025-01-01	
+Dortmund-Deusen	SARS-CoV-2	2025-01-01	
+Dortmund-Scharnhorst	SARS-CoV-2	2025-01-01	
+Duisburg	SARS-CoV-2	2025-01-01	
+Emschermündung	SARS-CoV-2	2025-01-01	
+Hagen	SARS-CoV-2	2025-01-01	
+Göppingen	SARS-CoV-2	2025-01-01	
+Offenburg	SARS-CoV-2	2025-01-01	
+Pforzheim	SARS-CoV-2	2025-01-01	
+Stuttgart	SARS-CoV-2	2025-01-01	
+Tübingen	SARS-CoV-2	2025-01-01	
+Göppingen	Influenza A	2025-01-01	
+Göppingen	Influenza B	2025-01-01	
+Göppingen	Influenza A+B	2025-01-01	
+Offenburg	Influenza A	2025-01-01	
+Offenburg	Influenza B	2025-01-01	
+Offenburg	Influenza A+B	2025-01-01	
+Pforzheim	Influenza A	2025-01-01	
+Pforzheim	Influenza B	2025-01-01	
+Pforzheim	Influenza A+B	2025-01-01	
+Stuttgart	Influenza A	2025-01-01	
+Stuttgart	Influenza B	2025-01-01	
+Stuttgart	Influenza A+B	2025-01-01	
+Tübingen	Influenza A	2025-01-01	
+Tübingen	Influenza B	2025-01-01	
+Tübingen	Influenza A+B	2025-01-01	
+Aachen	Influenza A	2025-10-01	
+Aachen	Influenza B	2025-10-01	
+Aachen	Influenza A+B	2025-10-01	
+Bottrop	Influenza A	2025-10-01	
+Bottrop	Influenza B	2025-10-01	
+Bottrop	Influenza A+B	2025-10-01	
+Dinslaken	Influenza A	2025-10-01	
+Dinslaken	Influenza B	2025-10-01	
+Dinslaken	Influenza A+B	2025-10-01	
+Dortmund-Deusen	Influenza A	2025-10-01	
+Dortmund-Deusen	Influenza B	2025-10-01	
+Dortmund-Deusen	Influenza A+B	2025-10-01	
+Dortmund-Scharnhorst	Influenza A	2025-10-01	
+Dortmund-Scharnhorst	Influenza B	2025-10-01	
+Dortmund-Scharnhorst	Influenza A+B	2025-10-01	
+Duisburg	Influenza A	2025-10-01	
+Duisburg	Influenza B	2025-10-01	
+Duisburg	Influenza A+B	2025-10-01	
+Emschermündung	Influenza A	2025-10-01	
+Emschermündung	Influenza B	2025-10-01	
+Emschermündung	Influenza A+B	2025-10-01	
+Hagen	Influenza A	2025-10-01	
+Hagen	Influenza B	2025-10-01	
+Hagen	Influenza A+B	2025-10-01	
+Dresden	Influenza A	2022-10-01	
+Dresden	Influenza B	2022-10-01	
+Dresden	Influenza A+B	2022-10-01	
+Göppingen	RSV A	2023-10-01	
+Göppingen	RSV B	2023-10-01	
+Göppingen	RSV A+B	2023-10-01	
+Göppingen	RSV A/B	2023-10-01	
+Offenburg	RSV A	2023-10-01	
+Offenburg	RSV B	2023-10-01	
+Offenburg	RSV A+B	2023-10-01	
+Offenburg	RSV A/B	2023-10-01	
+Pforzheim	RSV A	2023-10-01	
+Pforzheim	RSV B	2023-10-01	
+Pforzheim	RSV A+B	2023-10-01	
+Pforzheim	RSV A/B	2023-10-01	
+Stuttgart	RSV A	2023-10-01	
+Stuttgart	RSV B	2023-10-01	
+Stuttgart	RSV A+B	2023-10-01	
+Stuttgart	RSV A/B	2023-10-01	
+Tübingen	RSV A	2023-10-01	
+Tübingen	RSV B	2023-10-01	
+Tübingen	RSV A+B	2023-10-01	
+Tübingen	RSV A/B	2023-10-01	
+Aachen	RSV A	2023-10-01	
+Aachen	RSV B	2023-10-01	
+Aachen	RSV A+B	2023-10-01	
+Aachen	RSV A/B	2023-10-01	
+Bottrop	RSV A	2023-10-01	
+Bottrop	RSV B	2023-10-01	
+Bottrop	RSV A+B	2023-10-01	
+Bottrop	RSV A/B	2023-10-01	
+Dinslaken	RSV A	2023-10-01	
+Dinslaken	RSV B	2023-10-01	
+Dinslaken	RSV A+B	2023-10-01	
+Dinslaken	RSV A/B	2023-10-01	
+Dortmund-Deusen	RSV A	2023-10-01	
+Dortmund-Deusen	RSV B	2023-10-01	
+Dortmund-Deusen	RSV A+B	2023-10-01	
+Dortmund-Deusen	RSV A/B	2023-10-01	
+Dortmund-Scharnhorst	RSV A	2023-10-01	
+Dortmund-Scharnhorst	RSV B	2023-10-01	
+Dortmund-Scharnhorst	RSV A+B	2023-10-01	
+Dortmund-Scharnhorst	RSV A/B	2023-10-01	
+Duisburg	RSV A	2023-10-01	
+Duisburg	RSV B	2023-10-01	
+Duisburg	RSV A+B	2023-10-01	
+Duisburg	RSV A/B	2023-10-01	
+Emschermündung	RSV A	2023-10-01	
+Emschermündung	RSV B	2023-10-01	
+Emschermündung	RSV A+B	2023-10-01	
+Emschermündung	RSV A/B	2023-10-01	
+Hagen	RSV A	2023-10-01	
+Hagen	RSV B	2023-10-01	
+Hagen	RSV A+B	2023-10-01	
+Hagen	RSV A/B	2023-10-01	
+Hamburg 01	RSV A	2023-10-01	
+Hamburg 01	RSV B	2023-10-01	
+Hamburg 01	RSV A+B	2023-10-01	
+Hamburg 01	RSV A/B	2023-10-01	
+Hamburg 02	RSV A	2023-10-01	
+Hamburg 02	RSV B	2023-10-01	
+Hamburg 02	RSV A+B	2023-10-01	
+Hamburg 02	RSV A/B	2023-10-01	

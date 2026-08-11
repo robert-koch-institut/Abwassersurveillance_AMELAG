@@ -15,10 +15,10 @@ pacman::p_load(here,
 # accessed on 25/10/2023
 pop <- 84358845
 
-# remove unreliable / variable Influenza data from Dresden from aggregation
-discard_places_for_aggregation_influenza <- c(
-  "Dresden"
-)
+# read unreliable / variable data that is removed from aggregation
+discard_rules <-
+  readr::read_tsv(here(read_helper_data_here, "amelag_entfernte_standortdaten.tsv"),
+                  show_col_types = FALSE)  
 
 # define function that computes variance of a weighted mean
 var_weighted <- function(x = NULL, wt = NULL) {

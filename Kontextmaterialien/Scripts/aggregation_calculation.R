@@ -2,12 +2,26 @@
 df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
                show_col_types = FALSE) %>%
   # rename RSV A/B to avoid problems when saving data
-  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ)) %>%
-  # remove unreliable / variable Influenza data from aggregation
-  filter(!(
-    standort %in% discard_places_for_aggregation_influenza &
-      typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
-  ))
+  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ),
+         .row_id = row_number()) %>%
+  # remove unreliable / variable data from aggregation
+  left_join(
+    discard_rules,
+    by = c("standort", "typ"),
+    relationship = "many-to-many"
+  ) %>%
+  group_by(.row_id) %>%
+  filter(
+    !any(
+      datum >= entfernt_vom &
+        datum <= coalesce(entfernt_bis, Sys.Date()),
+      na.rm = TRUE
+    )
+  ) %>%
+  slice(1) %>%
+  ungroup() %>%
+  select(-.row_id, -entfernt_vom, -entfernt_bis) %>%
+  arrange(datum)
 
 # create aggregated data (aggregated over all sites)
 df_agg <- df %>%

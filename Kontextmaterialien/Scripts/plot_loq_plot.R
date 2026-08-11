@@ -1,13 +1,27 @@
 # read in data for single treatment plants
 plot_data <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv")) %>%
-  # remove unreliable / variable Influenza data for aggregated plot
-  filter(!(
-    standort %in% discard_places_for_aggregation_influenza &
-      typ %in% c("Influenza A", "Influenza B" , "Influenza A+B")
-  )) %>%
   # rename RSV A/B to avoid problems when saving data
-  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ)) %>%
+  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ),
+         .row_id = row_number()) %>%
   filter(!is.na(!!sym(viruslast_untersucht))) %>%
+  # remove unreliable / variable data from aggregation
+  left_join(
+    discard_rules,
+    by = c("standort", "typ"),
+    relationship = "many-to-many"
+  ) %>%
+  group_by(.row_id) %>%
+  filter(
+    !any(
+      datum >= entfernt_vom &
+        datum <= coalesce(entfernt_bis, Sys.Date()),
+      na.rm = TRUE
+    )
+  ) %>%
+  slice(1) %>%
+  ungroup() %>%
+  select(-.row_id, -entfernt_vom, -entfernt_bis) %>%
+  arrange(datum) %>% 
   # create week variable with weeks starting on Thursday
   mutate(woche = as.Date(datum) + 
            ((3 - lubridate::wday(datum, week_start = 1)) %% 7)) %>%
