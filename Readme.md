@@ -22,7 +22,7 @@ Dokumentation
 
 **Zitieren**  
 <!-- CITATION_START: {"citation_style": "apa", "markdown_style": "plain"} -->
-Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.21806281](https://doi.org/10.5281/zenodo.21806281)
+Robert Koch-Institut, & Umweltbundesamt. (2026). Abwassersurveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.21902636](https://doi.org/10.5281/zenodo.21902636)
 <!-- CITATION_END -->
 
 
@@ -280,7 +280,7 @@ Offene Forschungsdaten des RKI werden auf [Zenodo.org](http://Zenodo.org/), [Git
 
 Der Datensatz "Abwassersurveillance AMELAG" ist lizenziert unter der [Creative Commons Namensnennung 4.0 International Public License | CC-BY 4.0 International](https://creativecommons.org/licenses/by/4.0/deed.de).  
 
-Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, dass jede Person das Recht hat, die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
+Die im Datensatz bereitgestellten Daten sind, unter Bedingung der Namensnennung des Robert Koch-Instituts als Quelle, frei verfügbar. Das bedeutet, jede Person hat das Recht die Daten zu verarbeiten und zu verändern, Derivate des Datensatzes zu erstellen und sie für kommerzielle und nicht kommerzielle Zwecke zu nutzen. Weitere Informationen zur Lizenz finden sich in der [LICENSE](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LICENSE) bzw. [LIZENZ](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/LIZENZ) Datei des Datensatzes.  
 <!-- FOOTER_END -->
  
 
