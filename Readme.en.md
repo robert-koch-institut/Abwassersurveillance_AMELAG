@@ -22,7 +22,7 @@ Documentation
 
 **Cite**  
 <!-- CITATION_START: {"citation_style": "apa", "markdown_style": "plain"} -->
-Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.22673765](https://doi.org/10.5281/zenodo.22673765)
+Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.22793977](https://doi.org/10.5281/zenodo.22793977)
 <!-- CITATION_END -->
 
 
@@ -162,8 +162,6 @@ The file [`amelag_einzelstandorte.tsv`](https://github.com/robert-koch-institut/
 
 The file [amelag_einzelstandorte.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_einzelstandorte.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Data Package Format](https://datapackage.org/) in [tableschema_amelag_einzelstandorte.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_einzelstandorte.en.json):
 
-> [tableschema_amelag_einzelstandorte.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_einzelstandorte.en.json)
-
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable               | Type    | Characteristic                                                                                         | Description                                                                                                                                                                                                                   |
 |:-----------------------|:--------|:-------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -195,8 +193,6 @@ In the file [`amelag_aggregated_curve.tsv`](https://github.com/robert-koch-insti
 <!-- DATA_SCHEMA_SPECIFICATION_START: {"id": "amelag_aggregierte_kurve", "lang": "en"} -->
 
 The file [amelag_aggregierte_kurve.tsv](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/amelag_aggregierte_kurve.tsv) contains the variables and their values shown in the following table. A machine-readable data schema is stored in [Data Package Format](https://datapackage.org/) in [tableschema_amelag_aggregierte_kurve.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.en.json):
-
-> [tableschema_amelag_aggregierte_kurve.en.json](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Metadaten/schemas/tableschema_amelag_aggregierte_kurve.en.json)
 
 <!-- DATA_SCHEMA_TABLE_START -->
 | Variable               | Type    | Characteristic                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                                                     |

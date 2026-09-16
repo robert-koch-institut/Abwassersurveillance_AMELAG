@@ -1,0 +1,29 @@
+TY  - DATA
+AB  - Im Datensatz "Abwassersurveillance AMELAG" des Robert Koch-Instituts und Umweltbundesamts werden Daten aus der Überwachung von Infektionserregern im Abwasser bereitgestellt. Die Daten zur SARS-CoV-2-Viruslast werden seit Februar 2022 in einem bundesweiten Netzwerk von Kläranlagen, Laboren und Behörden erhoben. Seitdem wurden die Daten um die Viruslast weiterer respiratorischer Viren (Influenza A/B, RSV) ergänzt. Der Datensatz enthält neben Einzelwerten der Kläranlagen auch bevölkerungsgewichtete, aggregierte Zeitreihen. Darüber hinaus werden Auswertungsskripte als Kontextmaterialien bereitgestellt.
+AU  - Robert Koch-Institut
+AU  - Umweltbundesamt
+DA  - 2026-09-16
+DO  - 10.5281/zenodo.22793977
+KW  - COVID-19
+KW  - SARS-CoV-2
+KW  - Human Respiratory Syncytial Virus
+KW  - Influenza
+KW  - Abwasserbasierte epidemiologische Überwachung
+KW  - Wastewater-Based Epidemiological Monitoring
+KW  - Umweltüberwachung
+KW  - Environmental Monitoring
+KW  - Epidemiologie
+KW  - Gesundheitsberichterstattung
+KW  - Public health surveillance
+KW  - Epidemiology
+KW  - Deutschland
+KW  - Germany
+KW  - Open Data
+KW  - Offene Daten
+KW  - RKI
+PY  - 2026
+TI  - Abwassersurveillance AMELAG
+UR  - https://robert-koch-institut.github.io/Abwassersurveillance_AMELAG
+ET  - 2026-09-16
+N1  - License: CC-BY-4.0
+ER  -
