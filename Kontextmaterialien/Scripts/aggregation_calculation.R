@@ -108,119 +108,165 @@ df_agg <- map_dfr(agg_list, bind_rows) %>%
   ) %>%
   ungroup()
 
-# compute gam predictions
-pred <- df_agg %>%
+# Identify new estimation periods after prolonged gaps between actual
+# observations. The aggregation() function padded each pathogen's series with
+# daily NA rows, so calculate gaps ONLY among measured aggregated values.
+# Retain periods with at least min_obs measurements with usable GAM weights.
+estimation_periods <- df_agg %>%
+  filter(is.finite(log_viruslast), !is.na(datum)) %>%
+  arrange(typ, datum) %>%
   group_by(typ) %>%
-  nest() %>%
-  mutate(pred = pmap(list(data, typ), function(d_grp, typ) {
-    # clean data
-    d <- d_grp %>% filter(!is.na(log_viruslast), !is.na(obs))
-    
-    # Helper to fit GAM with a given k (basis dimension), maybe m and bs (spline basis) 
-    fit_gam <- function(k, bs, m = NULL) {
-      if (is.null(m)) {
-        mgcv::gam(
-          log_viruslast ~ s(obs, k = k, bs = bs),
-          weights = sqrt(weights),   
-          data = d
-        )
-      } else {
-        mgcv::gam(
-          log_viruslast ~ s(obs, k = k, bs = bs, m = m),
-          weights = sqrt(weights),   
-          data = d
-        )
-      }
-    }
-    
-    # Choose k for adaptive smooth: should grow with sample size
-    k_adapt <- max(40, floor(nrow(d) / 2.5))
-    
-    # Choose m for adaptive smooth: should grow with sample size
-    m_adapt <- max(1, floor(k_adapt / 10))
-    
-    # Choose a default k for non-adaptive smooth: default is given to mgcv default
-    k_main <- -1
-    
-    # try to fit model with adaptive smooth
-    fit <- tryCatch(
-      fit_gam(k = k_adapt, m = m_adapt, bs = "ad"),
-      warning = function(w) {
-        message(
-          "Warning in pathogen ",
-          typ,
-          conditionMessage(w),
-          " — retrying without adaptive smooth = "
-        )
-        # in case of error (mostly due to small observations) do not use adaptive smoothing
-        tryCatch(
-          fit_gam(k = k_main, bs = "bs"),
-          error = function(e)
-            NULL
-        )
-      },
-      error = function(e) {
-        message("Error in pathogen ", ": ", conditionMessage(e))
-        list(
-          df = 1,
-          fit = d_grp$log_viruslast,
-          se.fit = rep(0, nrow(d_grp))
-        )
-      }
-    )
-    
-    # Predict (on the original group's obs; keep rows aligned)
-    p <- tryCatch(
-      predict(fit, newdata = d_grp[, "obs", drop = FALSE], se.fit = TRUE),
-      error = function(e) {
-        message("Predict error in pathogen ", typ, ": ", conditionMessage(e))
-        list(
-          df = 1,
-          fit = d_grp$log_viruslast,
-          se.fit = rep(0, nrow(d_grp))
-        )
-      }
-    )
-    list(
-      df = fit$df.residual,
-      fit = as.numeric(p$fit),
-      se.fit = as.numeric(p$se.fit)
-    )
-  })) %>%
-  select(pred, typ) %>%
-  unnest(cols = c(pred))
-
-# store list
-pred_list <- pred[, "pred"]$pred
-
-# store number of observations per group
-reps <- df_agg %>%
-  group_by(typ) %>%
-  summarise(n = n()) %>%
-  pull(n)
-
-df_agg <- df_agg %>%
-  # add columns relevant for predictions
-  add_column(
-    vorhersage = extract_prediction(lis = pred_list, extract = "fit"),
-    vorhersage_se = extract_prediction(lis = pred_list, extract = "se.fit"),
-    vorhersage_df = extract_prediction(pred_list, "df") %>%
-      map2(., reps, ~ rep(.x, .y)) %>%
-      unlist()
-  ) %>%
-  # compute pointwise confidence bands
   mutate(
-    untere_schranke = vorhersage - qt(0.975, vorhersage_df) *
-      vorhersage_se,
-    obere_schranke = vorhersage + qt(0.975, vorhersage_df) *
-      vorhersage_se,
-    # transform to original scale
-    untere_schranke = 10^untere_schranke,
-    obere_schranke = 10^obere_schranke,
-    vorhersage = 10^(vorhersage),
-    !!sym(viruslast_untersucht) := 10^(log_viruslast)
+    days_since_last = as.numeric(datum - lag(datum)),
+    new_period = as.integer(!is.na(days_since_last) &
+                              days_since_last > wo_meas_period),
+    estimation_period = cumsum(new_period)
   ) %>%
-  # select and rename relevant variables
+  group_by(typ, estimation_period) %>%
+  summarise(
+    period_start = min(datum),
+    period_end = max(datum),
+    n_obs = sum(is.finite(weights) & weights > 0),
+    .groups = "drop"
+  ) %>%
+  filter(n_obs >= min_obs)
+
+# Keep daily interpolation dates inside each eligible period, but not the long
+# summer break. Periods with fewer than min_obs usable observations have no fit.
+df_agg_smoothing <- df_agg %>%
+  inner_join(estimation_periods, by = "typ", relationship = "many-to-many") %>%
+  filter(datum >= period_start, datum <= period_end) %>%
+  select(-period_start, -period_end, -n_obs)
+
+# Fit a weighted adaptive GAM for one period; if it warns or fails, use a
+# simpler thin-plate regression spline. Never substitute raw observations for
+# failed predictions: that would create an artificial confidence interval.
+fit_aggregated_gam_with_fallback <- function(data, typ, estimation_period) {
+  empty_result <- list(
+    fit = rep(NA_real_, nrow(data)),
+    se.fit = rep(NA_real_, nrow(data)),
+    df = NA_real_
+  )
+  
+  keep <- is.finite(data$log_viruslast) &
+    is.finite(data$obs) &
+    is.finite(data$weights) & data$weights > 0
+  n_obs <- sum(keep)
+  n_unique <- length(unique(data$obs[keep]))
+  
+  if (n_obs < min_obs || n_unique < 4L) return(empty_result)
+  
+  k_adapt <- min(max(6L, floor(n_obs / 2.5)), n_unique - 1L)
+  m_adapt <- max(1L, floor(k_adapt / 10))
+  # k must also be smaller than the number of distinct observation dates.
+  k_fallback <- min(10L, n_unique - 1L)
+  
+  d <- data.frame(
+    obs = data$obs[keep],
+    y = data$log_viruslast[keep],
+    w = sqrt(data$weights[keep])
+  )
+  
+  fit_fallback <- function() {
+    tryCatch(
+      mgcv::gam(
+        y ~ s(obs, bs = "tp", k = k_fallback),
+        data = d,
+        weights = w,
+        family = gaussian()
+      ),
+      error = function(e) {
+        message("GAM fallback failed for ", typ, " period ",
+                estimation_period, ": ", conditionMessage(e))
+        NULL
+      }
+    )
+  }
+  
+  warn_or_error <- function(condition) {
+    message("Adaptive GAM failed for ", typ, " period ",
+            estimation_period, ": ", conditionMessage(condition),
+            "; trying a thin-plate spline")
+    fit_fallback()
+  }
+  
+  fit <- tryCatch(
+    mgcv::gam(
+      y ~ s(obs, bs = "ad", k = k_adapt, m = m_adapt),
+      data = d,
+      weights = w,
+      family = gaussian()
+    ),
+    warning = warn_or_error,
+    error = warn_or_error
+  )
+  if (is.null(fit)) return(empty_result)
+  
+  prediction <- tryCatch(
+    predict(fit, newdata = data.frame(obs = data$obs), se.fit = TRUE),
+    error = function(e) {
+      message("GAM prediction failed for ", typ, " period ",
+              estimation_period, ": ", conditionMessage(e))
+      NULL
+    }
+  )
+  if (is.null(prediction)) return(empty_result)
+  
+  list(
+    fit = as.numeric(prediction$fit),
+    se.fit = as.numeric(prediction$se.fit),
+    df = as.numeric(fit$df.residual)
+  )
+}
+
+# Predictions are keyed by pathogen AND the original daily observation index.
+# This avoids relying on row ordering, which changes when periods are split.
+if (nrow(df_agg_smoothing) > 0L) {
+  pred <- df_agg_smoothing %>%
+    group_by(typ, estimation_period) %>%
+    nest() %>%
+    mutate(
+      results = pmap(
+        list(data, typ, estimation_period),
+        function(d_grp, virus, period) {
+          p <- fit_aggregated_gam_with_fallback(d_grp, virus, period)
+          tibble(
+            obs = d_grp$obs,
+            vorhersage_log = p$fit,
+            vorhersage_se = p$se.fit,
+            vorhersage_df = rep(p$df, nrow(d_grp))
+          )
+        }
+      )
+    ) %>%
+    select(typ, estimation_period, results) %>%
+    unnest(results)
+} else {
+  # Preserve the join schema when no pathogen has an eligible period.
+  pred <- tibble(
+    typ = character(),
+    estimation_period = integer(),
+    obs = integer(),
+    vorhersage_log = numeric(),
+    vorhersage_se = numeric(),
+    vorhersage_df = numeric()
+  )
+}
+
+# Join all fitted periods to the complete daily time series. Rows in the
+# summer break and in insufficiently sampled periods remain, with NA fits.
+df_agg <- df_agg %>%
+  left_join(pred, by = c("typ", "obs"), relationship = "many-to-one") %>%
+  mutate(
+    # Use the period-specific residual degrees of freedom for the CI.
+    critical_t = if_else(is.finite(vorhersage_df) & vorhersage_df > 0,
+                         qt(0.975, vorhersage_df), NA_real_),
+    untere_schranke = 10^(vorhersage_log - critical_t * vorhersage_se),
+    obere_schranke = 10^(vorhersage_log + critical_t * vorhersage_se),
+    vorhersage = 10^vorhersage_log,
+    !!sym(viruslast_untersucht) := 10^log_viruslast
+  ) %>%
+  # Keep old output names, plus the estimation period needed by plotting.
   select(
     datum,
     n = n_non_na,
@@ -229,7 +275,10 @@ df_agg <- df_agg %>%
     vorhersage,
     untere_schranke,
     obere_schranke,
-    typ
+    typ,
+    estimation_period
   ) %>%
-  # drop na entries
-  filter(!is.na(!!sym(viruslast_untersucht)))
+  arrange(typ, datum)
+
+# IMPORTANT: do not filter on non-missing measurements here: keeping NA days
+# allows curves to stop and restart at the actual estimation boundaries.
