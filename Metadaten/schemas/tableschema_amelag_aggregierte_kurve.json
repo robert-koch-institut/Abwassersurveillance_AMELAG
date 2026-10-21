@@ -4,13 +4,17 @@
       "name": "datum",
       "type": "date",
       "description": "Datum des Mittwochs einer Woche. Die Daten der unterliegenden Einzelzeitreihen werden innerhalb des Zeitraums vom vorherigen Donnerstag bis zum angegebenen Mittwoch gemittelt.",
-      "format": "%Y-%m-%d"
+      "format": "%Y-%m-%d",
+      "missingValues": [
+        ""
+      ]
     },
     {
       "name": "n",
       "type": "integer",
       "description": "Anzahl der Standorte, die mindestens einen Messwert im durch \"datum\" beschriebenen Zeitraum übermittelt haben.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -22,6 +26,7 @@
       "type": "number",
       "description": "Anteil der Gesamtbevölkerung in Deutschland, der an die übermittelnden Kläranlagen angeschlossen ist.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -33,6 +38,7 @@
       "type": "number",
       "description": "Gemessene Viruslast (in Genkopien pro Liter), gemittelt über alle Standorte und gewichtet nach angeschlossenen Einwohnern der Kläranlagen. Vor der Mittelung über die Standorte wurden alle Messwerte der Standorte in den letzten 7 Tagen jeweils mittels 10er-Logarithmus transformiert und über die einzelnen Standorte gemittelt. Die angegebene Viruslast ist der auf die Originalskala zurücktransformierte Mittelwert.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -44,6 +50,7 @@
       "type": "number",
       "description": "Nach dem Durchfluss normalisierte Viruslast (wie in der Variable \"viruslast\" beschrieben).",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -55,6 +62,7 @@
       "type": "number",
       "description": "Vorhergesagte Viruslast (mittels einer GAM-Regression auf Basis der nicht-normalisierten Viruslasten, optimiert mittels Kreuzvalidierung-Kriterium für die logarithmierten Werte, angegeben ist der auf die Originalskala zurücktransformierte Wert).",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -65,6 +73,10 @@
       "name": "obere_schranke",
       "type": "number",
       "description": "Obere Grenze des punktweisen 95%-Konfidenzintervalls des GAM-Vorhersagewerts. ",
+      "missingValues": [
+        "",
+        "NA"
+      ],
       "constraints": {
         "minimum": 0
       }
@@ -73,6 +85,10 @@
       "name": "untere_schranke",
       "type": "number",
       "description": "Untere Grenze des punktweisen 95%-Konfidenzintervalls des GAM-Vorhersagewerts. ",
+      "missingValues": [
+        "",
+        "NA"
+      ],
       "constraints": {
         "minimum": 0
       }
@@ -81,6 +97,9 @@
       "name": "typ",
       "type": "string",
       "description": "Virustyp.",
+      "missingValues": [
+        ""
+      ],
       "constraints": {
         "enum": [
           "SARS-CoV-2",

@@ -4,6 +4,9 @@
       "name": "standort",
       "type": "string",
       "description": "Location of the wastewater treatment.",
+      "missingValues": [
+        ""
+      ],
       "constraints": {
         "required": true
       },
@@ -13,6 +16,9 @@
       "name": "bundesland",
       "type": "string",
       "description": "Federal state (abbreviated) in which the wastewater treatment plant is located.",
+      "missingValues": [
+        ""
+      ],
       "constraints": {
         "enum": [
           "BB",
@@ -40,6 +46,7 @@
       "description": "Date on which the 24-hour composite sample started in the wastewater treatment plant.",
       "format": "%Y-%m-%d",
       "missingValues": [
+        "",
         "NA"
       ]
     },
@@ -48,6 +55,7 @@
       "type": "number",
       "description": "Measured viral load in gene copies per liter.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -59,6 +67,7 @@
       "type": "number",
       "description": "Flow-normalized viral load (as described in the variable \"viruslast\").",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -70,6 +79,7 @@
       "type": "number",
       "description": "Predicted viral load (predicted using a GAM regression with adaptive smoothing and the non-normalized viral loads, optimized by a cross-validation for the log10-transformed values, transformed back to the original scale).",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -81,6 +91,7 @@
       "type": "number",
       "description": "Upper bound of the pointwise 95% confidence interval of the GAM predicted value.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -92,6 +103,7 @@
       "type": "number",
       "description": "Lower bound of the pointwise 95% confidence interval of the GAM predicted value.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -103,6 +115,7 @@
       "type": "integer",
       "description": "Number of inhabitants connected to the site's sewage treatment plant.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -114,6 +127,7 @@
       "type": "string",
       "description": "Indicates whether change in laboratory or change in laboratory mathods occurred.",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
@@ -127,6 +141,9 @@
       "name": "typ",
       "type": "string",
       "description": "Virus type.",
+      "missingValues": [
+        ""
+      ],
       "constraints": {
         "enum": [
           "SARS-CoV-2",
@@ -145,6 +162,7 @@
       "type": "string",
       "description": "Indicates if at least half of the measured genes are under the limit of quantification  (`ja`=yes, `nein`=no).",
       "missingValues": [
+        "",
         "NA"
       ],
       "constraints": {
