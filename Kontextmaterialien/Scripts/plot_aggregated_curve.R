@@ -1,31 +1,35 @@
-# read in data
-df_agg <- read_tsv(here(read_data_here, "amelag_aggregierte_kurve.tsv")) %>%
-  # rename RSV A/B to avoid problems when saving data
-  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ))
+# Use the newly estimated period-specific GAMs from aggregation_calculation.R.
+# Do not re-read amelag_aggregierte_kurve.tsv here: the published file may
+# contain predictions from the previous, continuous-curve method.
+if (!exists("df_agg", inherits = TRUE) ||
+    !"estimation_period" %in% names(df_agg)) {
+  stop("Run aggregation_calculation.R before plot_aggregated_curve.R ",
+       "to compute the period-specific aggregated GAM predictions.")
+}
 
-# should log data be shown?
-if (show_log_data)
-{
-  df_agg  <-
-    df_agg  %>%
-    mutate_at(vars(contains("vorhersage"), contains("schranke"), !!sym(viruslast_untersucht)), ~ log10(.))
-  ytit <-
-    expression(atop("Viruslast im Abwasser", atop(paste(
-      "in ", log[10], " Genkopien / Liter"
-    ))))
-  # also change name of saved files if log applied, else not
+data_plots <- df_agg %>%
+  arrange(typ, datum)
+
+# Should log data be shown?
+if (show_log_data) {
+  data_plots <- data_plots %>%
+    mutate(across(all_of(c("vorhersage", "untere_schranke", "obere_schranke",
+                           viruslast_untersucht)), ~ log10(.x)))
+  ytit <- expression(atop("Viruslast im Abwasser", atop(paste(
+    "in ", log[10], " Genkopien / Liter"
+  ))))
   filename_add <- "_log"
 } else {
-  ytit <-
-    expression(atop("Viruslast im Abwasser", atop(paste(
-      "in Genkopien / Liter"
-    ))))
-  # also change name of saved files if log applied, else not
+  ytit <- expression(atop("Viruslast im Abwasser", atop(paste(
+    "in Genkopien / Liter"
+  ))))
   filename_add <- ""
 }
 
-# create and save plot for each pathogen
-df_agg %>%
+# The estimation_period aesthetic prevents ribbons and curves being connected
+# across long observation gaps. Keep NA measurement rows in the input; display
+# observed points also when their period has fewer than min_obs measurements.
+data_plots %>%
   group_by(typ) %>%
   group_map(
     ~ ggsave(
@@ -34,22 +38,31 @@ df_agg %>%
         .y$typ,
         paste0("aggregierte_Kurve", filename_add, ".pdf")
       ),
-      ggplot(data = .x) +
+      ggplot(data = .x, aes(x = datum)) +
         geom_ribbon(
-          aes(ymin = untere_schranke, ymax = obere_schranke),
-          # shadowing cnf intervals
+          data = .x %>%
+            filter(!is.na(estimation_period),
+                   is.finite(untere_schranke), is.finite(obere_schranke)),
+          aes(ymin = untere_schranke, ymax = obere_schranke,
+              group = estimation_period),
           fill = "lightblue"
         ) +
-        aes(x = datum, y = !!sym(viruslast_untersucht)) +
-        geom_point(colour = "grey") +
-        geom_line(aes(datum, y = vorhersage), linewidth = 1) +
+        geom_point(aes(y = !!sym(viruslast_untersucht)),
+                   colour = "grey", na.rm = TRUE) +
+        geom_line(
+          data = .x %>%
+            filter(!is.na(estimation_period), is.finite(vorhersage)),
+          aes(y = vorhersage, group = estimation_period),
+          linewidth = 1
+        ) +
         theme_minimal() +
         theme(axis.text.x = element_text(angle = 45)) +
         scale_x_date(date_breaks = "month", date_labels = "%b %y") +
         scale_y_continuous(labels = ~ format(.x, scientific = FALSE)) +
-        labs(y =  ytit, x = "Datum"),
+        labs(y = ytit, x = "Datum"),
       width = 30,
       height = 15,
       units = "cm"
     )
   )
+
