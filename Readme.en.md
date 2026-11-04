@@ -22,7 +22,7 @@ Documentation
 
 **Cite**  
 <!-- CITATION_START: {"citation_style": "apa", "markdown_style": "plain"} -->
-Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.23729767](https://doi.org/10.5281/zenodo.23729767)
+Robert Koch Institute, & Federal Environment Agency. (2026). Wastewater Surveillance AMELAG [Data set]. Zenodo. [https://doi.org/10.5281/zenodo.23947219](https://doi.org/10.5281/zenodo.23947219)
 <!-- CITATION_END -->
 
 
@@ -33,7 +33,7 @@ The dataset "Wastewater Surveillance AMELAG" of the Robert Koch Institute and th
 
 <br>
 
-**Table of Content**  
+**Table of Contents**  
 
 <!-- TOC_START: {"heading_depth": 2} -->
   - [Information on the dataset and context of origin](#information-on-the-dataset-and-context-of-origin)  
