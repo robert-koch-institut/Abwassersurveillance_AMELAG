@@ -39,7 +39,7 @@ Die Datei [`main.R`](https://github.com/robert-koch-institut/Abwassersurveillanc
 
 * [`plot_aggregated_curve.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_aggregated_curve.R): Erzeugt für jedes Pathogen eine Zeitreihendarstellung mit einer GAM-Kurve für die über alle Standorte aggregierten Daten.
 
-* [`plot_loq_plot.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_loq_plot.R): Erzeugt für jedes Pathogen ein gestapeltes Balkendiagramm, das für jede Woche den Anteil an Messwerten oberhalb und unterhalb der Bestimmungsgrenze anzeigt.
+* [`plot_loq_plot.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_loq_plot.R): Erzeugt für jedes Pathogen ein gestapeltes Balkendiagramm, das für jede Woche den Anteil an Kläranlagen mit mindestens einer Probe oberhalb der Bestimmungsgrenze anzeigt.
 
 ### Ergebnisse
 
@@ -85,7 +85,7 @@ The file [`main.R`](https://github.com/robert-koch-institut/Abwassersurveillance
 
 * [`plot_aggregated_curve.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_aggregated_curve.R): Generates for each pathogen a time series plot containing a GAM curve for data aggregated over all sites.
 
-* [`plot_loq_plot.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_loq_plot.R): Generates for each pathogen a stacked barplot showing the share of sampled values below and above the limit of quantification.
+* [`plot_loq_plot.R`](https://github.com/robert-koch-institut/Abwassersurveillance_AMELAG/blob/main/Kontextmaterialien/Scripts/plot_loq_plot.R): Generates for each pathogen a stacked barplot showing the share of treatment plants with at least one sample above the limit of quantification per week.
 
 ### Results
 

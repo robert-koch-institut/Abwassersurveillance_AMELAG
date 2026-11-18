@@ -1,26 +1,28 @@
 # read in data
-df <- read_tsv(here(read_data_here, "amelag_einzelstandorte.tsv"),
-               show_col_types = FALSE) %>%
-  # rename RSV A/B to avoid problems when saving data
-  mutate(typ = ifelse(typ == "RSV A/B", "RSV AB", typ),
-         .row_id = row_number()) %>%
-  # remove unreliable / variable data from aggregation
-  left_join(
-    discard_rules,
-    by = c("standort", "typ"),
-    relationship = "many-to-many"
+df <- read_tsv(
+  here(read_data_here, "amelag_einzelstandorte.tsv"),
+  show_col_types = FALSE
+) %>%
+  mutate(
+    datum = as.Date(datum),
+    typ = if_else(typ == "RSV A/B", "RSV AB", typ)
   ) %>%
-  group_by(.row_id) %>%
-  filter(
-    !any(
-      datum >= entfernt_vom &
-        datum <= coalesce(entfernt_bis, Sys.Date()),
-      na.rm = TRUE
+  anti_join(
+    discard_rules %>%
+      mutate(
+        entfernt_vom = as.Date(entfernt_vom),
+        entfernt_bis = coalesce(
+          as.Date(entfernt_bis),
+          Sys.Date()
+        )
+      ),
+    by = join_by(
+      standort,
+      typ,
+      datum >= entfernt_vom,
+      datum <= entfernt_bis
     )
   ) %>%
-  slice(1) %>%
-  ungroup() %>%
-  select(-.row_id, -entfernt_vom, -entfernt_bis) %>%
   arrange(datum)
 
 # create aggregated data (aggregated over all sites)
@@ -54,25 +56,39 @@ df_agg <- df_agg %>%
   # remove sites without available weight
   filter(!is.na(einwohner), !is.na(log_viruslast))
 
+# Estimate simultaneous, population-weighted week and site/lab fixed effects
+# in this way, average differences in the viral loads that are site/lab
+# specific can be adjusted for.
+adjust_simultaneous_dynamic <- function(x) {
+  x <- x %>%
+    mutate(
+      th_week_chr = as.character(th_week),
+      standort_labor = paste0(standort, "__labor_", labor)
+    )
+  
+  fit <- fixest::feols(
+    log_viruslast ~ 1 | th_week_chr + standort_labor,
+    data = x,
+    weights = ~ einwohner,
+    notes = FALSE
+  )
+  a <- fixest::fixef(fit)[["standort_labor"]]
+  pop_sites <- x %>%
+    group_by(standort_labor) %>%
+    summarise(pop = median(einwohner, na.rm = TRUE), .groups = "drop")
+  w <- pop_sites$pop[match(names(a), pop_sites$standort_labor)]
+  center <- weighted.mean(unname(a), w)
+  
+  x %>%
+    mutate(log_viruslast = log_viruslast -
+             (unname(a[standort_labor]) - center)) %>%
+    select(-th_week_chr, -standort_labor)
+}
+
 df_agg <- df_agg %>%
-  # calculate weighted means over the weeks as these weighted means can be
-  # used to calculate differences between site/lab combination from these means.
-  # in this way, average differences in the viral loads that are site/lab
-  # specific can be adjusted for.
-  group_by(typ, th_week) %>%
-  mutate(mean_log_viruslast = weighted.mean(log_viruslast, einwohner)) %>%
-  ungroup() %>%
-  # calculate differences from these means
-  mutate(log_viruslast_dev = log_viruslast - mean_log_viruslast) %>%
-  # average over these for each virus/site/lab combination
-  group_by(typ, standort, labor) %>%
-  mutate(log_viruslast_dev = mean(log_viruslast_dev)) %>%
-  ungroup() %>%
-  # adjust for these deviations
-  mutate(log_viruslast = log_viruslast - log_viruslast_dev) %>%
-  # drop variables no longer needed
-  select(-mean_log_viruslast,
-         -log_viruslast_dev)
+  group_by(typ) %>%
+  group_modify(~adjust_simultaneous_dynamic(.x)) %>%
+  ungroup()
 
 # Create an empty list as placeholder
 agg_list <- list()

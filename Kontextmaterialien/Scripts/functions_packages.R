@@ -88,11 +88,36 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
   plot_data <- plot_data %>%
     filter(typ == !!(virus))
   
-  # add row for zero values
+  # convert weekly counts of treatment plants into the same
+  # stacked-bar structure as before:
+  # unter_bg = number of treatment plants with at least one sample > BG
   plot_data_y <- plot_data %>%
-    complete(woche, nesting(unter_bg), fill = list(n = 0, proportion = 0.0)) %>%
+    transmute(
+      woche,
+      n_total,
+      positiv = unter_bg,
+      negativ = n_total - unter_bg
+    ) %>%
+    pivot_longer(
+      cols = c(positiv, negativ),
+      names_to = "status",
+      values_to = "n"
+    ) %>%
+    mutate(
+      proportion = n / n_total,
+      unter_bg = factor(
+        ifelse(status == "negativ", "1", "0"),
+        levels = c("1", "0")
+      )
+    ) %>%
+    select(-status) %>%
     # add year variable (year according to Wednesday of the calender week)
     mutate(Y = year(woche + 2))
+  
+  # sum observations per week
+  plot_data_w <- plot_data_y %>%
+    group_by(Y, woche) %>%
+    summarise(n = max(n_total), .groups = "drop")
   
   # sum observations per week
   plot_data_w <- plot_data_y %>%
@@ -140,7 +165,7 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
     ),
     position = position_stack(),
     size = annotation_text_size) +
-    labs(x = "Kalenderwoche", y = "Anteil der Abwasserstichproben") +
+    labs(x = "Kalenderwoche", y = "Anteil der Kläranlagen") +
     geom_rect(
       data = plot_data_w,
       aes(
@@ -201,7 +226,7 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
       values = RColorBrewer::brewer.pal(12, "Set3")[c(5, 7)],
       name = paste(virus, "Nachweise", sep = " "),
       breaks = c("0", "1"),
-      labels = c("positiv (> BG)", "negativ (< BG)")
+      labels = c("positiv (mindestens eine Messung > BG)", "negativ (keine Messung > BG)")
     )
   
   # save plot
