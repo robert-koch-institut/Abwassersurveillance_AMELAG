@@ -5,6 +5,10 @@
       {
         "Name": "CRAN",
         "URL": "http://ftp.gwdg.de/pub/misc/cran"
+      },
+      {
+        "Name": "CRANextra",
+        "URL": "http://www.stats.ox.ac.uk/pub/RWin"
       }
     ]
   },
