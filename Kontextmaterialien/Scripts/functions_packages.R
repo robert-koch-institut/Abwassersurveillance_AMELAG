@@ -7,7 +7,8 @@ pacman::p_load(here,
                mgcv,
                writexl,
                scales,
-               lubridate)
+               lubridate,
+               fixest)
 
 # population in Germany at end of 2022 (should match more or less date of
 # collection of connected inhabitants of treatment plants)
@@ -113,11 +114,6 @@ loq_plot <- function(plot_data = plot_data, virus = "Influenza A") {
     select(-status) %>%
     # add year variable (year according to Wednesday of the calender week)
     mutate(Y = year(woche + 2))
-  
-  # sum observations per week
-  plot_data_w <- plot_data_y %>%
-    group_by(Y, woche) %>%
-    summarise(n = max(n_total), .groups = "drop")
   
   # sum observations per week
   plot_data_w <- plot_data_y %>%
