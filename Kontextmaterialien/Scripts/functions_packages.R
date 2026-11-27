@@ -261,11 +261,11 @@ aggregation <- function(df = df_agg,
     # variance)
     mutate(sim_log = if (!use_normalized_data) {
       ifelse(unter_bg == "ja",
-             runif(n(), 0.9*!!sym(paste0("log_",viruslast_untersucht)),
-                   1.1 * !!sym(paste0("log_",viruslast_untersucht))),
-             !!sym(paste0("log_",viruslast_untersucht)))
+             runif(n(), 0.9 * log_viruslast,
+                   1.1 * log_viruslast),
+             log_viruslast)
     } else {
-      !!sym(paste0("log_",viruslast_untersucht))
+      log_viruslast
     }) %>%
     group_by(th_week) %>%
     # compute weights for gam curve, these are the inverse values of the variance
