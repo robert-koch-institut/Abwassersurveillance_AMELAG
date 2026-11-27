@@ -19,7 +19,8 @@ pop <- 84358845
 # read unreliable / variable data that is removed from aggregation
 discard_rules <-
   readr::read_tsv(here(read_helper_data_here, "amelag_entfernte_standortdaten.tsv"),
-                  show_col_types = FALSE)  
+                  show_col_types = FALSE) %>%
+  mutate(typ = if_else(typ == "RSV A/B", "RSV AB", typ))
 
 # define function that computes variance of a weighted mean
 var_weighted <- function(x = NULL, wt = NULL) {
